@@ -388,7 +388,18 @@ export function ArchiveApp() {
   return (
     <main>
       <div className="noise-layer" />
-      <div className="crime-scene-layer" aria-hidden="true" />
+      <div className="crime-scene-layer" aria-hidden="true">
+        <div className="crime-tape crime-tape-a">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <span key={`tape-a-${index}`}>CENA DO CRIME - EVIDENCIA BIOHAZARD - ARQUIVO UMBRELLA</span>
+          ))}
+        </div>
+        <div className="crime-tape crime-tape-b">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <span key={`tape-b-${index}`}>ACESSO RESTRITO - CASO LACRADO - NAO CRUZAR</span>
+          ))}
+        </div>
+      </div>
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark">U</span>

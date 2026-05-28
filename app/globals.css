@@ -94,31 +94,164 @@ main {
   overflow: hidden;
 }
 
-.crime-scene-layer::before,
-.crime-scene-layer::after {
-  content: "";
+.crime-tape {
   position: absolute;
-  height: 78px;
-  width: 72vw;
-  min-width: 720px;
+  left: -8vw;
+  display: flex;
+  width: max-content;
+  min-width: 230vw;
+  height: 72px;
+  align-items: center;
+  will-change: transform;
   border-block: 1px solid rgba(244, 185, 66, 0.18);
   background:
-    repeating-linear-gradient(115deg, rgba(244, 185, 66, 0.18) 0 16px, rgba(0, 0, 0, 0.1) 16px 32px),
-    linear-gradient(90deg, rgba(244, 185, 66, 0.1), transparent 72%);
-  opacity: 0.2;
+    repeating-linear-gradient(115deg, rgba(244, 185, 66, 0.24) 0 16px, rgba(0, 0, 0, 0.18) 16px 32px),
+    linear-gradient(90deg, rgba(244, 185, 66, 0.16), rgba(244, 185, 66, 0.06));
+  opacity: 0.22;
   filter: blur(0.2px);
+  box-shadow: 0 0 22px rgba(244, 185, 66, 0.06);
 }
 
-.crime-scene-layer::before {
+.crime-tape span {
+  flex: 0 0 auto;
+  min-width: 33rem;
+  color: rgba(244, 185, 66, 0.62);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.56);
+  white-space: nowrap;
+}
+
+.crime-tape-a {
   top: 118px;
-  right: -18vw;
-  transform: rotate(-13deg);
+  animation: crimeTapePullA 28s linear infinite;
 }
 
-.crime-scene-layer::after {
-  left: -22vw;
+.crime-tape-b {
   bottom: 18vh;
-  transform: rotate(11deg);
+  opacity: 0.16;
+  animation: crimeTapePullB 34s linear infinite;
+}
+
+@keyframes crimeTapePullA {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-13deg);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0) rotate(-13deg);
+  }
+}
+
+@keyframes crimeTapePullB {
+  from {
+    transform: translate3d(0, 0, 0) rotate(11deg);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0) rotate(11deg);
+  }
+}
+
+@keyframes archiveBoot {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(8px);
+  }
+
+  62% {
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes panelRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes terminalPulse {
+  0%,
+  100% {
+    border-color: rgba(32, 227, 122, 0.24);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  50% {
+    border-color: rgba(32, 227, 122, 0.44);
+    box-shadow: 0 0 34px rgba(32, 227, 122, 0.1), 0 24px 80px rgba(0, 0, 0, 0.42);
+  }
+}
+
+@keyframes scanDrift {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 18px;
+  }
+}
+
+@keyframes badgeBreath {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.22);
+  }
+}
+
+@keyframes folderPull {
+  from {
+    opacity: 0;
+    transform: translateY(-78%) translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-58%) translateX(0);
+  }
+}
+
+@keyframes evidenceSweep {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+
+  to {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+@keyframes modalReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.982);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .topbar {
@@ -133,6 +266,7 @@ main {
   border-bottom: 1px solid var(--line);
   background: rgba(5, 6, 7, 0.88);
   backdrop-filter: blur(16px);
+  animation: archiveBoot 0.55s ease both;
 }
 
 .brand {
@@ -154,6 +288,13 @@ main {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 1.35rem;
   line-height: 1;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.brand:hover .brand-mark {
+  border-color: rgba(239, 43, 45, 0.82);
+  box-shadow: 0 0 24px rgba(239, 43, 45, 0.18);
+  transform: translateY(-1px);
 }
 
 .brand strong,
@@ -198,6 +339,7 @@ main {
   padding: 0.55rem 0.75rem;
   font-size: 0.65rem;
   white-space: nowrap;
+  transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
 }
 
 .tab-strip button:hover,
@@ -208,6 +350,11 @@ main {
   border-color: rgba(239, 43, 45, 0.55);
   background: rgba(239, 43, 45, 0.09);
   box-shadow: 0 0 18px rgba(239, 43, 45, 0.12);
+}
+
+.tab-strip button:hover,
+.continuity-tabs button:hover {
+  transform: translateY(-1px);
 }
 
 .hero,
@@ -294,6 +441,10 @@ main {
   z-index: 1;
 }
 
+.hero-copy {
+  animation: archiveBoot 0.75s ease 0.08s both;
+}
+
 .hero h1 span {
   display: block;
   color: var(--red);
@@ -364,6 +515,9 @@ main {
   font-size: 0.9rem;
   line-height: 1.9;
   border-color: rgba(32, 227, 122, 0.32);
+  animation:
+    panelRise 0.78s cubic-bezier(0.2, 0.8, 0.2, 1) 0.18s both,
+    terminalPulse 4.8s ease-in-out 1.2s infinite;
 }
 
 .terminal-green {
@@ -377,6 +531,7 @@ main {
   pointer-events: none;
   opacity: 0.18;
   background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.09) 0 1px, transparent 1px 4px);
+  animation: scanDrift 1.8s linear infinite;
 }
 
 .control-deck {
@@ -384,6 +539,7 @@ main {
   gap: 1rem;
   padding: 1rem;
   margin-bottom: 2.5rem;
+  animation: panelRise 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) 0.26s both;
 }
 
 .search-box {
@@ -393,6 +549,13 @@ main {
   border: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.28);
   padding: 0.85rem 1rem;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.search-box:focus-within {
+  border-color: rgba(32, 227, 122, 0.42);
+  background: rgba(0, 0, 0, 0.36);
+  box-shadow: 0 0 0 1px rgba(32, 227, 122, 0.12), 0 0 28px rgba(32, 227, 122, 0.07);
 }
 
 .search-box span {
@@ -432,6 +595,7 @@ main {
 .section-block {
   position: relative;
   margin-bottom: 3rem;
+  animation: panelRise 0.62s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .section-block::before {
@@ -493,6 +657,41 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
 }
 
+.card-grid > *:nth-child(1),
+.timeline-list > *:nth-child(1),
+.recommended-list > *:nth-child(1),
+.remake-list > *:nth-child(1) {
+  animation-delay: 0.03s;
+}
+
+.card-grid > *:nth-child(2),
+.timeline-list > *:nth-child(2),
+.recommended-list > *:nth-child(2),
+.remake-list > *:nth-child(2) {
+  animation-delay: 0.07s;
+}
+
+.card-grid > *:nth-child(3),
+.timeline-list > *:nth-child(3),
+.recommended-list > *:nth-child(3),
+.remake-list > *:nth-child(3) {
+  animation-delay: 0.11s;
+}
+
+.card-grid > *:nth-child(4),
+.timeline-list > *:nth-child(4),
+.recommended-list > *:nth-child(4),
+.remake-list > *:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.card-grid > *:nth-child(n + 5),
+.timeline-list > *:nth-child(n + 5),
+.recommended-list > *:nth-child(n + 5),
+.remake-list > *:nth-child(n + 5) {
+  animation-delay: 0.19s;
+}
+
 .archive-card,
 .source-card {
   display: flex;
@@ -504,12 +703,45 @@ main {
   text-align: left;
   text-decoration: none;
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .archive-card {
   background:
     linear-gradient(90deg, rgba(244, 185, 66, 0.1), transparent 30%),
     linear-gradient(180deg, rgba(17, 21, 25, 0.88), rgba(8, 10, 12, 0.9));
+  isolation: isolate;
+}
+
+.archive-card::after,
+.source-card::after,
+.remake-card::after,
+.brand-mark-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -32%;
+  z-index: 0;
+  width: 24%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  opacity: 0;
+  transform: skewX(-18deg);
+}
+
+.archive-card > *,
+.source-card > *,
+.remake-card > *,
+.brand-mark-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.archive-card:hover::after,
+.source-card:hover::after,
+.remake-card:hover::after,
+.brand-mark-card:hover::after {
+  opacity: 1;
+  animation: evidenceSweep 0.95s ease both;
 }
 
 .folder-tab {
@@ -531,6 +763,7 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  animation: folderPull 0.52s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 button.archive-card {
@@ -620,6 +853,12 @@ button.archive-card {
   border: 1px solid currentColor;
   padding: 0.24rem 0.5rem;
   font-size: 0.58rem;
+  animation: badgeBreath 5.2s ease-in-out infinite;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.badge:hover {
+  transform: translateY(-1px);
 }
 
 .badge-green {
@@ -665,6 +904,7 @@ button.archive-card {
   grid-template-columns: auto 1fr;
   gap: 1rem;
   padding: 1.1rem;
+  animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .timeline-card::before {
@@ -763,10 +1003,12 @@ th {
 
 tbody tr {
   cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
 }
 
 tbody tr:hover {
   background: rgba(239, 43, 45, 0.06);
+  transform: translateX(2px);
 }
 
 .threat-bars {
@@ -812,6 +1054,7 @@ tbody tr:hover {
 
 .remake-card {
   padding: 1.1rem;
+  animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .remake-grid {
@@ -954,6 +1197,8 @@ tbody tr:hover {
 }
 
 .brand-mark-card {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: 78px 1fr;
   gap: 0.9rem;
@@ -963,6 +1208,14 @@ tbody tr:hover {
     linear-gradient(90deg, rgba(244, 185, 66, 0.08), transparent 48%),
     rgba(0, 0, 0, 0.22);
   padding: 0.9rem;
+  animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brand-mark-card:hover {
+  border-color: rgba(244, 185, 66, 0.36);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.28);
 }
 
 .brand-emblem {
@@ -1020,6 +1273,7 @@ tbody tr:hover {
   place-items: center;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.74);
+  animation: archiveBoot 0.22s ease both;
 }
 
 .detail-modal {
@@ -1028,6 +1282,7 @@ tbody tr:hover {
   overflow: auto;
   padding: 1.2rem;
   border-color: rgba(32, 227, 122, 0.35);
+  animation: modalReveal 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .modal-close {
@@ -1092,6 +1347,7 @@ tbody tr:hover {
   border-top: 1px dashed rgba(255, 255, 255, 0.12);
   margin-top: 0.9rem;
   padding-top: 0.9rem;
+  animation: panelRise 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .full-history h3,
@@ -1153,6 +1409,25 @@ tbody tr:hover {
   clip: rect(0, 0, 0, 0);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .crime-tape-a {
+    transform: rotate(-13deg);
+  }
+
+  .crime-tape-b {
+    transform: rotate(11deg);
+  }
+}
+
 @media (max-width: 900px) {
   .topbar,
   .hero {
@@ -1202,14 +1477,23 @@ tbody tr:hover {
     opacity: 0.025;
   }
 
-  .crime-scene-layer::before {
-    top: 4.8rem;
-    right: -54vw;
+  .crime-tape {
     height: 42px;
-    opacity: 0.42;
+    min-width: 320vw;
   }
 
-  .crime-scene-layer::after {
+  .crime-tape span {
+    min-width: 22rem;
+    font-size: 0.58rem;
+  }
+
+  .crime-tape-a {
+    top: 5.15rem;
+    opacity: 0.28;
+    animation-duration: 22s;
+  }
+
+  .crime-tape-b {
     display: none;
   }
 
