@@ -35,6 +35,15 @@ function getContinuity(item: CardItem) {
   return undefined;
 }
 
+function getFileClass(item: CardItem) {
+  if ("category" in item) return "amostra";
+  if ("role" in item) return "pessoa";
+  if ("region" in item) return "local";
+  if ("goals" in item) return "organizacao";
+  if ("type" in item) return item.type;
+  return "arquivo";
+}
+
 export function MediaCard({
   item,
   onOpen
@@ -47,6 +56,7 @@ export function MediaCard({
 
   return (
     <button className="archive-card glitch-card" onClick={() => onOpen(item)}>
+      <span className="folder-tab">{getFileClass(item)}</span>
       <span className="corner corner-a" />
       <span className="corner corner-b" />
       <div className="card-topline">

@@ -133,6 +133,11 @@ function SectionIntro() {
           Enciclopédia visual em português com jogos, remakes, spin-offs, DLCs, filmes, CGI, séries,
           novelizações, HQs, mangás, personagens, organizações, locais e ameaças biológicas.
         </p>
+        <div className="case-file-strip" aria-label="metadados do caso">
+          <span>CASO: BIOHAZARD</span>
+          <span>EVIDENCIA LACRADA</span>
+          <span>PASTAS UMBRELLA</span>
+        </div>
       </div>
       <div className="terminal-panel scanlines">
         <p className="terminal-green">root@umbrella.archive:~$ separar_continuidades --strict</p>
@@ -381,9 +386,10 @@ export function ArchiveApp() {
   return (
     <main>
       <div className="noise-layer" />
+      <div className="crime-scene-layer" aria-hidden="true" />
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark">☣</span>
+          <span className="brand-mark">U</span>
           <div>
             <strong>Umbrella Archive</strong>
             <span>Resident Evil Timeline</span>
