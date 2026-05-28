@@ -76,6 +76,7 @@ export function DetailModal({
   const visual = getVisualAsset(item.id);
   const isCharacter = "relationships" in item && "affiliations" in item;
   const outfits = isCharacter ? getCharacterOutfits(item.id) : [];
+  const hasHeroVisual = outfits.length > 0 || Boolean(visual);
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true">
@@ -95,15 +96,17 @@ export function DetailModal({
           </div>
         </div>
 
-        <div className={visual ? "modal-hero-grid" : "modal-hero-grid no-visual"}>
-          {visual && (
+        <div className={hasHeroVisual ? "modal-hero-grid" : "modal-hero-grid no-visual"}>
+          {outfits.length > 0 ? (
+            <CharacterOutfitCarousel outfits={outfits} variant="hero" />
+          ) : visual ? (
             <figure className={`modal-visual visual-${visual.category}`}>
               <Image src={visual.src} alt={visual.title} fill sizes="(max-width: 720px) 100vw, 420px" unoptimized />
               <figcaption>
                 Imagem: <a href={visual.sourceUrl} target="_blank" rel="noreferrer">{visual.sourceName}</a>
               </figcaption>
             </figure>
-          )}
+          ) : null}
 
           <div className="modal-text-column">
             <p className="modal-summary">{summaryOf(item)}</p>
@@ -121,8 +124,6 @@ export function DetailModal({
             )}
           </div>
         </div>
-
-        {outfits.length > 0 && <CharacterOutfitCarousel outfits={outfits} />}
 
         <div className="modal-grid">
           {"protagonists" in item && listSection("Protagonistas", item.protagonists)}

@@ -1,19 +1,90 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { CharacterOutfit } from "@/data";
 import { CanonBadge } from "./CanonBadge";
 
-export function CharacterOutfitCarousel({ outfits }: { outfits: CharacterOutfit[] }) {
+export function CharacterOutfitCarousel({
+  outfits,
+  variant = "panel"
+}: {
+  outfits: CharacterOutfit[];
+  variant?: "panel" | "hero";
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
-  if (outfits.length === 0) return null;
-
-  const active = outfits[activeIndex] ?? outfits[0];
   const hasMany = outfits.length > 1;
+
+  useEffect(() => {
+    if (!hasMany) return;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % outfits.length);
+    }, 3600);
+
+    return () => window.clearInterval(timer);
+  }, [hasMany, outfits.length]);
+
+  const normalizedIndex = outfits.length > 0 ? activeIndex % outfits.length : 0;
+  const active = outfits[normalizedIndex] ?? outfits[0];
+  if (!active) return null;
 
   function move(direction: number) {
     setActiveIndex((current) => (current + direction + outfits.length) % outfits.length);
+  }
+
+  if (variant === "hero") {
+    return (
+      <figure className="modal-visual visual-character outfit-hero-carousel" aria-label="Carrossel de trajes por epoca">
+        <Image
+          key={active.id}
+          src={active.src}
+          alt={`${active.label} - ${active.mediaTitle}`}
+          fill
+          sizes="(max-width: 720px) 100vw, 420px"
+          unoptimized
+        />
+
+        {hasMany && (
+          <div className="outfit-hero-strip" role="list" aria-label="Selecionar visual do personagem">
+            {outfits.map((outfit, index) => (
+              <button
+                className={index === normalizedIndex ? "outfit-hero-thumb active" : "outfit-hero-thumb"}
+                key={outfit.id}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Abrir ${outfit.label}`}
+                aria-current={index === normalizedIndex}
+                role="listitem"
+              >
+                <Image src={outfit.src} alt="" fill sizes="56px" unoptimized />
+              </button>
+            ))}
+          </div>
+        )}
+
+        {hasMany && (
+          <div className="outfit-hero-controls" aria-label="Controles do carrossel">
+            <button type="button" onClick={() => move(-1)} aria-label="Traje anterior">
+              {"<"}
+            </button>
+            <button type="button" onClick={() => move(1)} aria-label="Proximo traje">
+              {">"}
+            </button>
+          </div>
+        )}
+
+        <div className="outfit-hero-meta">
+          <span>{active.era}</span>
+          <strong>{active.label}</strong>
+          <small>{active.mediaTitle}</small>
+        </div>
+
+        <figcaption>
+          Imagem: <a href={active.sourceUrl} target="_blank" rel="noreferrer">{active.sourceName}</a>
+        </figcaption>
+      </figure>
+    );
   }
 
   return (
@@ -28,7 +99,7 @@ export function CharacterOutfitCarousel({ outfits }: { outfits: CharacterOutfit[
             <button type="button" onClick={() => move(-1)} aria-label="Traje anterior">
               {"<"}
             </button>
-            <span>{activeIndex + 1}/{outfits.length}</span>
+            <span>{normalizedIndex + 1}/{outfits.length}</span>
             <button type="button" onClick={() => move(1)} aria-label="Proximo traje">
               {">"}
             </button>
@@ -66,12 +137,12 @@ export function CharacterOutfitCarousel({ outfits }: { outfits: CharacterOutfit[
         <div className="outfit-strip" role="list" aria-label="Selecionar traje">
           {outfits.map((outfit, index) => (
             <button
-              className={index === activeIndex ? "outfit-thumb active" : "outfit-thumb"}
+              className={index === normalizedIndex ? "outfit-thumb active" : "outfit-thumb"}
               key={outfit.id}
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-label={`Abrir ${outfit.label}`}
-              aria-current={index === activeIndex}
+              aria-current={index === normalizedIndex}
               role="listitem"
             >
               <Image src={outfit.src} alt="" fill sizes="80px" unoptimized />
