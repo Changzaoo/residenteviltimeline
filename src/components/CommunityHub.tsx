@@ -147,25 +147,29 @@ export function CommunityHub() {
       if (!cancelled) setFeedback(error.message);
     });
 
-    const unsubscribe = onSnapshot(profileRef, (snapshot) => {
-      if (!snapshot.exists()) return;
-      const data = snapshot.data();
-      setProfile({
-        uid: user.uid,
-        displayName: String(data.displayName ?? safeName(user)),
-        bio: String(data.bio ?? ""),
-        favoriteGame: String(data.favoriteGame ?? ""),
-        avatarSeed: String(data.avatarSeed ?? data.displayName ?? user.uid),
-        isAnonymous: Boolean(data.isAnonymous ?? user.isAnonymous),
-        photoURL: String(data.photoURL ?? user.photoURL ?? ""),
-        photoPath: String(data.photoPath ?? "")
-      });
-      setProfileForm({
-        displayName: String(data.displayName ?? safeName(user)),
-        bio: String(data.bio ?? ""),
-        favoriteGame: String(data.favoriteGame ?? "")
-      });
-    });
+    const unsubscribe = onSnapshot(
+      profileRef,
+      (snapshot) => {
+        if (!snapshot.exists()) return;
+        const data = snapshot.data();
+        setProfile({
+          uid: user.uid,
+          displayName: String(data.displayName ?? safeName(user)),
+          bio: String(data.bio ?? ""),
+          favoriteGame: String(data.favoriteGame ?? ""),
+          avatarSeed: String(data.avatarSeed ?? data.displayName ?? user.uid),
+          isAnonymous: Boolean(data.isAnonymous ?? user.isAnonymous),
+          photoURL: String(data.photoURL ?? user.photoURL ?? ""),
+          photoPath: String(data.photoPath ?? "")
+        });
+        setProfileForm({
+          displayName: String(data.displayName ?? safeName(user)),
+          bio: String(data.bio ?? ""),
+          favoriteGame: String(data.favoriteGame ?? "")
+        });
+      },
+      (error) => setFeedback(error.message)
+    );
 
     return () => {
       cancelled = true;

@@ -57,10 +57,14 @@ export function AuthStatusButton({ onOpenCommunity }: { onOpenCommunity?: () => 
 
     ensureProfile(user).catch((error) => setFeedback(error.message));
 
-    const unsubscribe = onSnapshot(doc(firestore, "profiles", user.uid), (snapshot) => {
-      if (!snapshot.exists()) return;
-      setProfile(mapProfile(user.uid, snapshot.data(), user));
-    });
+    const unsubscribe = onSnapshot(
+      doc(firestore, "profiles", user.uid),
+      (snapshot) => {
+        if (!snapshot.exists()) return;
+        setProfile(mapProfile(user.uid, snapshot.data(), user));
+      },
+      (error) => setFeedback(error.message)
+    );
 
     return unsubscribe;
   }, [user]);
