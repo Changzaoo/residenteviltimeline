@@ -22,10 +22,12 @@ import { glossary } from "./glossary";
 import { fullHistories, getFullHistory } from "./fullHistories";
 import { getNarrativeForItem, getNarrativeForTimelineEvent } from "./narrativeEngine";
 import { getVisualAsset, visualAssets } from "./visualAssets";
+import { characterOutfits, getCharacterOutfits } from "./characterOutfits";
 import type { MediaItem } from "./types";
 
 export * from "./types";
 export type { NarrativeItem } from "./narrativeEngine";
+export type { CharacterOutfit, CharacterOutfitKind } from "./characterOutfits";
 export {
   games,
   remakes,
@@ -54,7 +56,9 @@ export {
   getNarrativeForItem,
   getNarrativeForTimelineEvent,
   visualAssets,
-  getVisualAsset
+  getVisualAsset,
+  characterOutfits,
+  getCharacterOutfits
 };
 
 export const allMedia: MediaItem[] = [

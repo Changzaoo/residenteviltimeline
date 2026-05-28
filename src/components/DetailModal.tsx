@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { getNarrativeForItem, getVisualAsset, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
+import { getCharacterOutfits, getNarrativeForItem, getVisualAsset, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
 import { CanonBadge, getCanonStatus } from "./CanonBadge";
+import { CharacterOutfitCarousel } from "./CharacterOutfitCarousel";
 
 type DetailItem = MediaItem | Character | Organization | Biohazard | Location;
 
@@ -73,6 +74,8 @@ export function DetailModal({
     .filter(Boolean) as SourceRef[];
   const narrative = getNarrativeForItem(item);
   const visual = getVisualAsset(item.id);
+  const isCharacter = "relationships" in item && "affiliations" in item;
+  const outfits = isCharacter ? getCharacterOutfits(item.id) : [];
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true">
@@ -118,6 +121,8 @@ export function DetailModal({
             )}
           </div>
         </div>
+
+        {outfits.length > 0 && <CharacterOutfitCarousel outfits={outfits} />}
 
         <div className="modal-grid">
           {"protagonists" in item && listSection("Protagonistas", item.protagonists)}

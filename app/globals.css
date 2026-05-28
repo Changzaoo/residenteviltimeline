@@ -1668,6 +1668,252 @@ tbody tr:hover {
   margin-top: 1rem;
 }
 
+.outfit-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  border: 1px solid rgba(32, 227, 122, 0.22);
+  background:
+    linear-gradient(135deg, rgba(32, 227, 122, 0.055), transparent 44%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.018)),
+    rgba(0, 0, 0, 0.2);
+  padding: clamp(0.82rem, 1.8vw, 1.05rem);
+}
+
+.outfit-carousel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(32, 227, 122, 0.08), transparent),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 7px);
+  opacity: 0.42;
+}
+
+.outfit-carousel-head,
+.outfit-stage,
+.outfit-strip {
+  position: relative;
+  z-index: 1;
+}
+
+.outfit-carousel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.outfit-carousel-head .eyebrow {
+  margin-bottom: 0.22rem;
+  color: var(--green);
+}
+
+.outfit-carousel h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+  line-height: 1;
+}
+
+.outfit-controls {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.42rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.outfit-controls button {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(32, 227, 122, 0.35);
+  background: rgba(0, 0, 0, 0.42);
+  color: var(--text);
+  font-size: 1.45rem;
+  line-height: 1;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.outfit-controls button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(32, 227, 122, 0.8);
+  box-shadow: 0 0 18px rgba(32, 227, 122, 0.16);
+}
+
+.outfit-stage {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.72fr) minmax(0, 1fr);
+  gap: clamp(0.78rem, 2vw, 1rem);
+  align-items: stretch;
+}
+
+.outfit-image-frame {
+  position: relative;
+  min-height: clamp(13rem, 27vw, 18rem);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(239, 43, 45, 0.18), transparent 36%),
+    radial-gradient(circle at 86% 70%, rgba(34, 168, 246, 0.12), transparent 34%),
+    rgba(5, 6, 7, 0.72);
+}
+
+.outfit-image-frame img,
+.outfit-thumb img {
+  object-fit: contain;
+}
+
+.outfit-image-frame figcaption {
+  position: absolute;
+  right: 0.56rem;
+  bottom: 0.5rem;
+  z-index: 2;
+  max-width: calc(100% - 1.1rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 6, 7, 0.84);
+  color: var(--muted);
+  padding: 0.28rem 0.42rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.outfit-image-frame a {
+  color: var(--green);
+}
+
+.outfit-info {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    rgba(2, 3, 4, 0.2);
+  padding: clamp(0.75rem, 1.6vw, 0.92rem);
+}
+
+.outfit-info .badge-stack {
+  justify-content: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.outfit-kind {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.55rem;
+  border: 1px solid rgba(244, 185, 66, 0.34);
+  color: var(--gold);
+  padding: 0.24rem 0.46rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.outfit-kind-cgi {
+  border-color: rgba(34, 168, 246, 0.4);
+  color: var(--blue);
+}
+
+.outfit-kind-remake {
+  border-color: rgba(168, 85, 247, 0.4);
+  color: var(--purple);
+}
+
+.outfit-kind-extra,
+.outfit-kind-alternativa {
+  border-color: rgba(239, 43, 45, 0.4);
+  color: var(--red);
+}
+
+.outfit-era {
+  margin: 0 0 0.34rem;
+  color: var(--green);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(0.62rem, 1vw, 0.72rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.outfit-info h4 {
+  margin: 0;
+  font-size: clamp(1.18rem, 2.8vw, 1.85rem);
+  line-height: 0.95;
+}
+
+.outfit-info strong {
+  display: block;
+  margin-top: 0.42rem;
+  color: var(--muted);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.outfit-info p:last-child {
+  margin: 0.78rem 0 0;
+  color: #d8d3ca;
+  font-size: var(--body-copy);
+  line-height: 1.6;
+}
+
+.outfit-strip {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  margin-top: 0.75rem;
+  padding-bottom: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(32, 227, 122, 0.5) transparent;
+}
+
+.outfit-thumb {
+  position: relative;
+  flex: 0 0 4.85rem;
+  height: 5.65rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.42);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.outfit-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.82));
+}
+
+.outfit-thumb span {
+  position: absolute;
+  left: 0.32rem;
+  right: 0.32rem;
+  bottom: 0.28rem;
+  z-index: 1;
+  color: var(--text);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.outfit-thumb:hover,
+.outfit-thumb.active {
+  transform: translateY(-2px);
+  border-color: rgba(32, 227, 122, 0.72);
+  box-shadow: 0 0 18px rgba(32, 227, 122, 0.16);
+}
+
 .full-history,
 .timeline-history {
   margin-top: 1rem;
@@ -2223,6 +2469,38 @@ tbody tr:hover {
   .modal-text-column .full-history {
     max-height: none;
     overflow: visible;
+  }
+
+  .outfit-carousel-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .outfit-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .outfit-controls button {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .outfit-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .outfit-image-frame {
+    min-height: clamp(13rem, 72vw, 18rem);
+  }
+
+  .outfit-info h4 {
+    font-size: clamp(1.25rem, 8vw, 1.85rem);
+  }
+
+  .outfit-thumb {
+    flex-basis: 5.35rem;
+    height: 6.1rem;
   }
 
   .full-history,
