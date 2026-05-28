@@ -445,8 +445,7 @@ main {
   font-size: clamp(2.9rem, 8.7vw, 5.15rem);
 }
 
-.hero-copy,
-.terminal-panel {
+.hero-copy {
   position: relative;
   z-index: 1;
 }
@@ -502,7 +501,6 @@ main {
   box-shadow: 0 0 12px rgba(244, 185, 66, 0.35);
 }
 
-.terminal-panel,
 .archive-card,
 .source-card,
 .control-deck,
@@ -515,23 +513,6 @@ main {
   background: linear-gradient(180deg, rgba(17, 21, 25, 0.82), rgba(8, 10, 12, 0.86));
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(12px) saturate(115%);
-}
-
-.terminal-panel {
-  min-height: clamp(170px, 25vw, 220px);
-  padding: var(--panel-pad);
-  color: #d7f7e3;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(0.74rem, 1vw, 0.82rem);
-  line-height: 1.68;
-  border-color: rgba(32, 227, 122, 0.32);
-  animation:
-    panelRise 0.78s cubic-bezier(0.2, 0.8, 0.2, 1) 0.18s both,
-    terminalPulse 4.8s ease-in-out 1.2s infinite;
-}
-
-.terminal-green {
-  color: var(--green);
 }
 
 .scanlines::after {
@@ -1596,8 +1577,7 @@ tbody tr:hover {
   }
 
   .hero::before,
-  .stamp-row,
-  .terminal-panel {
+  .stamp-row {
     display: none;
   }
 

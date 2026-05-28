@@ -142,13 +142,6 @@ function SectionIntro() {
           <span>PASTAS UMBRELLA</span>
         </div>
       </div>
-      <div className="terminal-panel scanlines">
-        <p className="terminal-green">root@umbrella.archive:~$ separar_continuidades --strict</p>
-        <p>canon_jogos != filmes_live_action</p>
-        <p>novelizacoes != fonte_unica_de_canon</p>
-        <p>reboot_wtrc != saga_alice</p>
-        <p className="terminal-green">status: base local verificada por fontes</p>
-      </div>
     </section>
   );
 }
