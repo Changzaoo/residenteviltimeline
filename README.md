@@ -112,9 +112,11 @@ src/lib/
 A aba `Comunidade` usa Firebase no cliente:
 
 - Firebase Authentication para login por e-mail/senha, criacao de conta e entrada anonima.
-- Cloud Firestore para perfis, chat geral e topicos de forum.
+- Cloud Firestore para perfis, feed comunitario, artigos de forum, comentarios, chat geral e conversas diretas por nickname.
 - `firestore.rules` contem regras sugeridas para leitura publica e escrita apenas por usuarios autenticados.
 - O cabecalho mostra `Login / Registrar-se` no canto direito; depois do login, mostra nome publico e foto de perfil.
+
+A aba `Comunidade` funciona como um feed: cada publicacao pode ser um post curto ou um artigo de forum para discussao. O chat fica na lateral esquerda, com canal `Todos`, seletor de destinatario por nickname e lista de pessoas com quem o usuario ja conversou.
 
 Ative no Firebase Console:
 
