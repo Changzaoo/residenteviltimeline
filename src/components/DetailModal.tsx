@@ -1,6 +1,6 @@
 "use client";
 
-import type { Biohazard, Character, Location, MediaItem, Organization, SourceRef } from "@/data";
+import { getFullHistory, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
 import { CanonBadge, getCanonStatus } from "./CanonBadge";
 
 type DetailItem = MediaItem | Character | Organization | Biohazard | Location;
@@ -61,6 +61,7 @@ export function DetailModal({
   const refs = sourceRefsOf(item)
     .map((id) => sources.find((source) => source.id === id))
     .filter(Boolean) as SourceRef[];
+  const fullHistory = ("fullHistory" in item && item.fullHistory?.length ? item.fullHistory : getFullHistory(item.id)) ?? [];
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true">
@@ -81,6 +82,18 @@ export function DetailModal({
         </div>
 
         <p className="modal-summary">{summaryOf(item)}</p>
+
+        {fullHistory.length > 0 && (
+          <div className="full-history">
+            <strong>História completa</strong>
+            {fullHistory.map((block) => (
+              <section key={block.title}>
+                <h3>{block.title}</h3>
+                <p>{block.body}</p>
+              </section>
+            ))}
+          </div>
+        )}
 
         <div className="modal-grid">
           {"protagonists" in item && listSection("Protagonistas", item.protagonists)}

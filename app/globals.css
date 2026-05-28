@@ -788,6 +788,54 @@ tbody tr:hover {
   margin-top: 1rem;
 }
 
+.full-history,
+.timeline-history {
+  margin-top: 1rem;
+  border: 1px solid rgba(32, 227, 122, 0.2);
+  background:
+    linear-gradient(180deg, rgba(32, 227, 122, 0.045), rgba(255, 255, 255, 0.025)),
+    rgba(0, 0, 0, 0.18);
+  padding: 1rem;
+}
+
+.full-history > strong,
+.timeline-history summary {
+  display: block;
+  color: var(--green);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.timeline-history summary {
+  cursor: pointer;
+}
+
+.full-history section,
+.timeline-history section {
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+}
+
+.full-history h3,
+.timeline-history h4 {
+  margin: 0 0 0.45rem;
+  color: var(--text);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.full-history p,
+.timeline-history p {
+  margin: 0;
+  color: #d6d6d6;
+  line-height: 1.72;
+}
+
 .detail-section,
 .canon-note,
 .source-mini-list {

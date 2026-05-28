@@ -18,6 +18,7 @@ import { timelineEvents } from "./timeline";
 import { releaseOrder } from "./releaseOrder";
 import { recommendedOrder } from "./recommendedOrder";
 import { glossary } from "./glossary";
+import { fullHistories, getFullHistory } from "./fullHistories";
 import type { MediaItem } from "./types";
 
 export * from "./types";
@@ -42,7 +43,9 @@ export {
   timelineEvents,
   releaseOrder,
   recommendedOrder,
-  glossary
+  glossary,
+  fullHistories,
+  getFullHistory
 };
 
 export const allMedia: MediaItem[] = [

@@ -10,6 +10,7 @@ import {
   dlcs,
   games,
   glossary,
+  getFullHistory,
   locations,
   mediaById,
   moviesCgi,
@@ -217,6 +218,17 @@ function TimelineView({
               </div>
               <h3>{event.title}</h3>
               <p>{event.summary}</p>
+              {getFullHistory(event.id).length > 0 && (
+                <details className="timeline-history">
+                  <summary>História completa do acontecimento</summary>
+                  {getFullHistory(event.id).map((block) => (
+                    <section key={block.title}>
+                      <h4>{block.title}</h4>
+                      <p>{block.body}</p>
+                    </section>
+                  ))}
+                </details>
+              )}
               <div className="chip-list">
                 {event.mediaIds.map((id) => {
                   const media = mediaById.get(id);

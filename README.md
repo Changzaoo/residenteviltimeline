@@ -71,6 +71,7 @@ src/data/
   releaseOrder.ts
   recommendedOrder.ts
   glossary.ts
+  fullHistories.ts
 
 src/components/
   MediaLibrary.tsx
@@ -85,6 +86,8 @@ src/components/
   BiologicalThreatTable.tsx
   TimelineContinuitySelector.tsx
 ```
+
+`fullHistories.ts` concentra narrativas longas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. O modal de detalhes e os cards de timeline renderizam esses blocos como "História completa", mantendo texto editorial fora dos componentes.
 
 ## Como rodar
 

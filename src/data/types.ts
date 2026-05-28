@@ -59,6 +59,7 @@ export interface MediaItem {
   relationToGames?: string;
   differencesFromGames?: string[];
   importance?: string;
+  fullHistory?: HistoryBlock[];
 }
 
 export interface SourceRef {
@@ -85,6 +86,7 @@ export interface Biohazard {
   threatLevel: "baixo" | "médio" | "alto" | "extremo" | "apocalíptico";
   canonNote: string;
   sourceRefs: string[];
+  fullHistory?: HistoryBlock[];
 }
 
 export interface Character {
@@ -148,6 +150,7 @@ export interface TimelineEvent {
   summary: string;
   canonNote: string;
   sourceRefs: string[];
+  fullHistory?: HistoryBlock[];
 }
 
 export interface RemakeComparisonItem {
@@ -172,4 +175,9 @@ export interface GlossaryTerm {
   definition: string;
   relatedIds: string[];
   sourceRefs: string[];
+}
+
+export interface HistoryBlock {
+  title: string;
+  body: string;
 }
