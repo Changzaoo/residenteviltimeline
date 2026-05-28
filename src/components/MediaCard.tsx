@@ -62,21 +62,25 @@ export function MediaCard({
       <span className="folder-tab">{fileClass}</span>
       <span className="corner corner-a" />
       <span className="corner corner-b" />
-      <span className="card-visual" aria-hidden="true">
-        {visual ? (
-          <Image src={visual.src} alt="" fill sizes="(max-width: 720px) 100vw, 620px" unoptimized />
-        ) : (
-          <span className="visual-fallback-mark">{getTitle(item).slice(0, 2)}</span>
-        )}
-        <span className="visual-scan" />
-      </span>
-      <div className="card-topline">
-        {continuity && <CanonBadge continuity={continuity} />}
-        {"threatLevel" in item && <span className="badge badge-red">{item.threatLevel}</span>}
+      <div className="card-file-layout">
+        <span className="card-visual" aria-hidden="true">
+          {visual ? (
+            <Image src={visual.src} alt="" fill sizes="(max-width: 560px) 7.4rem, 8rem" unoptimized />
+          ) : (
+            <span className="visual-fallback-mark">{getTitle(item).slice(0, 2)}</span>
+          )}
+          <span className="visual-scan" />
+        </span>
+        <span className="card-text-stack">
+          <span className="card-topline">
+            {continuity && <CanonBadge continuity={continuity} />}
+            {"threatLevel" in item && <span className="badge badge-red">{item.threatLevel}</span>}
+          </span>
+          <h3>{getTitle(item)}</h3>
+          <span className="card-subtitle">{getSubtitle(item)}</span>
+          <span className="card-summary">{summary}</span>
+        </span>
       </div>
-      <h3>{getTitle(item)}</h3>
-      <p className="card-subtitle">{getSubtitle(item)}</p>
-      <p className="card-summary">{summary}</p>
       <div className="card-footer">
         <span>abrir arquivo</span>
         <span>↗</span>

@@ -818,6 +818,20 @@ main {
   overflow: hidden;
 }
 
+.card-file-layout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.75rem, 2vw, 1rem);
+  align-items: start;
+}
+
+.card-text-stack {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .card-visual {
   position: relative;
   display: block;
@@ -1017,6 +1031,7 @@ button.archive-card {
 }
 
 .card-subtitle {
+  display: block;
   margin: 0.5rem 0 0;
   color: var(--muted);
   font-size: clamp(0.52rem, 0.92vw, 0.62rem);
@@ -1027,6 +1042,7 @@ button.archive-card {
 .timeline-card p,
 .remake-card p,
 .modal-summary {
+  display: block;
   color: #cacaca;
   font-size: var(--body-copy);
   line-height: 1.55;
@@ -2050,7 +2066,7 @@ tbody tr:hover {
   .source-card h3,
   .timeline-card h3,
   .remake-card h3 {
-    margin-top: 0.7rem;
+    margin-top: 0.38rem;
     font-size: clamp(1.08rem, 5.6vw, 1.24rem);
     line-height: 1;
   }
