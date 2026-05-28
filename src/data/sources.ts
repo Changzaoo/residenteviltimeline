@@ -23,7 +23,15 @@ export const sources: SourceRef[] = [
     url: "https://www.capcom.co.jp/ir/english/news/html/e250609.html",
     type: "official",
     reliability: "high",
-    notes: "Comunicado oficial sobre Resident Evil Requiem, plataformas e lancamento."
+    notes: "Comunicado oficial que anunciou Resident Evil Requiem e sua data de lançamento em 27 de fevereiro de 2026."
+  },
+  {
+    id: "capcom-requiem-stats",
+    name: "Resident Evil Portal - Requiem / Resident Evil.Net",
+    url: "https://game.capcom.com/residentevil/en/requiemstats.html",
+    type: "official",
+    reliability: "high",
+    notes: "Página oficial pós-lançamento usada para confirmar que Requiem já está ativo no ecossistema Resident Evil.Net."
   },
   {
     id: "wiki-pt",

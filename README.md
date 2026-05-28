@@ -37,6 +37,7 @@ Exemplo editorial: os filmes live-action com Alice sao uma continuidade alternat
 - Capcom - Resident Evil History: https://game.capcom.com/residentevil/sp/en/re-history.html
 - Resident Evil Portal / Capcom: https://game.capcom.com/residentevil/en/
 - Capcom IR - Resident Evil Requiem: https://www.capcom.co.jp/ir/english/news/html/e250609.html
+- Resident Evil.Net / Requiem: https://game.capcom.com/residentevil/en/requiemstats.html
 - Wikipédia PT - Resident Evil: https://pt.wikipedia.org/wiki/Resident_Evil
 - Resident Evil Wiki / Fandom: https://residentevil.fandom.com/wiki/Resident_Evil_Wiki
 - Resident Evil Wiki - Timeline by media: https://residentevil.fandom.com/wiki/Timeline_by_media

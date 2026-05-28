@@ -147,13 +147,13 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: "tl-requiem",
     title: "Requiem e retorno a Raccoon City",
-    year: "2026 - lançamento; ano da lore não confirmado",
+    year: "2026 - lançado em 27 de fevereiro; ano da lore não confirmado",
     continuity: "games-canon",
     mediaIds: ["re-requiem-2026"],
     category: "game",
     summary: "Grace Ashcroft e Leon entram na nova fase principal da franquia.",
-    canonNote: "Canon dos jogos; informações recentes devem permanecer atribuídas a fonte.",
-    sourceRefs: ["capcom-requiem", "capcom-portal"]
+    canonNote: "Canon dos jogos; informações recentes devem permanecer atribuídas a fontes oficiais ou secundárias confiáveis.",
+    sourceRefs: ["capcom-requiem", "capcom-requiem-stats", "capcom-portal"]
   },
 
   {

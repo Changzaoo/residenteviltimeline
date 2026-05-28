@@ -174,8 +174,8 @@ export const games: MediaItem[] = [
     organizations: ["FBI", "The Connections"],
     biohazards: ["Não confirmado de forma completa"],
     locations: ["Ruínas de Raccoon City", "Wrenwood Hotel"],
-    summary: "Nono jogo principal, com Grace Ashcroft e retorno a temas ligados a Raccoon City.",
-    canonNote: "Canon dos jogos. Incluido porque a Capcom confirmou o titulo e o lancamento em 2026; detalhes de lore ainda devem ser marcados como recentes/confirmados caso a caso.",
-    sourceRefs: ["capcom-requiem", "capcom-portal", "re-fandom"]
+    summary: "Nono jogo principal, com Grace Ashcroft, Leon S. Kennedy e retorno a temas ligados a Raccoon City.",
+    canonNote: "Canon dos jogos. A Capcom confirmou lançamento em 27 de fevereiro de 2026; detalhes de lore que dependem de finais, documentos internos ou interpretações continuam marcados caso a caso.",
+    sourceRefs: ["capcom-requiem", "capcom-requiem-stats", "capcom-portal", "re-fandom"]
   }
 ];
