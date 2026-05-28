@@ -11,6 +11,10 @@
   --gold: #f4b942;
   --purple: #a855f7;
   --archive-feed-width: 620px;
+  --panel-pad: clamp(0.82rem, 1.8vw, 1.05rem);
+  --panel-gap: clamp(0.7rem, 1.8vw, 1rem);
+  --body-copy: clamp(0.9rem, 1.15vw, 0.98rem);
+  --micro-copy: clamp(0.52rem, 0.85vw, 0.62rem);
 }
 
 * {
@@ -261,11 +265,11 @@ main {
   z-index: 20;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
+  gap: clamp(0.48rem, 1.5vw, 0.75rem);
   align-items: center;
   width: min(var(--archive-feed-width), calc(100% - 2rem));
   margin-inline: auto;
-  padding: 0.85rem 0;
+  padding: clamp(0.58rem, 1.7vw, 0.85rem) 0;
   border-inline: 1px solid rgba(255, 255, 255, 0.07);
   border-bottom: 1px solid var(--line);
   background: rgba(5, 6, 7, 0.88);
@@ -276,7 +280,7 @@ main {
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: clamp(0.55rem, 1.5vw, 0.8rem);
   min-width: 0;
   padding-inline: 0.85rem;
 }
@@ -284,14 +288,14 @@ main {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: clamp(2rem, 4.4vw, 2.4rem);
+  height: clamp(2rem, 4.4vw, 2.4rem);
   border: 1px solid rgba(239, 43, 45, 0.46);
   background: rgba(239, 43, 45, 0.08);
   color: var(--red);
   text-shadow: 0 0 18px rgba(239, 43, 45, 0.7);
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-size: 1.35rem;
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
   line-height: 1;
   transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
 }
@@ -319,13 +323,13 @@ main {
 
 .brand strong {
   display: block;
-  font-size: 0.85rem;
+  font-size: clamp(0.68rem, 1.25vw, 0.85rem);
 }
 
 .brand span {
   display: block;
   color: var(--muted);
-  font-size: 0.58rem;
+  font-size: clamp(0.48rem, 0.9vw, 0.58rem);
 }
 
 .tab-strip {
@@ -337,12 +341,12 @@ main {
 
 .tab-strip button,
 .continuity-tabs button {
-  min-height: 2.35rem;
+  min-height: clamp(2.25rem, 4.5vw, 2.5rem);
   border: 1px solid transparent;
   background: transparent;
   color: var(--muted);
-  padding: 0.55rem 0.75rem;
-  font-size: 0.65rem;
+  padding: clamp(0.48rem, 1.2vw, 0.58rem) clamp(0.58rem, 1.5vw, 0.78rem);
+  font-size: clamp(0.54rem, 0.95vw, 0.63rem);
   white-space: nowrap;
   transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
 }
@@ -374,10 +378,10 @@ main {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.1rem;
+  gap: var(--panel-gap);
   align-items: center;
   min-height: auto;
-  padding: clamp(2rem, 5vw, 3.5rem) 0 1.5rem;
+  padding: clamp(1.4rem, 4.2vw, 2.8rem) 0 clamp(1rem, 2.4vw, 1.45rem);
 }
 
 .hero::before {
@@ -400,17 +404,17 @@ main {
 .stamp-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  gap: clamp(0.45rem, 1.3vw, 0.75rem);
+  margin-bottom: clamp(0.85rem, 2vw, 1.15rem);
 }
 
 .stamp {
   display: inline-flex;
   border: 2px solid currentColor;
-  padding: 0.35rem 0.65rem;
+  padding: 0.3rem 0.58rem;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
+  font-size: clamp(0.54rem, 1vw, 0.64rem);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   transform: rotate(-4deg);
 }
@@ -437,7 +441,7 @@ main {
 }
 
 .hero h1 {
-  font-size: clamp(3.45rem, 11vw, 5.85rem);
+  font-size: clamp(2.9rem, 8.7vw, 5.15rem);
 }
 
 .hero-copy,
@@ -457,33 +461,33 @@ main {
 }
 
 .hero p {
-  max-width: 760px;
+  max-width: 100%;
   color: #c7c7c7;
-  line-height: 1.7;
-  font-size: clamp(1rem, 1.6vw, 1.24rem);
+  line-height: 1.58;
+  font-size: var(--body-copy);
 }
 
 .case-file-strip {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-top: 1.3rem;
+  gap: 0.42rem;
+  margin-top: clamp(0.85rem, 2vw, 1.1rem);
 }
 
 .case-file-strip span {
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
+  min-height: clamp(1.72rem, 3.5vw, 1.95rem);
   border: 1px solid rgba(244, 185, 66, 0.35);
   background:
     linear-gradient(135deg, rgba(244, 185, 66, 0.18), rgba(0, 0, 0, 0.22)),
     rgba(13, 17, 20, 0.58);
   color: #f5d98a;
-  padding: 0.38rem 0.68rem;
+  padding: 0.3rem 0.56rem;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
+  font-size: var(--micro-copy);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -513,12 +517,12 @@ main {
 }
 
 .terminal-panel {
-  min-height: 220px;
-  padding: 1.05rem;
+  min-height: clamp(170px, 25vw, 220px);
+  padding: var(--panel-pad);
   color: #d7f7e3;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.82rem;
-  line-height: 1.75;
+  font-size: clamp(0.74rem, 1vw, 0.82rem);
+  line-height: 1.68;
   border-color: rgba(32, 227, 122, 0.32);
   animation:
     panelRise 0.78s cubic-bezier(0.2, 0.8, 0.2, 1) 0.18s both,
@@ -541,19 +545,19 @@ main {
 
 .control-deck {
   display: grid;
-  gap: 1rem;
-  padding: 1rem;
-  margin-bottom: 2.5rem;
+  gap: var(--panel-gap);
+  padding: var(--panel-pad);
+  margin-bottom: clamp(1.5rem, 4vw, 2.2rem);
   animation: panelRise 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) 0.26s both;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   border: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.28);
-  padding: 0.85rem 1rem;
+  padding: clamp(0.68rem, 1.6vw, 0.82rem) clamp(0.72rem, 1.8vw, 0.95rem);
   transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
 }
 
@@ -573,33 +577,35 @@ main {
   outline: 0;
   background: transparent;
   color: var(--text);
+  font-size: var(--body-copy);
 }
 
 .continuity-tabs {
   display: flex;
-  gap: 0.45rem;
+  gap: clamp(0.32rem, 1vw, 0.45rem);
   overflow-x: auto;
 }
 
 .selector-panel {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   color: var(--muted);
-  font-size: 0.66rem;
+  font-size: var(--micro-copy);
 }
 
 .selector-panel select {
-  min-height: 2.5rem;
+  min-height: clamp(2.4rem, 5vw, 2.7rem);
   border: 1px solid var(--line);
   background: var(--ink-2);
   color: var(--text);
-  padding: 0 0.8rem;
+  padding: 0 0.72rem;
+  font-size: var(--body-copy);
 }
 
 .section-block {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.8rem, 4.2vw, 2.7rem);
   animation: panelRise 0.62s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
@@ -622,25 +628,27 @@ main {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
+  gap: var(--panel-gap);
+  margin-bottom: clamp(0.9rem, 2.2vw, 1.18rem);
 }
 
 .eyebrow {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.45rem;
   color: var(--red);
-  font-size: 0.68rem;
+  font-size: clamp(0.54rem, 1vw, 0.66rem);
 }
 
 .section-title h2 {
-  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-size: clamp(1.72rem, 5.4vw, 3.05rem);
+  line-height: 0.98;
 }
 
 .section-description,
 .warning-copy {
-  max-width: 850px;
+  max-width: 100%;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.55;
+  font-size: var(--body-copy);
 }
 
 .warning-copy {
@@ -649,13 +657,13 @@ main {
 
 .counter {
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: var(--micro-copy);
 }
 
 .card-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: clamp(0.72rem, 1.8vw, 0.95rem);
 }
 
 .card-grid.two {
@@ -701,9 +709,9 @@ main {
 .source-card {
   display: flex;
   flex-direction: column;
-  min-height: 260px;
-  margin-top: 0.65rem;
-  padding: 1.1rem;
+  min-height: clamp(190px, 27vw, 235px);
+  margin-top: clamp(0.48rem, 1.2vw, 0.62rem);
+  padding: var(--panel-pad);
   color: inherit;
   text-align: left;
   text-decoration: none;
@@ -752,17 +760,17 @@ main {
 .folder-tab {
   position: absolute;
   top: -1px;
-  left: 0.9rem;
+  left: clamp(0.68rem, 1.6vw, 0.88rem);
   transform: translateY(-58%);
   border: 1px solid rgba(244, 185, 66, 0.32);
   border-bottom: 0;
   background:
     linear-gradient(180deg, rgba(35, 31, 21, 0.98), rgba(16, 14, 12, 0.96));
   color: #f3cf75;
-  padding: 0.34rem 0.78rem 0.28rem;
+  padding: 0.28rem 0.62rem 0.23rem;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.14em;
+  font-size: clamp(0.46rem, 0.85vw, 0.54rem);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   max-width: calc(100% - 2rem);
   overflow: hidden;
@@ -822,14 +830,15 @@ button.archive-card {
 .source-card h3,
 .timeline-card h3,
 .remake-card h3 {
-  margin-top: 0.9rem;
-  font-size: 1.65rem;
+  margin-top: clamp(0.62rem, 1.7vw, 0.82rem);
+  font-size: clamp(1.22rem, 3.2vw, 1.52rem);
+  line-height: 1.02;
 }
 
 .card-subtitle {
-  margin: 0.65rem 0 0;
+  margin: 0.5rem 0 0;
   color: var(--muted);
-  font-size: 0.64rem;
+  font-size: clamp(0.52rem, 0.92vw, 0.62rem);
 }
 
 .card-summary,
@@ -838,26 +847,27 @@ button.archive-card {
 .remake-card p,
 .modal-summary {
   color: #cacaca;
-  line-height: 1.6;
+  font-size: var(--body-copy);
+  line-height: 1.55;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-top: auto;
-  padding-top: 1rem;
+  padding-top: clamp(0.7rem, 1.7vw, 0.9rem);
   color: var(--muted);
-  font-size: 0.64rem;
+  font-size: clamp(0.52rem, 0.92vw, 0.62rem);
 }
 
 .badge {
   display: inline-flex;
-  min-height: 1.55rem;
+  min-height: clamp(1.38rem, 3vw, 1.52rem);
   align-items: center;
   border: 1px solid currentColor;
-  padding: 0.24rem 0.5rem;
-  font-size: 0.58rem;
+  padding: 0.2rem 0.42rem;
+  font-size: clamp(0.48rem, 0.82vw, 0.56rem);
   animation: badgeBreath 5.2s ease-in-out infinite;
   transition: transform 0.18s ease, filter 0.18s ease;
 }
@@ -900,15 +910,15 @@ button.archive-card {
 .recommended-list,
 .remake-list {
   display: grid;
-  gap: 1rem;
+  gap: clamp(0.72rem, 1.8vw, 0.95rem);
 }
 
 .timeline-card {
   overflow: hidden;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 1rem;
-  padding: 1.1rem;
+  gap: clamp(0.66rem, 1.7vw, 0.92rem);
+  padding: var(--panel-pad);
   animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
@@ -945,22 +955,23 @@ button.archive-card {
 .timeline-index {
   color: var(--red);
   font-family: Impact, sans-serif;
-  font-size: 2.4rem;
+  font-size: clamp(1.7rem, 4.8vw, 2.15rem);
+  line-height: 1;
 }
 
 .chip-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-top: 0.8rem;
+  gap: 0.38rem;
+  margin-top: 0.68rem;
 }
 
 .chip {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
   color: #d9d9d9;
-  padding: 0.34rem 0.5rem;
-  font-size: 0.78rem;
+  padding: 0.3rem 0.45rem;
+  font-size: clamp(0.68rem, 1.15vw, 0.76rem);
 }
 
 .chip-button {
@@ -974,8 +985,9 @@ button.archive-card {
 
 .canon-note-inline {
   border-top: 1px dashed rgba(255, 255, 255, 0.12);
-  padding-top: 0.8rem;
+  padding-top: 0.68rem;
   color: #e3c26e;
+  font-size: var(--body-copy);
 }
 
 .table-wrap {
@@ -993,7 +1005,7 @@ table {
 th,
 td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  padding: 0.85rem;
+  padding: clamp(0.62rem, 1.4vw, 0.78rem);
   text-align: left;
   vertical-align: top;
 }
@@ -1001,7 +1013,7 @@ td {
 th {
   color: var(--muted);
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.65rem;
+  font-size: clamp(0.54rem, 0.85vw, 0.62rem);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -1046,7 +1058,7 @@ tbody tr:hover {
 }
 
 .comparison-column {
-  padding: 1rem;
+  padding: var(--panel-pad);
 }
 
 .mini-row {
@@ -1058,7 +1070,7 @@ tbody tr:hover {
 }
 
 .remake-card {
-  padding: 1.1rem;
+  padding: var(--panel-pad);
   animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
@@ -1071,7 +1083,7 @@ tbody tr:hover {
 .remake-row {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
-  padding: 0.9rem;
+  padding: clamp(0.72rem, 1.6vw, 0.86rem);
 }
 
 .remake-row strong,
@@ -1093,18 +1105,19 @@ tbody tr:hover {
 
 .connection-list {
   display: grid;
-  gap: 0.7rem;
-  margin-bottom: 1.5rem;
+  gap: 0.62rem;
+  margin-bottom: clamp(1rem, 2.4vw, 1.35rem);
 }
 
 .connection-card {
   display: grid;
   grid-template-columns: 1fr auto 1fr minmax(160px, 0.7fr);
-  gap: 1rem;
+  gap: 0.72rem;
   align-items: center;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.035);
-  padding: 0.9rem;
+  padding: clamp(0.72rem, 1.6vw, 0.86rem);
+  font-size: var(--body-copy);
 }
 
 .connection-card span {
@@ -1121,20 +1134,20 @@ tbody tr:hover {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.035);
   color: var(--muted);
-  padding: 1rem;
+  padding: var(--panel-pad);
   margin-bottom: 1rem;
 }
 
 .encyclopedia-buckets {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.75rem;
+  gap: 0.62rem;
   margin-bottom: 1rem;
 }
 
 .encyclopedia-buckets div {
   border: 1px solid var(--line);
-  padding: 0.8rem;
+  padding: 0.68rem;
   background: rgba(0, 0, 0, 0.22);
 }
 
@@ -1142,19 +1155,19 @@ tbody tr:hover {
   display: block;
   color: var(--muted);
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: var(--micro-copy);
 }
 
 .encyclopedia-buckets strong {
   color: var(--green);
-  font-size: 1.6rem;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
 
 .source-url {
   margin-top: auto;
   color: var(--green);
   word-break: break-all;
-  font-size: 0.8rem;
+  font-size: clamp(0.68rem, 1.15vw, 0.78rem);
 }
 
 .brand-vault {
@@ -1163,14 +1176,14 @@ tbody tr:hover {
   background:
     linear-gradient(135deg, rgba(244, 185, 66, 0.08), transparent 38%),
     rgba(255, 255, 255, 0.028);
-  padding: 1rem;
+  padding: var(--panel-pad);
 }
 
 .brand-vault-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--panel-gap);
   border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
   padding-bottom: 0.9rem;
 }
@@ -1185,19 +1198,20 @@ tbody tr:hover {
 }
 
 .brand-vault h3 {
-  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-size: clamp(1.65rem, 4.8vw, 2.8rem);
 }
 
 .brand-vault-warning {
-  max-width: 1120px;
+  max-width: 100%;
   color: #d6c18a;
   line-height: 1.6;
+  font-size: var(--body-copy);
 }
 
 .brand-mark-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.8rem;
+  gap: 0.68rem;
   margin-top: 1rem;
 }
 
@@ -1205,14 +1219,14 @@ tbody tr:hover {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: 78px 1fr;
-  gap: 0.9rem;
-  min-height: 150px;
+  grid-template-columns: clamp(56px, 11vw, 72px) 1fr;
+  gap: 0.72rem;
+  min-height: clamp(128px, 20vw, 145px);
   border: 1px solid rgba(255, 255, 255, 0.09);
   background:
     linear-gradient(90deg, rgba(244, 185, 66, 0.08), transparent 48%),
     rgba(0, 0, 0, 0.22);
-  padding: 0.9rem;
+  padding: clamp(0.72rem, 1.6vw, 0.86rem);
   animation: panelRise 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1233,7 +1247,7 @@ tbody tr:hover {
     rgba(0, 0, 0, 0.38);
   color: #f4d37c;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-size: 1.55rem;
+  font-size: clamp(1.05rem, 2.7vw, 1.42rem);
   text-transform: uppercase;
 }
 
@@ -1253,19 +1267,20 @@ tbody tr:hover {
 }
 
 .brand-mark-card h4 {
-  margin-top: 0.75rem;
-  font-size: 1.35rem;
+  margin-top: 0.58rem;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
 }
 
 .brand-mark-card p {
   color: #cfcfcf;
   line-height: 1.55;
+  font-size: var(--body-copy);
 }
 
 .brand-mark-card a {
   color: var(--green);
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.72rem;
+  font-size: clamp(0.58rem, 1vw, 0.68rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -1285,7 +1300,7 @@ tbody tr:hover {
   width: min(980px, 100%);
   max-height: min(88vh, 980px);
   overflow: auto;
-  padding: 1.2rem;
+  padding: clamp(0.9rem, 2vw, 1.15rem);
   border-color: rgba(32, 227, 122, 0.35);
   animation: modalReveal 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
@@ -1298,28 +1313,29 @@ tbody tr:hover {
   border: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.7);
   color: var(--text);
-  width: 2.4rem;
-  height: 2.4rem;
-  font-size: 1.4rem;
+  width: clamp(2.25rem, 5vw, 2.55rem);
+  height: clamp(2.25rem, 5vw, 2.55rem);
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--panel-gap);
   align-items: flex-start;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 1rem;
+  padding-bottom: 0.9rem;
 }
 
 .detail-modal h2 {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(1.7rem, 5.6vw, 3.15rem);
+  line-height: 1;
 }
 
 .modal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-  gap: 1rem;
+  gap: 0.72rem;
   margin-top: 1rem;
 }
 
@@ -1330,7 +1346,7 @@ tbody tr:hover {
   background:
     linear-gradient(180deg, rgba(32, 227, 122, 0.045), rgba(255, 255, 255, 0.025)),
     rgba(0, 0, 0, 0.18);
-  padding: 1rem;
+  padding: var(--panel-pad);
 }
 
 .full-history > strong,
@@ -1338,8 +1354,8 @@ tbody tr:hover {
   display: block;
   color: var(--green);
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
+  font-size: clamp(0.54rem, 0.95vw, 0.66rem);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -1350,8 +1366,8 @@ tbody tr:hover {
 .full-history section,
 .timeline-history section {
   border-top: 1px dashed rgba(255, 255, 255, 0.12);
-  margin-top: 0.9rem;
-  padding-top: 0.9rem;
+  margin-top: 0.78rem;
+  padding-top: 0.78rem;
   animation: panelRise 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
@@ -1360,8 +1376,8 @@ tbody tr:hover {
   margin: 0 0 0.45rem;
   color: var(--text);
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.86rem;
-  letter-spacing: 0.08em;
+  font-size: clamp(0.72rem, 1.25vw, 0.84rem);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -1369,7 +1385,8 @@ tbody tr:hover {
 .timeline-history p {
   margin: 0;
   color: #d6d6d6;
-  line-height: 1.72;
+  font-size: var(--body-copy);
+  line-height: 1.64;
 }
 
 .detail-section,
@@ -1377,7 +1394,7 @@ tbody tr:hover {
 .source-mini-list {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.035);
-  padding: 0.9rem;
+  padding: clamp(0.72rem, 1.6vw, 0.86rem);
 }
 
 .canon-note,
@@ -1388,7 +1405,7 @@ tbody tr:hover {
 .source-mini-list {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.38rem;
 }
 
 .source-mini-list a {
@@ -1398,11 +1415,11 @@ tbody tr:hover {
 .footer {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.72rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  padding: 1.5rem 0 2rem;
-  font-size: 0.85rem;
+  padding: clamp(1rem, 2.5vw, 1.35rem) 0 clamp(1.4rem, 4vw, 2rem);
+  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
 }
 
 .hidden-action,
@@ -1445,7 +1462,7 @@ tbody tr:hover {
   }
 
   .hero h1 {
-    font-size: clamp(3.2rem, 18vw, 5.2rem);
+    font-size: clamp(2.55rem, 12vw, 4.25rem);
   }
 
   .section-title,
@@ -1457,6 +1474,23 @@ tbody tr:hover {
 
   .connection-card {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --panel-pad: clamp(0.76rem, 3vw, 0.95rem);
+    --panel-gap: clamp(0.58rem, 2.5vw, 0.82rem);
+    --body-copy: clamp(0.86rem, 3.2vw, 0.94rem);
+  }
+
+  .timeline-card {
+    grid-template-columns: 1fr;
+  }
+
+  .connection-card,
+  .mini-row {
+    font-size: var(--body-copy);
   }
 }
 
@@ -1514,13 +1548,13 @@ tbody tr:hover {
   }
 
   .brand-mark {
-    width: 2rem;
-    height: 2rem;
-    font-size: 1.2rem;
+    width: 1.85rem;
+    height: 1.85rem;
+    font-size: 1rem;
   }
 
   .brand strong {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
   .brand span {
@@ -1541,11 +1575,11 @@ tbody tr:hover {
 
   .tab-strip button,
   .continuity-tabs button {
-    min-height: 42px;
+    min-height: 40px;
     border-color: rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.035);
-    padding: 0.48rem 0.62rem;
-    font-size: 0.56rem;
+    padding: 0.44rem 0.56rem;
+    font-size: 0.52rem;
   }
 
   .hero,
@@ -1568,7 +1602,7 @@ tbody tr:hover {
   }
 
   .hero h1 {
-    font-size: clamp(2.15rem, 13vw, 3.45rem);
+    font-size: clamp(2rem, 12.3vw, 3.15rem);
     line-height: 0.95;
   }
 
@@ -1576,7 +1610,7 @@ tbody tr:hover {
     margin: 0.85rem 0 0;
     display: -webkit-box;
     overflow: hidden;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     line-height: 1.5;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -1599,7 +1633,7 @@ tbody tr:hover {
     flex: 0 0 auto;
     min-height: 1.8rem;
     padding: 0.28rem 0.52rem;
-    font-size: 0.5rem;
+    font-size: 0.48rem;
   }
 
   .control-deck {
@@ -1651,7 +1685,7 @@ tbody tr:hover {
   }
 
   .section-title h2 {
-    font-size: clamp(1.55rem, 8.6vw, 2.35rem);
+    font-size: clamp(1.42rem, 8vw, 2.1rem);
     line-height: 1;
   }
 
@@ -1697,7 +1731,7 @@ tbody tr:hover {
   .timeline-card h3,
   .remake-card h3 {
     margin-top: 0.7rem;
-    font-size: 1.28rem;
+    font-size: clamp(1.08rem, 5.6vw, 1.24rem);
     line-height: 1;
   }
 
@@ -1706,7 +1740,7 @@ tbody tr:hover {
   .timeline-card p,
   .remake-card p,
   .modal-summary {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     line-height: 1.5;
   }
 
@@ -1837,7 +1871,7 @@ tbody tr:hover {
   }
 
   .detail-modal h2 {
-    font-size: clamp(2rem, 13vw, 3.4rem);
+    font-size: clamp(1.72rem, 11vw, 2.9rem);
   }
 
   .full-history,
@@ -1850,7 +1884,7 @@ tbody tr:hover {
 
   .full-history p,
   .timeline-history p {
-    font-size: 0.94rem;
+    font-size: 0.9rem;
     line-height: 1.62;
   }
 
