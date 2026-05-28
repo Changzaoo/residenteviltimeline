@@ -10,6 +10,7 @@
   --blue: #22a8f6;
   --gold: #f4b942;
   --purple: #a855f7;
+  --archive-feed-width: 620px;
 }
 
 * {
@@ -259,10 +260,13 @@ main {
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
   align-items: center;
-  padding: 0.85rem clamp(1rem, 3vw, 3rem);
+  width: min(var(--archive-feed-width), calc(100% - 2rem));
+  margin-inline: auto;
+  padding: 0.85rem 0;
+  border-inline: 1px solid rgba(255, 255, 255, 0.07);
   border-bottom: 1px solid var(--line);
   background: rgba(5, 6, 7, 0.88);
   backdrop-filter: blur(16px);
@@ -273,7 +277,8 @@ main {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  min-width: 14rem;
+  min-width: 0;
+  padding-inline: 0.85rem;
 }
 
 .brand-mark {
@@ -327,7 +332,7 @@ main {
   display: flex;
   gap: 0.35rem;
   overflow-x: auto;
-  padding-bottom: 0.2rem;
+  padding: 0 0.85rem 0.2rem;
 }
 
 .tab-strip button,
@@ -361,18 +366,18 @@ main {
 .control-deck,
 .content-shell,
 .footer {
-  width: min(1520px, calc(100% - 2rem));
+  width: min(var(--archive-feed-width), calc(100% - 2rem));
   margin-inline: auto;
 }
 
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.75fr);
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
   align-items: center;
-  min-height: 520px;
-  padding: clamp(3rem, 8vw, 6rem) 0 2.5rem;
+  min-height: auto;
+  padding: clamp(2rem, 5vw, 3.5rem) 0 1.5rem;
 }
 
 .hero::before {
@@ -432,7 +437,7 @@ main {
 }
 
 .hero h1 {
-  font-size: clamp(4rem, 10vw, 9rem);
+  font-size: clamp(3.45rem, 11vw, 5.85rem);
 }
 
 .hero-copy,
@@ -508,12 +513,12 @@ main {
 }
 
 .terminal-panel {
-  min-height: 290px;
-  padding: 1.5rem;
+  min-height: 220px;
+  padding: 1.05rem;
   color: #d7f7e3;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.9rem;
-  line-height: 1.9;
+  font-size: 0.82rem;
+  line-height: 1.75;
   border-color: rgba(32, 227, 122, 0.32);
   animation:
     panelRise 0.78s cubic-bezier(0.2, 0.8, 0.2, 1) 0.18s both,
@@ -649,12 +654,12 @@ main {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
 .card-grid.two {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  grid-template-columns: 1fr;
 }
 
 .card-grid > *:nth-child(1),
@@ -1036,7 +1041,7 @@ tbody tr:hover {
 
 .comparison-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
@@ -1059,7 +1064,7 @@ tbody tr:hover {
 
 .remake-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
@@ -1191,7 +1196,7 @@ tbody tr:hover {
 
 .brand-mark-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: 1fr;
   gap: 0.8rem;
   margin-top: 1rem;
 }
@@ -1544,10 +1549,11 @@ tbody tr:hover {
   }
 
   .hero,
+  .topbar,
   .control-deck,
   .content-shell,
   .footer {
-    width: min(100% - 1rem, 1520px);
+    width: min(100% - 1rem, var(--archive-feed-width));
   }
 
   .hero {
