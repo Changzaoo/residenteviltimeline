@@ -428,6 +428,7 @@ export function ArchiveApp() {
   const [continuity, setContinuity] = useState<ContinuityFilter>("all");
   const [canon, setCanon] = useState("all");
   const [timelineContinuity, setTimelineContinuity] = useState("games-canon");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [detail, setDetail] = useState<Entity | null>(null);
 
   const filteredCharacters = useMemo(() => filterEntities(characters, query, continuity, canon), [query, continuity, canon]);
@@ -448,6 +449,7 @@ export function ArchiveApp() {
       const id = window.location.hash.replace("#section-", "").replace("#", "") as TabKey;
       if (tabs.some((item) => item.id === id)) {
         setTab(id);
+        setMobileMenuOpen(false);
         revealTabButton(id);
         revealActiveSection(id);
       }
@@ -458,8 +460,20 @@ export function ArchiveApp() {
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const closeWithEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeWithEscape);
+    return () => window.removeEventListener("keydown", closeWithEscape);
+  }, [mobileMenuOpen]);
+
   function selectTab(id: TabKey) {
     setTab(id);
+    setMobileMenuOpen(false);
     revealTabButton(id);
     window.history.replaceState(null, "", `#section-${id}`);
     revealActiveSection(id);
@@ -507,6 +521,8 @@ export function ArchiveApp() {
     return <SourcesView />;
   }
 
+  const activeTabLabel = tabs.find((item) => item.id === tab)?.label ?? "Menu";
+
   return (
     <main>
       <div className="noise-layer" />
@@ -523,22 +539,56 @@ export function ArchiveApp() {
         </div>
       </div>
       <header className="topbar">
-        <div className="brand">
-          <span className="brand-mark" aria-hidden="true">
-            <Image src="/umbrella-logo.svg" alt="" width={72} height={72} priority />
-          </span>
-          <div>
-            <strong>Umbrella Archive</strong>
-            <span>Resident Evil Timeline</span>
+        <div className="topbar-main">
+          <div className="brand">
+            <span className="brand-mark" aria-hidden="true">
+              <Image src="/umbrella-logo.svg" alt="" width={72} height={72} priority />
+            </span>
+            <div>
+              <strong>Umbrella Archive</strong>
+              <span>Resident Evil Timeline</span>
+            </div>
           </div>
+          <button
+            aria-controls="mobile-archive-menu"
+            aria-expanded={mobileMenuOpen}
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen((value) => !value)}
+            type="button"
+          >
+            <span className="mobile-menu-lines" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            <span>Menu</span>
+          </button>
         </div>
-        <nav className="tab-strip">
-          {tabs.map((item, index) => (
+        <nav className="tab-strip desktop-nav" aria-label="Menu principal">
+          {tabs.map((item) => (
             <button className={tab === item.id ? "active" : ""} data-tab-id={item.id} key={item.id} onClick={() => selectTab(item.id)}>
-              <span className="tab-number">{String(index + 1).padStart(2, "0")}</span>
               <span>{item.label}</span>
             </button>
           ))}
+        </nav>
+        {mobileMenuOpen ? <button aria-label="Fechar menu" className="mobile-menu-scrim" onClick={() => setMobileMenuOpen(false)} type="button" /> : null}
+        <nav aria-hidden={!mobileMenuOpen} aria-label="Menu mobile" className={`mobile-menu-drawer${mobileMenuOpen ? " open" : ""}`} id="mobile-archive-menu">
+          <div className="mobile-menu-head">
+            <div>
+              <span>Arquivo atual</span>
+              <strong>{activeTabLabel}</strong>
+            </div>
+            <button aria-label="Fechar menu" className="mobile-menu-close" onClick={() => setMobileMenuOpen(false)} type="button">
+              X
+            </button>
+          </div>
+          <div className="mobile-menu-list">
+            {tabs.map((item) => (
+              <button className={tab === item.id ? "active" : ""} key={item.id} onClick={() => selectTab(item.id)} type="button">
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
         </nav>
       </header>
 
