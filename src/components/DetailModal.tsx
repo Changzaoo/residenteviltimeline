@@ -1,0 +1,115 @@
+"use client";
+
+import type { Biohazard, Character, Location, MediaItem, Organization, SourceRef } from "@/data";
+import { CanonBadge, getCanonStatus } from "./CanonBadge";
+
+type DetailItem = MediaItem | Character | Organization | Biohazard | Location;
+
+function titleOf(item: DetailItem) {
+  return "title" in item ? item.title : item.name;
+}
+
+function continuityOf(item: DetailItem) {
+  if ("continuity" in item) return Array.isArray(item.continuity) ? item.continuity : [item.continuity];
+  if ("continuities" in item) return item.continuities;
+  return [];
+}
+
+function canonNoteOf(item: DetailItem) {
+  return "canonNote" in item ? item.canonNote : "";
+}
+
+function sourceRefsOf(item: DetailItem) {
+  return "sourceRefs" in item ? item.sourceRefs : [];
+}
+
+function summaryOf(item: DetailItem) {
+  if ("summary" in item) return item.summary;
+  if ("effects" in item) return item.effects.join(" · ");
+  if ("goals" in item) return `${item.goals} ${item.role}`;
+  if ("significance" in item) return item.significance;
+  return "";
+}
+
+function listSection(title: string, values?: string[]) {
+  if (!values?.length) return null;
+  return (
+    <div className="detail-section">
+      <strong>{title}</strong>
+      <div className="chip-list">
+        {values.map((value) => (
+          <span className="chip" key={value}>
+            {value}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function DetailModal({
+  item,
+  sources,
+  onClose
+}: {
+  item: DetailItem | null;
+  sources: SourceRef[];
+  onClose: () => void;
+}) {
+  if (!item) return null;
+  const continuities = continuityOf(item);
+  const refs = sourceRefsOf(item)
+    .map((id) => sources.find((source) => source.id === id))
+    .filter(Boolean) as SourceRef[];
+
+  return (
+    <div className="modal-backdrop" role="dialog" aria-modal="true">
+      <article className="detail-modal scanlines">
+        <button className="modal-close" onClick={onClose} aria-label="Fechar detalhes">
+          ×
+        </button>
+        <div className="modal-header">
+          <div>
+            <p className="eyebrow">arquivo detalhado</p>
+            <h2>{titleOf(item)}</h2>
+          </div>
+          <div className="badge-stack">
+            {continuities.map((continuity) => (
+              <CanonBadge key={continuity} continuity={continuity} />
+            ))}
+          </div>
+        </div>
+
+        <p className="modal-summary">{summaryOf(item)}</p>
+
+        <div className="modal-grid">
+          {"protagonists" in item && listSection("Protagonistas", item.protagonists)}
+          {"antagonists" in item && listSection("Antagonistas", item.antagonists)}
+          {"organizations" in item && listSection("Organizações", item.organizations)}
+          {"biohazards" in item && listSection("Ameaças biológicas", item.biohazards)}
+          {"locations" in item && listSection("Locais", item.locations)}
+          {"relatedMedia" in item && listSection("Mídias relacionadas", item.relatedMedia)}
+          {"relationships" in item && listSection("Relações", item.relationships)}
+          {"affiliations" in item && listSection("Afiliações", item.affiliations)}
+          {"effects" in item && listSection("Efeitos", item.effects)}
+          {"knownCases" in item && listSection("Casos conhecidos", item.knownCases)}
+        </div>
+
+        <div className="canon-note">
+          <strong>Nota de canon</strong>
+          <p>{canonNoteOf(item)}</p>
+          {continuities[0] && <small>{getCanonStatus(continuities[0])}</small>}
+        </div>
+
+        <div className="source-mini-list">
+          <strong>Fontes ligadas</strong>
+          {refs.map((source) => (
+            <a key={source.id} href={source.url} target="_blank" rel="noreferrer">
+              {source.name}
+            </a>
+          ))}
+        </div>
+      </article>
+    </div>
+  );
+}

@@ -1,0 +1,131 @@
+import type { MediaItem, RemakeComparisonItem } from "./types";
+
+export const remakes: MediaItem[] = [
+  {
+    id: "re1-remake-2002",
+    title: "Resident Evil Remake",
+    originalTitle: "Resident Evil",
+    type: "remake",
+    releaseYear: 2002,
+    inUniverseYear: "1998",
+    continuity: "games-canon",
+    protagonists: ["Chris Redfield", "Jill Valentine", "Rebecca Chambers", "Barry Burton"],
+    antagonists: ["Albert Wesker", "Lisa Trevor", "Tyrant T-002"],
+    organizations: ["S.T.A.R.S.", "Umbrella Corporation"],
+    biohazards: ["T-Virus", "Crimson Heads", "Hunters", "Tyrants"],
+    locations: ["Spencer Mansion", "Arklay Mountains"],
+    summary: "Recriacao de RE1 com novas areas, Lisa Trevor, Crimson Heads e tom mais gotico.",
+    canonNote: "Canon dos jogos; geralmente tratado como versao preferencial para a timeline moderna.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "re2-remake-2019",
+    title: "Resident Evil 2 Remake",
+    originalTitle: "Resident Evil 2",
+    type: "remake",
+    releaseYear: 2019,
+    inUniverseYear: "1998",
+    continuity: "games-canon",
+    protagonists: ["Leon S. Kennedy", "Claire Redfield", "Sherry Birkin", "Ada Wong"],
+    antagonists: ["William Birkin", "Brian Irons", "Mr. X"],
+    organizations: ["Umbrella Corporation", "R.P.D.", "U.S.S."],
+    biohazards: ["T-Virus", "G-Virus", "Lickers", "Tyrants"],
+    locations: ["Raccoon City", "R.P.D.", "Raccoon City Orphanage", "NEST"],
+    summary: "Releitura moderna do surto de Raccoon City com horror mais fisico e rotas reestruturadas.",
+    canonNote: "Canon dos jogos como recontagem moderna; divergencias A/B devem ser marcadas como continuidade ajustada.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "re3-remake-2020",
+    title: "Resident Evil 3 Remake",
+    originalTitle: "Resident Evil 3: Nemesis",
+    type: "remake",
+    releaseYear: 2020,
+    inUniverseYear: "1998",
+    continuity: "games-canon",
+    protagonists: ["Jill Valentine", "Carlos Oliveira"],
+    antagonists: ["Nemesis", "Nicholai Ginovaef"],
+    organizations: ["Umbrella Corporation", "U.B.C.S.", "R.P.D."],
+    biohazards: ["T-Virus", "NE-alpha Parasite", "Nemesis"],
+    locations: ["Raccoon City", "R.P.D."],
+    summary: "Recontagem de RE3 com Carlos expandido e varias areas condensadas.",
+    canonNote: "Canon dos jogos como remake; conteudo removido do original deve ser tratado como divergencia de versao.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "re4-remake-2023",
+    title: "Resident Evil 4 Remake",
+    originalTitle: "Resident Evil 4",
+    type: "remake",
+    releaseYear: 2023,
+    inUniverseYear: "2004",
+    continuity: "games-canon",
+    protagonists: ["Leon S. Kennedy", "Ashley Graham", "Ada Wong", "Luis Serra"],
+    antagonists: ["Osmund Saddler", "Ramon Salazar", "Bitores Mendez", "Jack Krauser"],
+    organizations: ["Los Illuminados", "Governo dos EUA"],
+    biohazards: ["Las Plagas", "Ganados", "Regenerators", "Iron Maidens"],
+    locations: ["Espanha rural", "Castle Salazar"],
+    summary: "Releitura mais sombria de RE4 com maior agencia para Ashley, Ada e Luis.",
+    canonNote: "Canon dos jogos como remake moderno; Separate Ways complementa Ada.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  }
+];
+
+export const remakeComparisons: RemakeComparisonItem[] = [
+  {
+    id: "re1-original-vs-remake",
+    title: "RE1 original vs Remake",
+    original: "Resident Evil (1996)",
+    remake: "Resident Evil Remake (2002)",
+    storyChanges: ["Lisa Trevor adiciona tragédia familiar ligada à Umbrella", "Arquitetura da mansão ganha novas passagens e laboratórios"],
+    characterChanges: ["Barry e Rebecca recebem cenas mais elaboradas", "Wesker ganha encenação mais alinhada ao arco posterior"],
+    removedContent: ["FMVs originais e algumas soluções de puzzle foram substituídas"],
+    expandedContent: ["Crimson Heads", "Lisa Trevor", "novas áreas externas e subsolos"],
+    toneChanges: ["Mais horror gótico", "ritmo mais lento e opressivo"],
+    timelineTreatment: "Usar o Remake como base principal e citar o original como versão histórica.",
+    canonNote: "Canon dos jogos; remake preferencial para leitura moderna.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "re2-original-vs-remake",
+    title: "RE2 original vs Remake",
+    original: "Resident Evil 2 (1998)",
+    remake: "Resident Evil 2 Remake (2019)",
+    storyChanges: ["Sistema A/B foi reorganizado", "Mr. X tem presença mais contínua"],
+    characterChanges: ["Ada aparece com abordagem mais operacional", "Annette e Sherry ganham drama mais direto"],
+    removedContent: ["Algumas interações Leon/Claire e variações de rota do original"],
+    expandedContent: ["Orfanato", "NEST reimaginado", "terror policial mais detalhado"],
+    toneChanges: ["Horror urbano realista", "menos estilização dos anos 1990"],
+    timelineTreatment: "Tratar como mesma crise; divergências entram como continuidade ajustada por remake.",
+    canonNote: "Canon dos jogos com variação de versão.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "re3-original-vs-remake",
+    title: "RE3 original vs Remake",
+    original: "Resident Evil 3: Nemesis (1999)",
+    remake: "Resident Evil 3 Remake (2020)",
+    storyChanges: ["Eventos condensados", "Carlos ganha blocos jogáveis maiores"],
+    characterChanges: ["Jill e Carlos têm dinâmica mais cinematográfica", "Nicholai é apresentado de modo mais direto"],
+    removedContent: ["Torre do relógio jogável", "parque e escolhas dinâmicas do original"],
+    expandedContent: ["Hospital com Carlos", "ritmo de perseguição mais roteirizado"],
+    toneChanges: ["Ação de desastre urbano", "menos exploração clássica"],
+    timelineTreatment: "Registrar ambos como versões do mesmo evento com notas de divergência.",
+    canonNote: "Canon dos jogos; continuidade ajustada por remake.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "re4-original-vs-remake",
+    title: "RE4 original vs Remake",
+    original: "Resident Evil 4 (2005)",
+    remake: "Resident Evil 4 Remake (2023)",
+    storyChanges: ["Luis e Ada têm papel narrativo ampliado", "Los Illuminados ganha tom menos cartunesco"],
+    characterChanges: ["Ashley tem mais agencia", "Krauser ganha ligação mais clara com o passado de Leon"],
+    removedContent: ["QTEs e alguns momentos cômicos foram reduzidos"],
+    expandedContent: ["Side quests", "Separate Ways refeito", "maior contextualização de Las Plagas"],
+    toneChanges: ["Mais horror e trauma", "menos aventura pulp"],
+    timelineTreatment: "Usar remake para leitura moderna e preservar o original como marco de design.",
+    canonNote: "Canon dos jogos como recontagem moderna.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  }
+];

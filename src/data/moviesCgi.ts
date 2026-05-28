@@ -1,0 +1,82 @@
+import type { MediaItem } from "./types";
+
+export const moviesCgi: MediaItem[] = [
+  {
+    id: "biohazard-4d-executer",
+    title: "Biohazard 4D-Executer",
+    type: "cgi-movie",
+    releaseYear: 2000,
+    inUniverseYear: "1998",
+    continuity: "uncertain",
+    protagonists: ["Unidade militar U.B.C.S."],
+    organizations: ["Umbrella Corporation", "U.B.C.S."],
+    biohazards: ["T-Virus", "B.O.W."],
+    locations: ["Raccoon City"],
+    summary: "Curta/atração 4D ambientada em Raccoon City durante o surto.",
+    canonNote: "Animação promocional/complementar; canon incerto.",
+    sourceRefs: ["re-fandom", "wiki-pt"]
+  },
+  {
+    id: "degeneration",
+    title: "Resident Evil: Degeneration",
+    type: "cgi-movie",
+    releaseYear: 2008,
+    inUniverseYear: "2005",
+    continuity: "cgi-canon",
+    protagonists: ["Leon S. Kennedy", "Claire Redfield"],
+    antagonists: ["Curtis Miller", "Frederic Downing"],
+    organizations: ["TerraSave", "Governo dos EUA", "WilPharma"],
+    biohazards: ["T-Virus", "G-Virus"],
+    locations: ["Aeroporto de Harvardville", "WilPharma"],
+    summary: "Leon e Claire investigam um ataque bioterrorista ligado a WilPharma.",
+    canonNote: "Continuidade CGI/canon próximo aos jogos.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "damnation",
+    title: "Resident Evil: Damnation",
+    type: "cgi-movie",
+    releaseYear: 2012,
+    inUniverseYear: "2011",
+    continuity: "cgi-canon",
+    protagonists: ["Leon S. Kennedy", "Ada Wong"],
+    organizations: ["Governo dos EUA", "República Eslava Oriental"],
+    biohazards: ["Las Plagas", "Lickers", "Tyrants"],
+    locations: ["República Eslava Oriental"],
+    summary: "Leon investiga uso militar de B.O.W.s em guerra civil.",
+    canonNote: "Continuidade CGI/canon próximo aos jogos.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "vendetta",
+    title: "Resident Evil: Vendetta",
+    type: "cgi-movie",
+    releaseYear: 2017,
+    inUniverseYear: "2014",
+    continuity: "cgi-canon",
+    protagonists: ["Chris Redfield", "Leon S. Kennedy", "Rebecca Chambers"],
+    antagonists: ["Glenn Arias"],
+    organizations: ["BSAA", "DSO"],
+    biohazards: ["A-Virus", "Zombies"],
+    locations: ["Nova York"],
+    summary: "Chris, Leon e Rebecca enfrentam Glenn Arias e uma variante viral.",
+    canonNote: "Continuidade CGI/canon próximo aos jogos; A-Virus tratado como agente deste filme.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  },
+  {
+    id: "death-island",
+    title: "Resident Evil: Death Island",
+    type: "cgi-movie",
+    releaseYear: 2023,
+    inUniverseYear: "2015",
+    continuity: "cgi-canon",
+    protagonists: ["Chris Redfield", "Jill Valentine", "Leon S. Kennedy", "Claire Redfield", "Rebecca Chambers"],
+    antagonists: ["Dylan Blake"],
+    organizations: ["BSAA", "DSO", "TerraSave"],
+    biohazards: ["T-Virus", "B.O.W.s"],
+    locations: ["Alcatraz"],
+    summary: "Personagens clássicos investigam ataques ligados a Alcatraz.",
+    canonNote: "Continuidade CGI/canon próximo aos jogos.",
+    sourceRefs: ["capcom-history", "re-fandom"]
+  }
+];
