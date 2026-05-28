@@ -598,6 +598,7 @@ main {
 .control-deck::before,
 .section-block::before,
 .archive-page-section::before {
+  display: none;
   position: absolute;
   top: -0.78rem;
   left: var(--panel-pad);
@@ -615,7 +616,7 @@ main {
 }
 
 .hero::after {
-  content: "CAPITULO 01 - VISAO GERAL";
+  content: none;
 }
 
 .stamp-row {
@@ -757,7 +758,7 @@ main {
 }
 
 .control-deck::before {
-  content: "CAPITULO 02 - FILTROS DE INVESTIGACAO";
+  content: none;
 }
 
 .search-box {
@@ -837,13 +838,13 @@ main {
 }
 
 .section-block::before {
-  content: "CAPITULO 03 - ARQUIVO ATIVO";
+  content: none;
   border-color: rgba(239, 43, 45, 0.34);
   color: rgba(239, 43, 45, 0.9);
 }
 
 .archive-page-section::before {
-  content: attr(data-chapter);
+  content: none;
   border-color: rgba(239, 43, 45, 0.38);
   color: rgba(239, 43, 45, 0.94);
   box-shadow: 0 0 18px rgba(239, 43, 45, 0.08);

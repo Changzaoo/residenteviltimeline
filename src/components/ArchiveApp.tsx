@@ -479,27 +479,6 @@ export function ArchiveApp() {
     revealActiveSection(id);
   }
 
-  const activeChapter: Record<TabKey, string> = {
-    timeline: "CAPITULO 03 - TIMELINE",
-    jogos: "CAPITULO 04 - JOGOS",
-    virus: "CAPITULO 05 - AMEACAS BIOLOGICAS",
-    personagens: "CAPITULO 06 - PERSONAGENS",
-    organizacoes: "CAPITULO 07 - ORGANIZACOES",
-    locais: "CAPITULO 08 - LOCAIS",
-    conexoes: "CAPITULO 09 - CONEXOES",
-    dossies: "CAPITULO 10 - DOSSIES",
-    midias: "CAPITULO 11 - BIBLIOTECA DE MIDIAS",
-    filmes: "CAPITULO 12 - FILMES",
-    cgi: "CAPITULO 13 - ANIMACOES CGI",
-    series: "CAPITULO 14 - SERIES",
-    livros: "CAPITULO 15 - LIVROS E NOVELIZACOES",
-    hqs: "CAPITULO 16 - HQS E MANGAS",
-    continuidades: "CAPITULO 17 - CONTINUIDADES",
-    remakes: "CAPITULO 18 - REMAKES VS ORIGINAIS",
-    enciclopedia: "CAPITULO 19 - ENCICLOPEDIA",
-    fontes: "CAPITULO 20 - FONTES"
-  };
-
   function renderActiveTab() {
     if (tab === "timeline") return <TimelineView query={query} selected={timelineContinuity} onSelected={setTimelineContinuity} onOpen={openDetail} />;
     if (tab === "jogos") return <MediaLibrary title="Jogos principais, remakes, spin-offs e DLCs" kicker="ordem canonica da lore" items={canonOrderedGameMedia} onOpen={openDetail} continuity={continuity} query={query} />;
@@ -614,7 +593,7 @@ export function ArchiveApp() {
       </section>
 
       <div className="content-shell" id="archive-content">
-        <div className="archive-page-section" data-chapter={activeChapter[tab]} id={`section-${tab}`} key={tab}>
+        <div className="archive-page-section" id={`section-${tab}`} key={tab}>
           {renderActiveTab()}
         </div>
       </div>
