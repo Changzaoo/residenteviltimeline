@@ -48,6 +48,15 @@ function listSection(title: string, values?: string[]) {
   );
 }
 
+function narrativeLabel(item: DetailItem) {
+  if ("type" in item && "releaseYear" in item) return "Dossiê narrativo da mídia";
+  if ("role" in item && "relationships" in item) return "Registro narrativo do personagem";
+  if ("effects" in item && "threatLevel" in item) return "Relatório narrativo da amostra";
+  if ("goals" in item && "role" in item) return "Memorando narrativo da organização";
+  if ("region" in item && "significance" in item) return "Cena narrativa do local";
+  return "Registro narrativo";
+}
+
 export function DetailModal({
   item,
   sources,
@@ -98,7 +107,7 @@ export function DetailModal({
 
             {narrative.length > 0 && (
               <div className="full-history">
-                <strong>Narrativa completa do arquivo</strong>
+                <strong>{narrativeLabel(item)}</strong>
                 {narrative.map((block) => (
                   <section key={block.title}>
                     <h3>{block.title}</h3>

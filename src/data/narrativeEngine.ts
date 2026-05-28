@@ -96,9 +96,52 @@ function isLocation(item: NarrativeItem): item is Location {
 function dossierPrelude(item: NarrativeItem | TimelineEvent): HistoryBlock {
   const title = titleOf(item);
   const continuity = continuityOf(item);
+  if ("mediaIds" in item) {
+    return {
+      title: "Marca na linha do tempo",
+      body: `${title} entra na ${continuity} como uma data que ainda respira. O arquivo não trata esse acontecimento como um ponto morto no calendário, mas como o instante em que alguém empurrou a primeira peça e fingiu que o dominó não cairia. O horror está no intervalo entre o relatório oficial e o que realmente aconteceu quando as portas começaram a fechar.`
+    };
+  }
+
+  if ("type" in item && "releaseYear" in item) {
+    const type = mediaTypeNames[item.type] ?? item.type;
+    return {
+      title: "A fita encontrada",
+      body: `${title} é catalogado como ${type} dentro da ${continuity}, mas a leitura não começa pela capa nem pelo ano de lançamento. Começa pelo rastro que essa mídia deixa: quem ela coloca em risco, qual ferida ela reabre e que parte do mito de Resident Evil ela ilumina com uma lanterna quase sem bateria.`
+    };
+  }
+
+  if ("role" in item && "relationships" in item) {
+    return {
+      title: "O nome no prontuário",
+      body: `${title} não é apenas um nome preso a uma ficha. Dentro da ${continuity}, este registro precisa ser lido como alguém que atravessou sistemas feitos para esmagar pessoas: corporações, surtos, comandos, cultos, laboratórios e perdas que não cabem em uma linha de status.`
+    };
+  }
+
+  if ("effects" in item && "threatLevel" in item) {
+    return {
+      title: "A amostra sob vidro",
+      body: `${title} não começa no rugido, na mordida ou na mutação final. Dentro da ${continuity}, a ameaça começa antes: em uma cultura de pesquisa que chama ambição de avanço, transforma corpos em material e só reconhece o desastre quando ele já aprendeu a andar sozinho.`
+    };
+  }
+
+  if ("goals" in item && "role" in item && "type" in item) {
+    return {
+      title: "A assinatura no memorando",
+      body: `${title} deve ser lida como uma máquina feita de pessoas, dinheiro, medo e obediência. Na ${continuity}, organizações não assombram corredores por acaso: elas constroem os corredores, financiam as portas blindadas e depois chamam os gritos de custo operacional.`
+    };
+  }
+
+  if ("region" in item && "significance" in item) {
+    return {
+      title: "O lugar que guardou o eco",
+      body: `${title} parece primeiro um ponto no mapa, mas dentro da ${continuity} ele funciona como cena de crime. Cada parede, rua, laboratório ou quarto preserva uma versão da tragédia; o espaço deixa de ser cenário e passa a ser testemunha.`
+    };
+  }
+
   return {
-    title: "Leitura narrativa do arquivo",
-    body: `${title} não deve ser lido como uma ficha técnica. Este dossiê abre a porta devagar, com a luz baixa, porque Resident Evil quase nunca começa no monstro: começa antes, na decisão humana que parecia pequena, no memorando assinado tarde demais, no laboratório limpo demais para ser inocente. Dentro da ${continuity}, este registro precisa ser entendido como uma cadeia de causa, trauma e consequência, não como um resumo isolado.`
+    title: "Arquivo em observação",
+    body: `${title} permanece classificado dentro da ${continuity}. A leitura deve seguir o vestígio com cuidado: primeiro a causa, depois o encobrimento, depois a consequência que insiste em voltar quando todos juravam que o caso estava encerrado.`
   };
 }
 
