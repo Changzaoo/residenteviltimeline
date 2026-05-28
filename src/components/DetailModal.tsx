@@ -1,6 +1,6 @@
 "use client";
 
-import { getFullHistory, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
+import { getNarrativeForItem, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
 import { CanonBadge, getCanonStatus } from "./CanonBadge";
 
 type DetailItem = MediaItem | Character | Organization | Biohazard | Location;
@@ -61,7 +61,7 @@ export function DetailModal({
   const refs = sourceRefsOf(item)
     .map((id) => sources.find((source) => source.id === id))
     .filter(Boolean) as SourceRef[];
-  const fullHistory = ("fullHistory" in item && item.fullHistory?.length ? item.fullHistory : getFullHistory(item.id)) ?? [];
+  const narrative = getNarrativeForItem(item);
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true">
@@ -83,10 +83,10 @@ export function DetailModal({
 
         <p className="modal-summary">{summaryOf(item)}</p>
 
-        {fullHistory.length > 0 && (
+        {narrative.length > 0 && (
           <div className="full-history">
-            <strong>História completa</strong>
-            {fullHistory.map((block) => (
+            <strong>Narrativa completa do arquivo</strong>
+            {narrative.map((block) => (
               <section key={block.title}>
                 <h3>{block.title}</h3>
                 <p>{block.body}</p>

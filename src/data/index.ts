@@ -19,9 +19,11 @@ import { releaseOrder } from "./releaseOrder";
 import { recommendedOrder } from "./recommendedOrder";
 import { glossary } from "./glossary";
 import { fullHistories, getFullHistory } from "./fullHistories";
+import { getNarrativeForItem, getNarrativeForTimelineEvent } from "./narrativeEngine";
 import type { MediaItem } from "./types";
 
 export * from "./types";
+export type { NarrativeItem } from "./narrativeEngine";
 export {
   games,
   remakes,
@@ -45,7 +47,9 @@ export {
   recommendedOrder,
   glossary,
   fullHistories,
-  getFullHistory
+  getFullHistory,
+  getNarrativeForItem,
+  getNarrativeForTimelineEvent
 };
 
 export const allMedia: MediaItem[] = [

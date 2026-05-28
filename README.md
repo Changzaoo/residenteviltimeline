@@ -72,6 +72,7 @@ src/data/
   recommendedOrder.ts
   glossary.ts
   fullHistories.ts
+  narrativeEngine.ts
 
 src/components/
   MediaLibrary.tsx
@@ -87,7 +88,7 @@ src/components/
   TimelineContinuitySelector.tsx
 ```
 
-`fullHistories.ts` concentra narrativas longas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. O modal de detalhes e os cards de timeline renderizam esses blocos como "História completa", mantendo texto editorial fora dos componentes.
+`fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
 
 ## Como rodar
 

@@ -10,7 +10,7 @@ import {
   dlcs,
   games,
   glossary,
-  getFullHistory,
+  getNarrativeForTimelineEvent,
   locations,
   mediaById,
   moviesCgi,
@@ -208,41 +208,44 @@ function TimelineView({
         <TimelineContinuitySelector continuities={continuities} value={selected} onChange={onSelected} />
       </div>
       <div className="timeline-list">
-        {items.map((event, index) => (
-          <article className="timeline-card" key={event.id}>
-            <span className="timeline-index">{String(index + 1).padStart(2, "0")}</span>
-            <div>
-              <div className="card-topline">
-                <CanonBadge continuity={event.continuity as ContinuityId} />
-                <span className="badge badge-muted">{event.year}</span>
+        {items.map((event, index) => {
+          const narrative = getNarrativeForTimelineEvent(event);
+          return (
+            <article className="timeline-card" key={event.id}>
+              <span className="timeline-index">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <div className="card-topline">
+                  <CanonBadge continuity={event.continuity as ContinuityId} />
+                  <span className="badge badge-muted">{event.year}</span>
+                </div>
+                <h3>{event.title}</h3>
+                <p>{event.summary}</p>
+                {narrative.length > 0 && (
+                  <details className="timeline-history">
+                    <summary>Narrativa completa do acontecimento</summary>
+                    {narrative.map((block) => (
+                      <section key={block.title}>
+                        <h4>{block.title}</h4>
+                        <p>{block.body}</p>
+                      </section>
+                    ))}
+                  </details>
+                )}
+                <div className="chip-list">
+                  {event.mediaIds.map((id) => {
+                    const media = mediaById.get(id);
+                    return media ? (
+                      <button className="chip chip-button" key={id} onClick={() => onOpen(media)}>
+                        {media.title}
+                      </button>
+                    ) : null;
+                  })}
+                </div>
+                <p className="canon-note-inline">{event.canonNote}</p>
               </div>
-              <h3>{event.title}</h3>
-              <p>{event.summary}</p>
-              {getFullHistory(event.id).length > 0 && (
-                <details className="timeline-history">
-                  <summary>História completa do acontecimento</summary>
-                  {getFullHistory(event.id).map((block) => (
-                    <section key={block.title}>
-                      <h4>{block.title}</h4>
-                      <p>{block.body}</p>
-                    </section>
-                  ))}
-                </details>
-              )}
-              <div className="chip-list">
-                {event.mediaIds.map((id) => {
-                  const media = mediaById.get(id);
-                  return media ? (
-                    <button className="chip chip-button" key={id} onClick={() => onOpen(media)}>
-                      {media.title}
-                    </button>
-                  ) : null;
-                })}
-              </div>
-              <p className="canon-note-inline">{event.canonNote}</p>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </section>
   );
