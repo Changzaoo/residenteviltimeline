@@ -48,6 +48,7 @@ import { OfficialMarksPanel } from "./OfficialMarksPanel";
 import { RemakeComparison } from "./RemakeComparison";
 import { SourceCard } from "./SourceCard";
 import { TimelineContinuitySelector } from "./TimelineContinuitySelector";
+import { AuthStatusButton } from "./AuthStatusButton";
 
 type Entity = MediaItem | Character | Organization | Biohazard | Location;
 type TabKey =
@@ -532,6 +533,7 @@ export function ArchiveApp() {
               <span>Resident Evil Timeline</span>
             </div>
           </div>
+          <AuthStatusButton onOpenCommunity={() => selectTab("comunidade")} />
           <button
             aria-controls="mobile-archive-menu"
             aria-expanded={mobileMenuOpen}

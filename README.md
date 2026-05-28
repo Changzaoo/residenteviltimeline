@@ -4,7 +4,7 @@ Enciclopedia visual em portugues sobre Resident Evil, estruturada como um dossie
 
 O projeto cobre jogos principais, remakes, spin-offs, DLCs, filmes live-action, filmes CGI, series, novelizacoes, livros, HQs, mangas, personagens, organizacoes, locais, virus, parasitas, fungos, B.O.W.s e comparacoes de continuidade.
 
-Tambem existe uma area de comunidade com Firebase Auth, perfil embutido, entrada anonima, chat geral e forum por assunto criado por usuarios.
+Tambem existe uma area de comunidade com Firebase Auth, perfil embutido, entrada anonima, chat geral, forum por assunto criado por usuarios e upload de imagens via Supabase Storage.
 
 ## Separacao de continuidades
 
@@ -89,10 +89,14 @@ src/components/
   RemakeComparison.tsx
   BiologicalThreatTable.tsx
   TimelineContinuitySelector.tsx
+  AuthStatusButton.tsx
   CommunityHub.tsx
 
 src/lib/
+  communityAuth.ts
   firebase.ts
+  mediaSafety.ts
+  supabase.ts
 ```
 
 `fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
@@ -106,6 +110,7 @@ A aba `Comunidade` usa Firebase no cliente:
 - Firebase Authentication para login por e-mail/senha, criacao de conta e entrada anonima.
 - Cloud Firestore para perfis, chat geral e topicos de forum.
 - `firestore.rules` contem regras sugeridas para leitura publica e escrita apenas por usuarios autenticados.
+- O cabecalho mostra `Login / Registrar-se` no canto direito; depois do login, mostra nome publico e foto de perfil.
 
 Ative no Firebase Console:
 
@@ -125,6 +130,26 @@ NEXT_PUBLIC_FIREBASE_APP_ID=
 ```
 
 Nao coloque `sb_secret`, service account private key ou qualquer chave administrativa no frontend. Se uma chave secreta foi exposta, rotacione no painel do provedor.
+
+## Supabase Storage e imagens
+
+O Supabase e usado apenas para arquivos publicos da comunidade:
+
+- Bucket `profile-images`: fotos de perfil.
+- Bucket `forum-post-images`: imagens anexadas a posts dos foruns.
+
+Configure na Vercel ou em `.env.local`:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+```
+
+Use somente a chave publica/publishable no navegador. Nao use `sb_secret` no app, em commits ou em variaveis `NEXT_PUBLIC_*`.
+
+Para o upload funcionar, crie os buckets no Supabase Storage e publique politicas de leitura/insercao adequadas para o projeto. O arquivo `supabase-storage-policies.sql` traz uma configuracao inicial para leitura publica e upload anonimo, compativel com a autenticacao Firebase usada no app. O codigo usa URLs publicas, entao os buckets precisam permitir leitura publica ou politicas equivalentes.
+
+O filtro de imagens no cliente bloqueia tipos invalidos, tamanho excessivo, nomes de arquivo com termos sensiveis e exige confirmacao explicita de que a imagem nao contem nudez, pornografia, violencia grafica, acidentes, ferimentos, gore, automutilacao ou outros temas delicados. Isso e uma primeira barreira visual. Para moderacao forte em producao, adicione uma Edge Function/Cloud Function com analise server-side antes de liberar a imagem.
 
 ## Como rodar
 
@@ -148,7 +173,7 @@ npm run build
 2. Importe o projeto na Vercel.
 3. Use as configuracoes padrao de Next.js.
 4. Build command: `npm run build`.
-5. Configure as variaveis `NEXT_PUBLIC_FIREBASE_*`.
+5. Configure as variaveis `NEXT_PUBLIC_FIREBASE_*` e `NEXT_PUBLIC_SUPABASE_*`.
 6. Output: gerenciado automaticamente pelo Next.js.
 
-Nao ha backend proprio no repositorio; a comunidade usa Firebase como servico externo. Nao ha secrets versionados.
+Nao ha backend proprio no repositorio; a comunidade usa Firebase e Supabase como servicos externos. Nao ha secrets versionados.

@@ -24,6 +24,8 @@ service cloud.firestore {
           "favoriteGame",
           "avatarSeed",
           "isAnonymous",
+          "photoURL",
+          "photoPath",
           "createdAt",
           "updatedAt"
         ])
