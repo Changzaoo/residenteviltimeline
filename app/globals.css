@@ -909,6 +909,109 @@ tbody tr:hover {
   font-size: 0.8rem;
 }
 
+.brand-vault {
+  margin-top: 1rem;
+  border: 1px solid rgba(244, 185, 66, 0.2);
+  background:
+    linear-gradient(135deg, rgba(244, 185, 66, 0.08), transparent 38%),
+    rgba(255, 255, 255, 0.028);
+  padding: 1rem;
+}
+
+.brand-vault-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  padding-bottom: 0.9rem;
+}
+
+.brand-vault h3,
+.brand-mark-card h4 {
+  margin: 0;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.brand-vault h3 {
+  font-size: clamp(2rem, 4vw, 3.8rem);
+}
+
+.brand-vault-warning {
+  max-width: 1120px;
+  color: #d6c18a;
+  line-height: 1.6;
+}
+
+.brand-mark-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.brand-mark-card {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  gap: 0.9rem;
+  min-height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(90deg, rgba(244, 185, 66, 0.08), transparent 48%),
+    rgba(0, 0, 0, 0.22);
+  padding: 0.9rem;
+}
+
+.brand-emblem {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 1px solid rgba(244, 185, 66, 0.36);
+  background:
+    radial-gradient(circle, rgba(244, 185, 66, 0.14), transparent 62%),
+    rgba(0, 0, 0, 0.38);
+  color: #f4d37c;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 1.55rem;
+  text-transform: uppercase;
+}
+
+.brand-emblem[data-category="publisher"] {
+  border-color: rgba(34, 168, 246, 0.42);
+  color: var(--blue);
+}
+
+.brand-emblem[data-category="franchise"] {
+  border-color: rgba(239, 43, 45, 0.44);
+  color: var(--red);
+}
+
+.brand-emblem[data-category="organization"] {
+  border-color: rgba(32, 227, 122, 0.36);
+  color: var(--green);
+}
+
+.brand-mark-card h4 {
+  margin-top: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.brand-mark-card p {
+  color: #cfcfcf;
+  line-height: 1.55;
+}
+
+.brand-mark-card a {
+  color: var(--green);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1380,6 +1483,45 @@ tbody tr:hover {
   .connection-card {
     gap: 0.55rem;
     padding: 0.8rem;
+  }
+
+  .brand-vault {
+    padding: 0.82rem;
+  }
+
+  .brand-vault-head {
+    flex-direction: column;
+  }
+
+  .brand-vault h3 {
+    font-size: clamp(1.65rem, 10vw, 2.5rem);
+  }
+
+  .brand-vault-warning {
+    font-size: 0.9rem;
+  }
+
+  .brand-mark-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-mark-card {
+    grid-template-columns: 58px 1fr;
+    gap: 0.72rem;
+    min-height: 0;
+    padding: 0.75rem;
+  }
+
+  .brand-emblem {
+    font-size: 1.1rem;
+  }
+
+  .brand-mark-card h4 {
+    font-size: 1.08rem;
+  }
+
+  .brand-mark-card p {
+    font-size: 0.85rem;
   }
 
   .modal-backdrop {

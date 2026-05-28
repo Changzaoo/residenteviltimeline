@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import {
   allMedia,
   biohazards,
+  brandAssets,
   characters,
   comicsManga,
   continuities,
@@ -41,6 +42,7 @@ import { DetailModal } from "./DetailModal";
 import { EncyclopediaSearch } from "./EncyclopediaSearch";
 import { MediaCard } from "./MediaCard";
 import { MediaLibrary } from "./MediaLibrary";
+import { OfficialMarksPanel } from "./OfficialMarksPanel";
 import { RemakeComparison } from "./RemakeComparison";
 import { SourceCard } from "./SourceCard";
 import { TimelineContinuitySelector } from "./TimelineContinuitySelector";
@@ -428,7 +430,7 @@ export function ArchiveApp() {
       <div className="content-shell">{renderTab()}</div>
 
       <footer className="footer">
-        <span>Projeto de fã. Resident Evil, Biohazard, personagens e marcas pertencem à Capcom.</span>
+        <span>Projeto de fa nao oficial e nao comercial. Resident Evil, Biohazard, personagens, logos e marcas pertencem a Capcom.</span>
         <span>{allMedia.length} mídias · {characters.length} personagens · {biohazards.length} ameaças · {sources.length} fontes</span>
       </footer>
 
@@ -473,6 +475,7 @@ function SourcesView() {
           <SourceCard key={source.id} source={source} />
         ))}
       </div>
+      <OfficialMarksPanel assets={brandAssets} />
       <div className="glossary-panel">
         <h3>Glossário editorial</h3>
         <div className="card-grid two">

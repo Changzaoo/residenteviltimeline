@@ -68,6 +68,7 @@ src/data/
   locations.ts
   continuities.ts
   sources.ts
+  brandAssets.ts
   releaseOrder.ts
   recommendedOrder.ts
   glossary.ts
@@ -89,6 +90,8 @@ src/components/
 ```
 
 `fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
+
+`brandAssets.ts` lista marcas/logos oficiais apenas como referencias creditadas e slots visuais. O site usa monogramas proprios como fallback e nao redistribui logotipos proprietarios sem permissao/licenca.
 
 ## Como rodar
 

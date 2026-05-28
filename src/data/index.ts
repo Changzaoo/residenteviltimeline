@@ -14,6 +14,7 @@ import { biohazards } from "./biohazards";
 import { locations } from "./locations";
 import { continuities } from "./continuities";
 import { sources } from "./sources";
+import { brandAssets } from "./brandAssets";
 import { timelineEvents } from "./timeline";
 import { releaseOrder } from "./releaseOrder";
 import { recommendedOrder } from "./recommendedOrder";
@@ -42,6 +43,7 @@ export {
   locations,
   continuities,
   sources,
+  brandAssets,
   timelineEvents,
   releaseOrder,
   recommendedOrder,

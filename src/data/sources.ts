@@ -34,6 +34,22 @@ export const sources: SourceRef[] = [
     notes: "Página oficial pós-lançamento usada para confirmar que Requiem já está ativo no ecossistema Resident Evil.Net."
   },
   {
+    id: "capcom-video-policy",
+    name: "Capcom Video Policy",
+    url: "https://www.capcomusa.com/video-policy/",
+    type: "official",
+    reliability: "high",
+    notes: "Diretrizes oficiais da Capcom para conteudo de fans em video; usadas para reforcar aviso de projeto nao oficial, nao comercial e sem redistribuicao de assets proprietarios."
+  },
+  {
+    id: "capcom-fan-content-guidelines",
+    name: "Capcom Fan Content Guidelines",
+    url: "https://www.capcom-games.com/en/fan-content-guidelines/",
+    type: "official",
+    reliability: "high",
+    notes: "Pagina oficial de diretrizes de conteudo criado por fans, referenciada pelo rodape da politica de video da Capcom."
+  },
+  {
     id: "wiki-pt",
     name: "Wikipedia PT - Resident Evil",
     url: "https://pt.wikipedia.org/wiki/Resident_Evil",
