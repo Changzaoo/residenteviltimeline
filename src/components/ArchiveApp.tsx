@@ -90,6 +90,73 @@ const tabs: { id: TabKey; label: string }[] = [
   { id: "fontes", label: "Fontes" }
 ];
 
+const gameCanonOrder: Record<string, number> = {
+  "re0-2002": 10,
+  "re1-remake-2002": 20,
+  "re1-1996": 21,
+  outbreak: 30,
+  "outbreak-file-2": 31,
+  "re3-remake-2020": 40,
+  "re3-1999": 41,
+  "re2-remake-2019": 50,
+  "re2-1998": 51,
+  "re-survivor": 60,
+  "code-veronica": 70,
+  "dead-aim": 80,
+  "darkside-chronicles": 90,
+  "umbrella-chronicles": 100,
+  "re4-remake-2023": 110,
+  "re4-2005": 111,
+  "re4r-separate-ways": 112,
+  revelations: 120,
+  "re5-lost-in-nightmares": 130,
+  "re5-2009": 140,
+  "re5-desperate-escape": 141,
+  "revelations-2": 150,
+  "re6-2012": 160,
+  "re7-banned-footage": 170,
+  "re7-2017": 171,
+  "re7-not-a-hero": 172,
+  "re7-end-of-zoe": 173,
+  "re-village-2021": 180,
+  "village-shadows-of-rose": 190,
+  "re-requiem-2026": 700,
+  "operation-raccoon-city": 1000,
+  resistance: 1010,
+  "survivor-2-code-veronica": 1100,
+  "resident-evil-gaiden": 1110,
+  "mercenaries-3d": 1120,
+  reverse: 1130
+};
+
+const continuitySortWeight: Record<ContinuityId, number> = {
+  "games-canon": 0,
+  "cgi-canon": 3000,
+  "live-action-anderson": 5000,
+  "welcome-to-raccoon-city": 5100,
+  "netflix-series": 5200,
+  novelization: 6000,
+  "comic-manga": 6100,
+  uncertain: 7000,
+  alternate: 8000,
+  "non-canon": 9000
+};
+
+function firstLoreYear(item: MediaItem) {
+  const match = item.inUniverseYear?.match(/\d{4}/);
+  return match ? Number(match[0]) : 9999;
+}
+
+function sortGamesByCanon(items: MediaItem[]) {
+  return [...items].sort((a, b) => {
+    const aOrder = gameCanonOrder[a.id] ?? continuitySortWeight[a.continuity] + firstLoreYear(a);
+    const bOrder = gameCanonOrder[b.id] ?? continuitySortWeight[b.continuity] + firstLoreYear(b);
+    return aOrder - bOrder || String(a.releaseYear).localeCompare(String(b.releaseYear)) || a.title.localeCompare(b.title);
+  });
+}
+
+const canonOrderedGameMedia = sortGamesByCanon([...games, ...remakes, ...spinOffs, ...dlcs]);
+
 function includesQuery(item: unknown, query: string) {
   if (!query.trim()) return true;
   return JSON.stringify(item).toLowerCase().includes(query.trim().toLowerCase());
@@ -423,7 +490,7 @@ export function ArchiveApp() {
     {
       id: "jogos" as const,
       chapter: "CAPITULO 04 - JOGOS",
-      content: <MediaLibrary title="Jogos principais, remakes, spin-offs e DLCs" kicker="canon e complementos" items={[...games, ...remakes, ...spinOffs, ...dlcs]} onOpen={openDetail} continuity={continuity} query={query} />
+      content: <MediaLibrary title="Jogos principais, remakes, spin-offs e DLCs" kicker="ordem canonica da lore" items={canonOrderedGameMedia} onOpen={openDetail} continuity={continuity} query={query} />
     },
     {
       id: "virus" as const,
