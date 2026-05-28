@@ -170,11 +170,12 @@ export const games: MediaItem[] = [
     inUniverseYear: "Não confirmado nas fontes consultadas",
     continuity: "games-canon",
     protagonists: ["Grace Ashcroft", "Leon S. Kennedy"],
+    supportingCharacters: ["Sherry Birkin", "Alyssa Ashcroft"],
     antagonists: ["Não confirmado de forma completa"],
-    organizations: ["FBI", "The Connections"],
+    organizations: ["FBI", "DSO", "The Connections"],
     biohazards: ["Não confirmado de forma completa"],
     locations: ["Ruínas de Raccoon City", "Wrenwood Hotel"],
-    summary: "Nono jogo principal, com Grace Ashcroft, Leon S. Kennedy e retorno a temas ligados a Raccoon City.",
+    summary: "Nono jogo principal, com Grace Ashcroft, Leon S. Kennedy e personagens de apoio ligados ao legado de Raccoon City.",
     canonNote: "Canon dos jogos. A Capcom confirmou lançamento em 27 de fevereiro de 2026; detalhes de lore que dependem de finais, documentos internos ou interpretações continuam marcados caso a caso.",
     sourceRefs: ["capcom-requiem", "capcom-requiem-stats", "capcom-portal", "re-fandom"]
   }

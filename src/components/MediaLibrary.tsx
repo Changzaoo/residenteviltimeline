@@ -30,6 +30,7 @@ export function MediaLibrary({
       item.summary,
       item.canonNote,
       ...(item.protagonists ?? []),
+      ...(item.supportingCharacters ?? []),
       ...(item.antagonists ?? []),
       ...(item.organizations ?? []),
       ...(item.biohazards ?? []),

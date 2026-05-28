@@ -46,6 +46,7 @@ export interface MediaItem {
   inUniverseYear?: string;
   continuity: ContinuityId;
   protagonists?: string[];
+  supportingCharacters?: string[];
   antagonists?: string[];
   organizations?: string[];
   biohazards?: string[];

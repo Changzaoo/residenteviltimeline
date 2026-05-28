@@ -127,6 +127,7 @@ export function DetailModal({
 
         <div className="modal-grid">
           {"protagonists" in item && listSection("Protagonistas", item.protagonists)}
+          {"supportingCharacters" in item && listSection("Personagens de apoio", item.supportingCharacters)}
           {"antagonists" in item && listSection("Antagonistas", item.antagonists)}
           {"organizations" in item && listSection("Organizações", item.organizations)}
           {"biohazards" in item && listSection("Ameaças biológicas", item.biohazards)}
