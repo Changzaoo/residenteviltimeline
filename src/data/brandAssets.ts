@@ -48,7 +48,7 @@ export const brandAssets: BrandAssetRef[] = [
     referenceUrl: "https://residentevil.fandom.com/wiki/Umbrella_Corporation",
     sourceRefs: ["re-fandom"],
     usageNote: "Marca ficcional central da lore. O site usa um monograma de arquivo, nao o emblema oficial extraido dos jogos.",
-    assetSlot: "/brand-assets/umbrella.svg"
+    assetSlot: "/umbrella-logo.svg"
   },
   {
     id: "stars",

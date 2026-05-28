@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import {
   allMedia,
@@ -402,7 +403,9 @@ export function ArchiveApp() {
       </div>
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark">U</span>
+          <span className="brand-mark" aria-hidden="true">
+            <Image src="/umbrella-logo.svg" alt="" width={72} height={72} priority />
+          </span>
           <div>
             <strong>Umbrella Archive</strong>
             <span>Resident Evil Timeline</span>

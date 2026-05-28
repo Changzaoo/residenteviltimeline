@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Umbrella Corporation mark</title>
+  <desc id="desc">Red and white eight-panel Umbrella-style emblem supplied for the fan archive logo.</desc>
+  <defs>
+    <radialGradient id="redPanel" cx="48%" cy="42%" r="72%">
+      <stop offset="0%" stop-color="#fb0d0d"/>
+      <stop offset="58%" stop-color="#d60000"/>
+      <stop offset="100%" stop-color="#9c0f12"/>
+    </radialGradient>
+    <radialGradient id="whitePanel" cx="38%" cy="36%" r="78%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#ededed"/>
+      <stop offset="100%" stop-color="#cfcfcf"/>
+    </radialGradient>
+    <filter id="softShadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadow)" stroke="#050505" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M256 256 L256 10 Q344 48 424 88 Z" fill="url(#redPanel)"/>
+    <path d="M256 256 L424 88 Q466 168 502 256 Z" fill="url(#whitePanel)"/>
+    <path d="M256 256 L502 256 Q466 344 424 424 Z" fill="url(#redPanel)"/>
+    <path d="M256 256 L424 424 Q344 466 256 502 Z" fill="url(#whitePanel)"/>
+    <path d="M256 256 L256 502 Q168 466 88 424 Z" fill="url(#redPanel)"/>
+    <path d="M256 256 L88 424 Q46 344 10 256 Z" fill="url(#whitePanel)"/>
+    <path d="M256 256 L10 256 Q46 168 88 88 Z" fill="url(#redPanel)"/>
+    <path d="M256 256 L88 88 Q168 46 256 10 Z" fill="url(#whitePanel)"/>
+  </g>
+  <circle cx="256" cy="256" r="18" fill="#050505"/>
+</svg>
