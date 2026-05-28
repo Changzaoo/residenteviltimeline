@@ -15,6 +15,8 @@
   --panel-gap: clamp(0.7rem, 1.8vw, 1rem);
   --body-copy: clamp(0.9rem, 1.15vw, 0.98rem);
   --micro-copy: clamp(0.52rem, 0.85vw, 0.62rem);
+  --section-border: rgba(255, 255, 255, 0.12);
+  --section-bg: rgba(8, 10, 12, 0.72);
 }
 
 * {
@@ -80,6 +82,7 @@ a {
 main {
   position: relative;
   z-index: 1;
+  padding-bottom: 2rem;
 }
 
 .noise-layer {
@@ -375,6 +378,11 @@ main {
   margin-inline: auto;
 }
 
+.content-shell {
+  display: grid;
+  gap: clamp(1rem, 2.8vw, 1.45rem);
+}
+
 .hero {
   position: relative;
   display: grid;
@@ -382,7 +390,16 @@ main {
   gap: var(--panel-gap);
   align-items: center;
   min-height: auto;
-  padding: clamp(1.4rem, 4.2vw, 2.8rem) 0 clamp(1rem, 2.4vw, 1.45rem);
+  margin-top: clamp(1rem, 3vw, 2rem);
+  margin-bottom: clamp(0.9rem, 2.6vw, 1.4rem);
+  border: 1px solid var(--section-border);
+  background:
+    linear-gradient(135deg, rgba(239, 43, 45, 0.08), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+    var(--section-bg);
+  padding: clamp(1.35rem, 4vw, 2.4rem) var(--panel-pad) clamp(1rem, 2.4vw, 1.35rem);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.34);
+  isolation: isolate;
 }
 
 .hero::before {
@@ -400,6 +417,29 @@ main {
   transform: rotate(-2deg);
   mask-image: linear-gradient(90deg, transparent, black 18%, black 78%, transparent);
   pointer-events: none;
+}
+
+.hero::after,
+.control-deck::before,
+.section-block::before {
+  position: absolute;
+  top: -0.78rem;
+  left: var(--panel-pad);
+  z-index: 2;
+  border: 1px solid rgba(244, 185, 66, 0.32);
+  background: rgba(5, 6, 7, 0.96);
+  color: #f3cd6a;
+  padding: 0.26rem 0.62rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(0.48rem, 0.82vw, 0.58rem);
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 0 18px rgba(244, 185, 66, 0.08);
+}
+
+.hero::after {
+  content: "CAPITULO 01 - VISAO GERAL";
 }
 
 .stamp-row {
@@ -526,11 +566,22 @@ main {
 }
 
 .control-deck {
+  position: relative;
   display: grid;
   gap: var(--panel-gap);
   padding: var(--panel-pad);
-  margin-bottom: clamp(1.5rem, 4vw, 2.2rem);
+  margin-bottom: clamp(1.25rem, 3.4vw, 2rem);
+  border: 1px solid var(--section-border);
+  background:
+    linear-gradient(90deg, rgba(32, 227, 122, 0.045), transparent 44%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
+    var(--section-bg);
+  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.28);
   animation: panelRise 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) 0.26s both;
+}
+
+.control-deck::before {
+  content: "CAPITULO 02 - FILTROS DE INVESTIGACAO";
 }
 
 .search-box {
@@ -595,32 +646,33 @@ main {
 
 .section-block {
   position: relative;
+  border: 1px solid var(--section-border);
+  background:
+    linear-gradient(135deg, rgba(239, 43, 45, 0.05), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+    var(--section-bg);
   margin-bottom: clamp(1.8rem, 4.2vw, 2.7rem);
+  padding: clamp(1.1rem, 3vw, 1.45rem) var(--panel-pad) var(--panel-pad);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
   animation: panelRise 0.62s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .section-block::before {
-  content: "CASE FILE";
-  position: absolute;
-  top: -0.8rem;
-  left: 0;
-  border: 1px solid rgba(239, 43, 45, 0.26);
-  background: rgba(5, 6, 7, 0.88);
-  color: rgba(239, 43, 45, 0.82);
-  padding: 0.24rem 0.55rem;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.52rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  content: "CAPITULO 03 - ARQUIVO ATIVO";
+  border-color: rgba(239, 43, 45, 0.34);
+  color: rgba(239, 43, 45, 0.9);
 }
 
 .section-title {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
   gap: var(--panel-gap);
   margin-bottom: clamp(0.9rem, 2.2vw, 1.18rem);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  padding-bottom: clamp(0.72rem, 1.8vw, 1rem);
 }
 
 .section-title > div {
@@ -1605,7 +1657,7 @@ tbody tr:hover {
   }
 
   .hero h1 {
-    font-size: clamp(2rem, 12.3vw, 3.15rem);
+    font-size: clamp(1.85rem, 10.2vw, 2.65rem);
     line-height: 0.95;
   }
 
