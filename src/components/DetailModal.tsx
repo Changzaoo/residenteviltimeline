@@ -98,7 +98,7 @@ export function DetailModal({
 
         <div className={hasHeroVisual ? "modal-hero-grid" : "modal-hero-grid no-visual"}>
           {outfits.length > 0 ? (
-            <CharacterOutfitCarousel outfits={outfits} variant="hero" />
+            <CharacterOutfitCarousel key={item.id} outfits={outfits} variant="hero" />
           ) : visual ? (
             <figure className={`modal-visual visual-${visual.category}`}>
               <Image src={visual.src} alt={visual.title} fill sizes="(max-width: 720px) 100vw, 420px" unoptimized />

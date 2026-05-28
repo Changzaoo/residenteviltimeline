@@ -13,29 +13,40 @@ export function CharacterOutfitCarousel({
   variant?: "panel" | "hero";
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const hasMany = outfits.length > 1;
 
   useEffect(() => {
-    if (!hasMany) return;
+    if (!hasMany || !isAutoPlaying) return;
 
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % outfits.length);
     }, 3600);
 
     return () => window.clearInterval(timer);
-  }, [hasMany, outfits.length]);
+  }, [hasMany, isAutoPlaying, outfits.length]);
 
   const normalizedIndex = outfits.length > 0 ? activeIndex % outfits.length : 0;
   const active = outfits[normalizedIndex] ?? outfits[0];
   if (!active) return null;
 
   function move(direction: number) {
+    setIsAutoPlaying(false);
     setActiveIndex((current) => (current + direction + outfits.length) % outfits.length);
+  }
+
+  function selectOutfit(index: number) {
+    setIsAutoPlaying(false);
+    setActiveIndex(index);
   }
 
   if (variant === "hero") {
     return (
-      <figure className="modal-visual visual-character outfit-hero-carousel" aria-label="Carrossel de trajes por epoca">
+      <figure
+        className="modal-visual visual-character outfit-hero-carousel"
+        aria-label="Carrossel de trajes por epoca"
+        onClick={() => setIsAutoPlaying(false)}
+      >
         <Image
           key={active.id}
           src={active.src}
@@ -52,7 +63,7 @@ export function CharacterOutfitCarousel({
                 className={index === normalizedIndex ? "outfit-hero-thumb active" : "outfit-hero-thumb"}
                 key={outfit.id}
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={() => selectOutfit(index)}
                 aria-label={`Abrir ${outfit.label}`}
                 aria-current={index === normalizedIndex}
                 role="listitem"
@@ -140,7 +151,7 @@ export function CharacterOutfitCarousel({
               className={index === normalizedIndex ? "outfit-thumb active" : "outfit-thumb"}
               key={outfit.id}
               type="button"
-              onClick={() => setActiveIndex(index)}
+              onClick={() => selectOutfit(index)}
               aria-label={`Abrir ${outfit.label}`}
               aria-current={index === normalizedIndex}
               role="listitem"
