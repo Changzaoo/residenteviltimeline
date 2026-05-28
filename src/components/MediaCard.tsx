@@ -1,6 +1,7 @@
 "use client";
 
-import type { Character, Location, MediaItem, Organization, Biohazard } from "@/data";
+import Image from "next/image";
+import { getVisualAsset, type Character, type Location, type MediaItem, type Organization, type Biohazard } from "@/data";
 import { CanonBadge } from "./CanonBadge";
 
 type CardItem = MediaItem | Character | Organization | Biohazard | Location;
@@ -53,12 +54,22 @@ export function MediaCard({
 }) {
   const continuity = getContinuity(item);
   const summary = getSummary(item);
+  const fileClass = getFileClass(item);
+  const visual = getVisualAsset(item.id);
 
   return (
-    <button className="archive-card glitch-card" onClick={() => onOpen(item)}>
-      <span className="folder-tab">{getFileClass(item)}</span>
+    <button className={`archive-card glitch-card has-visual visual-${visual?.category ?? fileClass}`} onClick={() => onOpen(item)}>
+      <span className="folder-tab">{fileClass}</span>
       <span className="corner corner-a" />
       <span className="corner corner-b" />
+      <span className="card-visual" aria-hidden="true">
+        {visual ? (
+          <Image src={visual.src} alt="" fill sizes="(max-width: 720px) 100vw, 620px" unoptimized />
+        ) : (
+          <span className="visual-fallback-mark">{getTitle(item).slice(0, 2)}</span>
+        )}
+        <span className="visual-scan" />
+      </span>
       <div className="card-topline">
         {continuity && <CanonBadge continuity={continuity} />}
         {"threatLevel" in item && <span className="badge badge-red">{item.threatLevel}</span>}

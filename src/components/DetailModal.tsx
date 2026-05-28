@@ -1,6 +1,7 @@
 "use client";
 
-import { getNarrativeForItem, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
+import Image from "next/image";
+import { getNarrativeForItem, getVisualAsset, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
 import { CanonBadge, getCanonStatus } from "./CanonBadge";
 
 type DetailItem = MediaItem | Character | Organization | Biohazard | Location;
@@ -62,6 +63,7 @@ export function DetailModal({
     .map((id) => sources.find((source) => source.id === id))
     .filter(Boolean) as SourceRef[];
   const narrative = getNarrativeForItem(item);
+  const visual = getVisualAsset(item.id);
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true">
@@ -80,6 +82,15 @@ export function DetailModal({
             ))}
           </div>
         </div>
+
+        {visual && (
+          <figure className={`modal-visual visual-${visual.category}`}>
+            <Image src={visual.src} alt={visual.title} fill sizes="(max-width: 720px) 100vw, 980px" unoptimized />
+            <figcaption>
+              Imagem: <a href={visual.sourceUrl} target="_blank" rel="noreferrer">{visual.sourceName}</a>
+            </figcaption>
+          </figure>
+        )}
 
         <p className="modal-summary">{summaryOf(item)}</p>
 

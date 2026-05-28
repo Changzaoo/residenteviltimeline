@@ -1,6 +1,7 @@
 "use client";
 
-import type { Biohazard } from "@/data";
+import Image from "next/image";
+import { getVisualAsset, type Biohazard } from "@/data";
 
 const score: Record<Biohazard["threatLevel"], number> = {
   baixo: 1,
@@ -39,23 +40,36 @@ export function BiologicalThreatTable({
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
-              <tr key={item.id} onClick={() => onOpen(item)}>
-                <td>{item.name}</td>
-                <td>{item.category}</td>
-                <td>{item.origin}</td>
-                <td>{item.organization ?? "não confirmado"}</td>
-                <td>{item.firstAppearance}</td>
-                <td>
-                  <div className="threat-bars">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <span key={index} className={index < score[item.threatLevel] ? "on" : ""} />
-                    ))}
-                    <em>{item.threatLevel}</em>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {items.map((item) => {
+              const visual = getVisualAsset(item.id);
+              return (
+                <tr key={item.id} onClick={() => onOpen(item)}>
+                  <td>
+                    <div className="threat-cell">
+                      <span className="threat-thumb" aria-hidden="true">
+                        {visual ? <Image src={visual.src} alt="" fill sizes="96px" unoptimized /> : <span>{item.name.slice(0, 2)}</span>}
+                      </span>
+                      <span>
+                        <strong>{item.name}</strong>
+                        <small>{visual?.sourceTitle ?? "amostra sem imagem"}</small>
+                      </span>
+                    </div>
+                  </td>
+                  <td>{item.category}</td>
+                  <td>{item.origin}</td>
+                  <td>{item.organization ?? "não confirmado"}</td>
+                  <td>{item.firstAppearance}</td>
+                  <td>
+                    <div className="threat-bars">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <span key={index} className={index < score[item.threatLevel] ? "on" : ""} />
+                      ))}
+                      <em>{item.threatLevel}</em>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

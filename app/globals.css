@@ -815,6 +815,86 @@ main {
     linear-gradient(90deg, rgba(244, 185, 66, 0.1), transparent 30%),
     linear-gradient(180deg, rgba(17, 21, 25, 0.88), rgba(8, 10, 12, 0.9));
   isolation: isolate;
+  overflow: hidden;
+}
+
+.card-visual {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 8.4;
+  margin: calc(var(--panel-pad) * -1) calc(var(--panel-pad) * -1) clamp(0.82rem, 1.8vw, 1.05rem);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(239, 43, 45, 0.22), transparent 36%),
+    linear-gradient(135deg, rgba(244, 185, 66, 0.1), rgba(34, 168, 246, 0.06)),
+    rgba(5, 6, 7, 0.86);
+}
+
+.card-visual img,
+.modal-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(0.86) contrast(1.12) brightness(0.76);
+  transform: scale(1.01);
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+
+.archive-card:hover .card-visual img {
+  filter: saturate(1.05) contrast(1.18) brightness(0.88);
+  transform: scale(1.055);
+}
+
+.card-visual::after,
+.modal-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 0 40%, rgba(5, 6, 7, 0.84) 100%),
+    linear-gradient(90deg, rgba(239, 43, 45, 0.18), transparent 24%, transparent 72%, rgba(34, 168, 246, 0.12));
+}
+
+.visual-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px 5px);
+  mix-blend-mode: overlay;
+}
+
+.visual-fallback-mark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(239, 43, 45, 0.72);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(2.4rem, 9vw, 5rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 2px 0 rgba(34, 168, 246, 0.36);
+}
+
+.visual-character .card-visual {
+  aspect-ratio: 16 / 9.8;
+}
+
+.visual-biohazard .card-visual {
+  background:
+    radial-gradient(circle at 20% 28%, rgba(32, 227, 122, 0.24), transparent 34%),
+    radial-gradient(circle at 80% 24%, rgba(239, 43, 45, 0.14), transparent 38%),
+    rgba(5, 6, 7, 0.88);
+}
+
+.visual-location .card-visual,
+.visual-media .card-visual {
+  aspect-ratio: 16 / 7.6;
 }
 
 .archive-card::after,
@@ -852,6 +932,7 @@ main {
   position: absolute;
   top: -1px;
   left: clamp(0.68rem, 1.6vw, 0.88rem);
+  z-index: 4;
   transform: translateY(-58%);
   border: 1px solid rgba(244, 185, 66, 0.32);
   border-bottom: 0;
@@ -1122,6 +1203,67 @@ tbody tr {
 tbody tr:hover {
   background: rgba(239, 43, 45, 0.06);
   transform: translateX(2px);
+}
+
+.threat-cell {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(8rem, 1fr);
+  gap: 0.72rem;
+  align-items: center;
+  min-width: 15rem;
+}
+
+.threat-cell strong,
+.threat-cell small {
+  display: block;
+}
+
+.threat-cell strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.threat-cell small {
+  margin-top: 0.22rem;
+  color: var(--muted);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.threat-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 4.6rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(32, 227, 122, 0.22);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(32, 227, 122, 0.24), transparent 42%),
+    rgba(0, 0, 0, 0.42);
+  color: rgba(32, 227, 122, 0.72);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.threat-thumb img {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.9) contrast(1.18) brightness(0.78);
+}
+
+.threat-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.42)),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 5px);
+  mix-blend-mode: overlay;
 }
 
 .threat-bars {
@@ -1430,6 +1572,41 @@ tbody tr:hover {
 .detail-modal h2 {
   font-size: clamp(1.7rem, 5.6vw, 3.15rem);
   line-height: 1;
+}
+
+.modal-visual {
+  position: relative;
+  margin: clamp(0.85rem, 2vw, 1.05rem) 0 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  aspect-ratio: 16 / 7.2;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(239, 43, 45, 0.2), transparent 34%),
+    rgba(5, 6, 7, 0.82);
+}
+
+.modal-visual.visual-character {
+  aspect-ratio: 16 / 8.6;
+}
+
+.modal-visual figcaption {
+  position: absolute;
+  right: 0.72rem;
+  bottom: 0.62rem;
+  z-index: 2;
+  max-width: calc(100% - 1.4rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 6, 7, 0.82);
+  color: var(--muted);
+  padding: 0.32rem 0.48rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(0.48rem, 0.9vw, 0.58rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.modal-visual a {
+  color: var(--green);
 }
 
 .modal-grid {

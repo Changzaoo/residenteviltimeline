@@ -21,6 +21,7 @@ import { recommendedOrder } from "./recommendedOrder";
 import { glossary } from "./glossary";
 import { fullHistories, getFullHistory } from "./fullHistories";
 import { getNarrativeForItem, getNarrativeForTimelineEvent } from "./narrativeEngine";
+import { getVisualAsset, visualAssets } from "./visualAssets";
 import type { MediaItem } from "./types";
 
 export * from "./types";
@@ -51,7 +52,9 @@ export {
   fullHistories,
   getFullHistory,
   getNarrativeForItem,
-  getNarrativeForTimelineEvent
+  getNarrativeForTimelineEvent,
+  visualAssets,
+  getVisualAsset
 };
 
 export const allMedia: MediaItem[] = [
