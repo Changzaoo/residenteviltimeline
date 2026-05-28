@@ -197,6 +197,14 @@ function revealTabButton(id: TabKey) {
   });
 }
 
+function revealActiveSection(id: TabKey) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.getElementById(`section-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
 function SectionIntro() {
   return (
     <section className="hero">
@@ -436,36 +444,12 @@ export function ArchiveApp() {
   const openDetail = (item: Entity) => setDetail(item);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const activeEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        const activeId = activeEntry?.target.id.replace("section-", "") as TabKey | undefined;
-        if (activeId) {
-          setTab((current) => {
-            if (current !== activeId) revealTabButton(activeId);
-            return activeId;
-          });
-        }
-      },
-      { rootMargin: "-22% 0px -64% 0px", threshold: [0.08, 0.2, 0.42] }
-    );
-
-    tabs.forEach((item) => {
-      const section = document.getElementById(`section-${item.id}`);
-      if (section) observer.observe(section);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     const syncFromHash = () => {
-      const id = window.location.hash.replace("#section-", "") as TabKey;
+      const id = window.location.hash.replace("#section-", "").replace("#", "") as TabKey;
       if (tabs.some((item) => item.id === id)) {
         setTab(id);
         revealTabButton(id);
+        revealActiveSection(id);
       }
     };
 
@@ -474,105 +458,54 @@ export function ArchiveApp() {
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
-  function scrollToSection(id: TabKey) {
+  function selectTab(id: TabKey) {
     setTab(id);
     revealTabButton(id);
     window.history.replaceState(null, "", `#section-${id}`);
-    document.getElementById(`section-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    revealActiveSection(id);
   }
 
-  const archiveSections = [
-    {
-      id: "timeline" as const,
-      chapter: "CAPITULO 03 - TIMELINE",
-      content: <TimelineView query={query} selected={timelineContinuity} onSelected={setTimelineContinuity} onOpen={openDetail} />
-    },
-    {
-      id: "jogos" as const,
-      chapter: "CAPITULO 04 - JOGOS",
-      content: <MediaLibrary title="Jogos principais, remakes, spin-offs e DLCs" kicker="ordem canonica da lore" items={canonOrderedGameMedia} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "virus" as const,
-      chapter: "CAPITULO 05 - AMEACAS BIOLOGICAS",
-      content: <BiologicalThreatTable items={filteredBiohazards} onOpen={openDetail} />
-    },
-    {
-      id: "personagens" as const,
-      chapter: "CAPITULO 06 - PERSONAGENS",
-      content: <MediaCards title="Personagens" items={filteredCharacters} onOpen={openDetail} />
-    },
-    {
-      id: "organizacoes" as const,
-      chapter: "CAPITULO 07 - ORGANIZACOES",
-      content: <MediaCards title="Organizações" items={filteredOrganizations} onOpen={openDetail} />
-    },
-    {
-      id: "locais" as const,
-      chapter: "CAPITULO 08 - LOCAIS",
-      content: <MediaCards title="Locais" items={filteredLocations} onOpen={openDetail} />
-    },
-    {
-      id: "conexoes" as const,
-      chapter: "CAPITULO 09 - CONEXOES",
-      content: <ConnectionsView onOpen={openDetail} />
-    },
-    {
-      id: "dossies" as const,
-      chapter: "CAPITULO 10 - DOSSIES",
-      content: <DossiersView onOpen={openDetail} />
-    },
-    {
-      id: "midias" as const,
-      chapter: "CAPITULO 11 - BIBLIOTECA DE MIDIAS",
-      content: <MediaLibrary title="Biblioteca de mídias" kicker="jogos, filmes, livros e mais" items={allMedia} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "filmes" as const,
-      chapter: "CAPITULO 12 - FILMES",
-      content: <MediaLibrary title="Filmes live-action" kicker="saga Alice e reboot" items={moviesLiveAction} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "cgi" as const,
-      chapter: "CAPITULO 13 - ANIMACOES CGI",
-      content: <MediaLibrary title="Animações CGI" kicker="canon próximo aos jogos" items={moviesCgi} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "series" as const,
-      chapter: "CAPITULO 14 - SERIES",
-      content: <MediaLibrary title="Séries" kicker="CGI e live-action" items={series} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "livros" as const,
-      chapter: "CAPITULO 15 - LIVROS E NOVELIZACOES",
-      content: <MediaLibrary title="Livros & Novelizações" kicker="S. D. Perry, guias e derivados" items={booksAndNovels} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "hqs" as const,
-      chapter: "CAPITULO 16 - HQS E MANGAS",
-      content: <MediaLibrary title="HQs & Mangás" kicker="material licenciado" items={comicsManga} onOpen={openDetail} continuity={continuity} query={query} />
-    },
-    {
-      id: "continuidades" as const,
-      chapter: "CAPITULO 17 - CONTINUIDADES",
-      content: <ContinuitiesView />
-    },
-    {
-      id: "remakes" as const,
-      chapter: "CAPITULO 18 - REMAKES VS ORIGINAIS",
-      content: <RemakeComparison items={remakeComparisons} />
-    },
-    {
-      id: "enciclopedia" as const,
-      chapter: "CAPITULO 19 - ENCICLOPEDIA",
-      content: <EncyclopediaSearch items={encyclopediaItems} onOpen={openDetail} />
-    },
-    {
-      id: "fontes" as const,
-      chapter: "CAPITULO 20 - FONTES",
-      content: <SourcesView />
-    }
-  ];
+  const activeChapter: Record<TabKey, string> = {
+    timeline: "CAPITULO 03 - TIMELINE",
+    jogos: "CAPITULO 04 - JOGOS",
+    virus: "CAPITULO 05 - AMEACAS BIOLOGICAS",
+    personagens: "CAPITULO 06 - PERSONAGENS",
+    organizacoes: "CAPITULO 07 - ORGANIZACOES",
+    locais: "CAPITULO 08 - LOCAIS",
+    conexoes: "CAPITULO 09 - CONEXOES",
+    dossies: "CAPITULO 10 - DOSSIES",
+    midias: "CAPITULO 11 - BIBLIOTECA DE MIDIAS",
+    filmes: "CAPITULO 12 - FILMES",
+    cgi: "CAPITULO 13 - ANIMACOES CGI",
+    series: "CAPITULO 14 - SERIES",
+    livros: "CAPITULO 15 - LIVROS E NOVELIZACOES",
+    hqs: "CAPITULO 16 - HQS E MANGAS",
+    continuidades: "CAPITULO 17 - CONTINUIDADES",
+    remakes: "CAPITULO 18 - REMAKES VS ORIGINAIS",
+    enciclopedia: "CAPITULO 19 - ENCICLOPEDIA",
+    fontes: "CAPITULO 20 - FONTES"
+  };
+
+  function renderActiveTab() {
+    if (tab === "timeline") return <TimelineView query={query} selected={timelineContinuity} onSelected={setTimelineContinuity} onOpen={openDetail} />;
+    if (tab === "jogos") return <MediaLibrary title="Jogos principais, remakes, spin-offs e DLCs" kicker="ordem canonica da lore" items={canonOrderedGameMedia} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "virus") return <BiologicalThreatTable items={filteredBiohazards} onOpen={openDetail} />;
+    if (tab === "personagens") return <MediaCards title="Personagens" items={filteredCharacters} onOpen={openDetail} />;
+    if (tab === "organizacoes") return <MediaCards title="Organizações" items={filteredOrganizations} onOpen={openDetail} />;
+    if (tab === "locais") return <MediaCards title="Locais" items={filteredLocations} onOpen={openDetail} />;
+    if (tab === "conexoes") return <ConnectionsView onOpen={openDetail} />;
+    if (tab === "dossies") return <DossiersView onOpen={openDetail} />;
+    if (tab === "midias") return <MediaLibrary title="Biblioteca de mídias" kicker="jogos, filmes, livros e mais" items={allMedia} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "filmes") return <MediaLibrary title="Filmes live-action" kicker="saga Alice e reboot" items={moviesLiveAction} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "cgi") return <MediaLibrary title="Animações CGI" kicker="canon próximo aos jogos" items={moviesCgi} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "series") return <MediaLibrary title="Séries" kicker="CGI e live-action" items={series} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "livros") return <MediaLibrary title="Livros & Novelizações" kicker="S. D. Perry, guias e derivados" items={booksAndNovels} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "hqs") return <MediaLibrary title="HQs & Mangás" kicker="material licenciado" items={comicsManga} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "continuidades") return <ContinuitiesView />;
+    if (tab === "remakes") return <RemakeComparison items={remakeComparisons} />;
+    if (tab === "enciclopedia") return <EncyclopediaSearch items={encyclopediaItems} onOpen={openDetail} />;
+    return <SourcesView />;
+  }
 
   return (
     <main>
@@ -601,7 +534,7 @@ export function ArchiveApp() {
         </div>
         <nav className="tab-strip">
           {tabs.map((item, index) => (
-            <button className={tab === item.id ? "active" : ""} data-tab-id={item.id} key={item.id} onClick={() => scrollToSection(item.id)}>
+            <button className={tab === item.id ? "active" : ""} data-tab-id={item.id} key={item.id} onClick={() => selectTab(item.id)}>
               <span className="tab-number">{String(index + 1).padStart(2, "0")}</span>
               <span>{item.label}</span>
             </button>
@@ -630,12 +563,10 @@ export function ArchiveApp() {
         </div>
       </section>
 
-      <div className="content-shell">
-        {archiveSections.map((section) => (
-          <div className="archive-page-section" data-chapter={section.chapter} id={`section-${section.id}`} key={section.id}>
-            {section.content}
-          </div>
-        ))}
+      <div className="content-shell" id="archive-content">
+        <div className="archive-page-section" data-chapter={activeChapter[tab]} id={`section-${tab}`} key={tab}>
+          {renderActiveTab()}
+        </div>
       </div>
 
       <footer className="footer">
