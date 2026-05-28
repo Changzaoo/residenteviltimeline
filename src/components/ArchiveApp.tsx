@@ -556,7 +556,6 @@ export function ArchiveApp() {
             </button>
           ))}
         </nav>
-        {mobileMenuOpen ? <button aria-label="Fechar menu" className="mobile-menu-scrim" onClick={() => setMobileMenuOpen(false)} type="button" /> : null}
         <nav aria-hidden={!mobileMenuOpen} aria-label="Menu mobile" className={`mobile-menu-drawer${mobileMenuOpen ? " open" : ""}`} id="mobile-archive-menu">
           <div className="mobile-menu-head">
             <div>
