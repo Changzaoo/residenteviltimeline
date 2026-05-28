@@ -49,8 +49,6 @@ export async function ensureProfile(user: User, preferredName?: string) {
     favoriteGame: "",
     avatarSeed: displayName,
     isAnonymous: user.isAnonymous,
-    photoURL: user.photoURL ?? "",
-    photoPath: "",
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   });

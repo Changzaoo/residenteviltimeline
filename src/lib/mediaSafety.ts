@@ -1,5 +1,3 @@
-"use client";
-
 export type CommunityImageKind = "profile" | "forum-post";
 
 const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -41,9 +39,6 @@ const blockedSensitiveTerms = [
   "selfharm",
   "automutilacao"
 ];
-
-export const communityImagePolicy =
-  "Nao envie nudez, pornografia, violencia grafica, acidentes, ferimentos, gore, automutilacao, abuso ou qualquer imagem de pessoa em situacao delicada.";
 
 export function sanitizeStorageName(fileName: string) {
   const fallback = "evidencia";

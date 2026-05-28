@@ -95,8 +95,12 @@ src/components/
 src/lib/
   communityAuth.ts
   firebase.ts
+  communityPolicy.ts
+  communityUploadClient.ts
+  firebaseAdmin.ts
+  imageModerationServer.ts
   mediaSafety.ts
-  supabase.ts
+  supabaseServer.ts
 ```
 
 `fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
@@ -133,7 +137,7 @@ Nao coloque `sb_secret`, service account private key ou qualquer chave administr
 
 ## Supabase Storage e imagens
 
-O Supabase e usado apenas para arquivos publicos da comunidade:
+O Supabase e usado apenas para arquivos publicos da comunidade, mas o navegador nao escreve no Storage diretamente. O client envia perfil e mensagens de forum para rotas server-side no Render (`/api/community/profile` e `/api/community/forum-message`); essas rotas validam o Firebase ID token com Firebase Admin, aplicam as regras de imagem no servidor e so entao fazem upload para o Supabase.
 
 - Bucket `profile-images`: fotos de perfil.
 - Bucket `forum-post-images`: imagens anexadas a posts dos foruns.
@@ -141,15 +145,26 @@ O Supabase e usado apenas para arquivos publicos da comunidade:
 Configure na Vercel ou em `.env.local`:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_RENDER_API_BASE=
+FIREBASE_SERVICE_ACCOUNT_JSON=
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+IMAGE_MODERATION_ENDPOINT=
+IMAGE_MODERATION_TOKEN=
+REQUIRE_IMAGE_MODERATION=false
+COMMUNITY_ALLOWED_ORIGIN=
 ```
 
-Use somente a chave publica/publishable no navegador. Nao use `sb_secret` no app, em commits ou em variaveis `NEXT_PUBLIC_*`.
+Use `NEXT_PUBLIC_RENDER_API_BASE=https://residenteviltimeline.onrender.com` apenas se o frontend estiver em outro host. Em deploy same-origin no Render, deixe vazio e o app chama as rotas `/api/community/*` localmente.
 
-Para o upload funcionar, crie os buckets no Supabase Storage e publique politicas de leitura/insercao adequadas para o projeto. O arquivo `supabase-storage-policies.sql` traz uma configuracao inicial para leitura publica e upload anonimo, compativel com a autenticacao Firebase usada no app. O codigo usa URLs publicas, entao os buckets precisam permitir leitura publica ou politicas equivalentes.
+Nao coloque `sb_secret`, Render API token, service account private key ou qualquer chave administrativa em arquivos do repositorio. Essas chaves devem ficar somente nas variaveis server-side do Render.
 
-O filtro de imagens no cliente bloqueia tipos invalidos, tamanho excessivo, nomes de arquivo com termos sensiveis e exige confirmacao explicita de que a imagem nao contem nudez, pornografia, violencia grafica, acidentes, ferimentos, gore, automutilacao ou outros temas delicados. Isso e uma primeira barreira visual. Para moderacao forte em producao, adicione uma Edge Function/Cloud Function com analise server-side antes de liberar a imagem.
+Para o upload funcionar, crie os buckets no Supabase Storage e publique politicas de leitura adequadas para o projeto. O arquivo `supabase-storage-policies.sql` traz uma configuracao inicial de leitura publica; a escrita fica concentrada no servidor via `SUPABASE_SERVICE_ROLE_KEY`.
+
+O client mostra apenas o seletor de arquivo, campos de texto e a confirmacao de politica. Toda decisao sensivel ocorre no servidor: identidade, permissao, tipo, tamanho, nome, assinatura real do arquivo, escrita no Firestore e integracao opcional com `IMAGE_MODERATION_ENDPOINT`. Se `REQUIRE_IMAGE_MODERATION=true`, o servidor recusa uploads quando a moderacao remota nao estiver configurada.
 
 ## Como rodar
 
@@ -173,7 +188,7 @@ npm run build
 2. Importe o projeto na Vercel.
 3. Use as configuracoes padrao de Next.js.
 4. Build command: `npm run build`.
-5. Configure as variaveis `NEXT_PUBLIC_FIREBASE_*` e `NEXT_PUBLIC_SUPABASE_*`.
+5. Configure as variaveis `NEXT_PUBLIC_FIREBASE_*`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` e, se usar frontend em outro host, `NEXT_PUBLIC_RENDER_API_BASE`.
 6. Output: gerenciado automaticamente pelo Next.js.
 
 Nao ha backend proprio no repositorio; a comunidade usa Firebase e Supabase como servicos externos. Nao ha secrets versionados.

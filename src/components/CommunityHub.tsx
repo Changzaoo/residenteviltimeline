@@ -14,20 +14,17 @@ import {
   addDoc,
   collection,
   doc,
-  increment,
   limit,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
-  setDoc,
-  updateDoc,
   type Timestamp
 } from "firebase/firestore";
 import { avatarCode, ensureProfile, profilePhoto, safeName, type CommunityProfile } from "@/lib/communityAuth";
+import { communityImagePolicy } from "@/lib/communityPolicy";
+import { saveCommunityProfile, sendForumMessageOnServer } from "@/lib/communityUploadClient";
 import { firebaseAuth, firestore } from "@/lib/firebase";
-import { communityImagePolicy, validateCommunityImage } from "@/lib/mediaSafety";
-import { FORUM_POST_IMAGES_BUCKET, PROFILE_IMAGES_BUCKET, storagePath, uploadPublicImage } from "@/lib/supabase";
 
 type AuthMode = "login" | "register";
 type RoomMode = "general" | "forum";
@@ -40,7 +37,6 @@ interface CommunityMessage {
   authorRole: string;
   authorPhotoURL: string;
   imageUrl: string;
-  imagePath: string;
   moderationStatus: string;
   createdAt?: Timestamp;
 }
@@ -78,7 +74,6 @@ function mapMessage(id: string, data: Record<string, unknown>): CommunityMessage
     authorRole: String(data.authorRole ?? "registrado"),
     authorPhotoURL: String(data.authorPhotoURL ?? ""),
     imageUrl: String(data.imageUrl ?? ""),
-    imagePath: String(data.imagePath ?? ""),
     moderationStatus: String(data.moderationStatus ?? ""),
     createdAt: data.createdAt as Timestamp | undefined
   };
@@ -266,15 +261,8 @@ export function CommunityHub() {
       return;
     }
 
-    const result = validateCommunityImage(file, "profile");
-    if (!result.ok) {
-      setProfileImageFile(null);
-      setProfileImageNotice(result.reason);
-      return;
-    }
-
     setProfileImageFile(file);
-    setProfileImageNotice("Imagem aprovada pelo filtro local. Confirme a declaracao antes de salvar.");
+    setProfileImageNotice("Imagem pronta para analise no servidor. Confirme a declaracao antes de salvar.");
   }
 
   function selectTopicImage(file: File | null) {
@@ -285,15 +273,8 @@ export function CommunityHub() {
       return;
     }
 
-    const result = validateCommunityImage(file, "forum-post");
-    if (!result.ok) {
-      setTopicImageFile(null);
-      setTopicImageNotice(result.reason);
-      return;
-    }
-
     setTopicImageFile(file);
-    setTopicImageNotice("Anexo aprovado pelo filtro local. Confirme a declaracao antes de enviar.");
+    setTopicImageNotice("Anexo pronto para analise no servidor. Confirme a declaracao antes de enviar.");
   }
 
   async function handleProfileSave(event: FormEvent<HTMLFormElement>) {
@@ -304,8 +285,6 @@ export function CommunityHub() {
 
     try {
       const displayName = profileForm.displayName.trim().slice(0, 42) || currentName;
-      let photoURL = profilePhoto(user, profile);
-      let photoPath = profile?.photoPath ?? "";
 
       if (profileImageFile) {
         if (!profileImageConsent) {
@@ -313,37 +292,16 @@ export function CommunityHub() {
           setIsBusy(false);
           return;
         }
-
-        const validation = validateCommunityImage(profileImageFile, "profile");
-        if (!validation.ok) {
-          setFeedback(validation.reason);
-          setIsBusy(false);
-          return;
-        }
-
-        photoPath = storagePath("profiles", user.uid, profileImageFile.name);
-        photoURL = await uploadPublicImage(PROFILE_IMAGES_BUCKET, photoPath, profileImageFile);
       }
 
-      const authUpdate: { displayName: string; photoURL?: string } = { displayName };
-      if (photoURL) authUpdate.photoURL = photoURL;
-
-      await updateProfile(user, authUpdate);
-      await setDoc(
-        doc(firestore, "profiles", user.uid),
-        {
-          uid: user.uid,
-          displayName,
-          bio: profileForm.bio.trim().slice(0, 180),
-          favoriteGame: profileForm.favoriteGame.trim().slice(0, 60),
-          avatarSeed: displayName,
-          isAnonymous: user.isAnonymous,
-          photoURL,
-          photoPath,
-          updatedAt: serverTimestamp()
-        },
-        { merge: true }
-      );
+      await saveCommunityProfile({
+        idToken: await user.getIdToken(),
+        displayName,
+        bio: profileForm.bio.trim().slice(0, 180),
+        favoriteGame: profileForm.favoriteGame.trim().slice(0, 60),
+        file: profileImageFile
+      });
+      await user.reload();
       setProfileImageFile(null);
       setProfileImageConsent(false);
       setProfileImageNotice("");
@@ -378,7 +336,6 @@ export function CommunityHub() {
       authorPhotoURL: string;
       createdAt: ReturnType<typeof serverTimestamp>;
       imageUrl?: string;
-      imagePath?: string;
       moderationStatus?: string;
     } = {
       text,
@@ -394,31 +351,22 @@ export function CommunityHub() {
         setGeneralDraft("");
         await addDoc(collection(firestore, "communityRooms", "general", "messages"), payload);
       } else if (activeTopicId) {
-        if (topicImageFile) {
-          const validation = validateCommunityImage(topicImageFile, "forum-post");
-          if (!validation.ok) {
-            setFeedback(validation.reason);
-            return;
-          }
-
-          const path = storagePath("forum-posts", `${activeTopicId}/${user.uid}`, topicImageFile.name);
-          payload.imageUrl = await uploadPublicImage(FORUM_POST_IMAGES_BUCKET, path, topicImageFile);
-          payload.imagePath = path;
-          payload.moderationStatus = "filtro-local-auto-certificado";
-        }
-
+        setIsBusy(true);
+        await sendForumMessageOnServer({
+          idToken: await user.getIdToken(),
+          topicId: activeTopicId,
+          text,
+          file: topicImageFile
+        });
         setTopicDraft("");
         setTopicImageFile(null);
         setTopicImageConsent(false);
         setTopicImageNotice("");
-        await addDoc(collection(firestore, "forumTopics", activeTopicId, "messages"), payload);
-        await updateDoc(doc(firestore, "forumTopics", activeTopicId), {
-          lastMessageAt: serverTimestamp(),
-          messageCount: increment(1)
-        });
       }
     } catch (error) {
       setFeedback(error instanceof Error ? error.message : "Nao foi possivel enviar.");
+    } finally {
+      setIsBusy(false);
     }
   }
 
@@ -566,7 +514,7 @@ export function CommunityHub() {
               subtitle="Linha aberta para teorias, achados e conversas rapidas."
               messages={generalMessages}
               draft={generalDraft}
-              disabled={!user}
+              disabled={!user || isBusy}
               onDraft={setGeneralDraft}
               onSend={() => sendMessage("general")}
             />
@@ -612,7 +560,7 @@ export function CommunityHub() {
                   subtitle={activeTopic ? `${activeTopic.subject} · criado por ${activeTopic.createdByName}` : "Crie ou selecione uma pasta de investigacao."}
                   messages={topicMessages}
                   draft={topicDraft}
-                  disabled={!user || !activeTopic}
+                  disabled={!user || !activeTopic || isBusy}
                   allowImageUpload
                   imageFile={topicImageFile}
                   imageConsent={topicImageConsent}
@@ -691,7 +639,7 @@ function ChatWindow({
                 <a className="message-image" href={message.imageUrl} rel="noreferrer" target="_blank">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={message.imageUrl} alt={`Anexo enviado por ${message.authorName}`} loading="lazy" />
-                  <span>{message.moderationStatus ? "Imagem com filtro local" : "Anexo visual"}</span>
+                  <span>{message.moderationStatus ? "Imagem aprovada no servidor" : "Anexo visual"}</span>
                 </a>
               )}
             </article>

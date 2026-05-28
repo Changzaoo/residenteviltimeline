@@ -24,8 +24,6 @@ service cloud.firestore {
           "favoriteGame",
           "avatarSeed",
           "isAnonymous",
-          "photoURL",
-          "photoPath",
           "createdAt",
           "updatedAt"
         ])
@@ -36,6 +34,14 @@ service cloud.firestore {
     match /communityRooms/{roomId}/messages/{messageId} {
       allow read: if true;
       allow create: if signedIn()
+        && request.resource.data.keys().hasOnly([
+          "text",
+          "authorId",
+          "authorName",
+          "authorRole",
+          "authorPhotoURL",
+          "createdAt"
+        ])
         && request.resource.data.authorId == request.auth.uid
         && validShortText(request.resource.data.text, 900)
         && validShortText(request.resource.data.authorName, 42);
@@ -54,10 +60,7 @@ service cloud.firestore {
 
       match /messages/{messageId} {
         allow read: if true;
-        allow create: if signedIn()
-          && request.resource.data.authorId == request.auth.uid
-          && validShortText(request.resource.data.text, 900)
-          && validShortText(request.resource.data.authorName, 42);
+        allow create: if false;
       }
     }
   }
