@@ -1584,19 +1584,45 @@ tbody tr:hover {
   line-height: 1;
 }
 
+.modal-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.86fr) minmax(0, 1.14fr);
+  gap: clamp(0.85rem, 2vw, 1.15rem);
+  align-items: start;
+  margin-top: clamp(0.85rem, 2vw, 1.05rem);
+}
+
+.modal-hero-grid.no-visual {
+  display: block;
+}
+
+.modal-text-column {
+  min-width: 0;
+}
+
+.modal-text-column .modal-summary {
+  margin-top: 0;
+}
+
+.modal-text-column .full-history {
+  margin-top: 0.85rem;
+  max-height: min(44vh, 28rem);
+  overflow: auto;
+}
+
 .modal-visual {
   position: relative;
-  margin: clamp(0.85rem, 2vw, 1.05rem) 0 1rem;
+  margin: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  height: clamp(12rem, 36vw, 18rem);
+  height: clamp(15rem, 34vw, 23rem);
   background:
     radial-gradient(circle at 18% 20%, rgba(239, 43, 45, 0.2), transparent 34%),
     rgba(5, 6, 7, 0.82);
 }
 
 .modal-visual.visual-character {
-  height: clamp(13rem, 38vw, 19rem);
+  height: clamp(16rem, 36vw, 24rem);
 }
 
 .modal-visual figcaption {
@@ -2166,6 +2192,21 @@ tbody tr:hover {
 
   .detail-modal h2 {
     font-size: clamp(1.72rem, 11vw, 2.9rem);
+  }
+
+  .modal-hero-grid {
+    display: block;
+  }
+
+  .modal-visual,
+  .modal-visual.visual-character {
+    height: clamp(13rem, 58vw, 18rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .modal-text-column .full-history {
+    max-height: none;
+    overflow: visible;
   }
 
   .full-history,

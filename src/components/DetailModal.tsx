@@ -83,28 +83,32 @@ export function DetailModal({
           </div>
         </div>
 
-        {visual && (
-          <figure className={`modal-visual visual-${visual.category}`}>
-            <Image src={visual.src} alt={visual.title} fill sizes="(max-width: 720px) 100vw, 980px" unoptimized />
-            <figcaption>
-              Imagem: <a href={visual.sourceUrl} target="_blank" rel="noreferrer">{visual.sourceName}</a>
-            </figcaption>
-          </figure>
-        )}
+        <div className={visual ? "modal-hero-grid" : "modal-hero-grid no-visual"}>
+          {visual && (
+            <figure className={`modal-visual visual-${visual.category}`}>
+              <Image src={visual.src} alt={visual.title} fill sizes="(max-width: 720px) 100vw, 420px" unoptimized />
+              <figcaption>
+                Imagem: <a href={visual.sourceUrl} target="_blank" rel="noreferrer">{visual.sourceName}</a>
+              </figcaption>
+            </figure>
+          )}
 
-        <p className="modal-summary">{summaryOf(item)}</p>
+          <div className="modal-text-column">
+            <p className="modal-summary">{summaryOf(item)}</p>
 
-        {narrative.length > 0 && (
-          <div className="full-history">
-            <strong>Narrativa completa do arquivo</strong>
-            {narrative.map((block) => (
-              <section key={block.title}>
-                <h3>{block.title}</h3>
-                <p>{block.body}</p>
-              </section>
-            ))}
+            {narrative.length > 0 && (
+              <div className="full-history">
+                <strong>Narrativa completa do arquivo</strong>
+                {narrative.map((block) => (
+                  <section key={block.title}>
+                    <h3>{block.title}</h3>
+                    <p>{block.body}</p>
+                  </section>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         <div className="modal-grid">
           {"protagonists" in item && listSection("Protagonistas", item.protagonists)}
