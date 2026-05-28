@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getCharacterOutfits, getNarrativeForItem, getVisualAsset, type Biohazard, type Character, type Location, type MediaItem, type Organization, type SourceRef } from "@/data";
 import { CanonBadge, getCanonStatus } from "./CanonBadge";
 import { CharacterOutfitCarousel } from "./CharacterOutfitCarousel";
+import { NarrationControls } from "./NarrationControls";
 
 type DetailItem = MediaItem | Character | Organization | Biohazard | Location;
 
@@ -73,6 +74,12 @@ export function DetailModal({
     .map((id) => sources.find((source) => source.id === id))
     .filter(Boolean) as SourceRef[];
   const narrative = getNarrativeForItem(item);
+  const narrativeText = [
+    titleOf(item),
+    summaryOf(item),
+    ...narrative.flatMap((block) => [block.title, block.body]),
+    canonNoteOf(item)
+  ].join(" ");
   const visual = getVisualAsset(item.id);
   const isCharacter = "relationships" in item && "affiliations" in item;
   const outfits = isCharacter ? getCharacterOutfits(item.id) : [];
@@ -114,6 +121,7 @@ export function DetailModal({
             {narrative.length > 0 && (
               <div className="full-history">
                 <strong>{narrativeLabel(item)}</strong>
+                <NarrationControls text={narrativeText} title={`Narrar ${titleOf(item)}`} />
                 {narrative.map((block) => (
                   <section key={block.title}>
                     <h3>{block.title}</h3>

@@ -2,9 +2,13 @@
 
 Enciclopedia visual em portugues sobre Resident Evil, estruturada como um dossie secreto da Umbrella.
 
-O projeto cobre jogos principais, remakes, spin-offs, DLCs, filmes live-action, filmes CGI, series, novelizacoes, livros, HQs, mangas, personagens, organizacoes, locais, virus, parasitas, fungos, B.O.W.s e comparacoes de continuidade.
+O projeto cobre jogos principais, remakes, spin-offs, DLCs, walkthroughs, filmes live-action, filmes CGI, series, novelizacoes, livros, HQs, mangas, personagens, organizacoes, locais, virus, parasitas, fungos, B.O.W.s e comparacoes de continuidade.
 
 Tambem existe uma area de comunidade com Firebase Auth, perfil embutido, entrada anonima, chat geral, forum por assunto criado por usuarios e upload de imagens via Supabase Storage.
+
+A aba `Walkthroughs` traz guias narrativos em portugues para zerar todos os jogos, remakes, spin-offs e DLCs cadastrados. Cada guia tem rota recomendada, preparacao, objetivos, ameacas, notas de puzzle, chefes, checklist de conclusao, pos-jogo e fontes de conferencia. Os textos sao originais do projeto e nao copias de walkthroughs externos.
+
+O site tambem possui um narrador PT-BR baseado na Web Speech API do navegador. Quando uma voz brasileira estiver disponivel no sistema do usuario, os dossies e walkthroughs podem ser narrados com cadencia suave sem expor chaves de IA no client.
 
 ## Separacao de continuidades
 
@@ -28,6 +32,7 @@ Exemplo editorial: os filmes live-action com Alice sao uma continuidade alternat
 - Remakes: RE1, RE2, RE3 e RE4
 - Spin-offs: Survivor, Outbreak, Dead Aim, Chronicles, Revelations, Resistance, Re:Verse e outros
 - DLCs: Lost in Nightmares, Desperate Escape, Not a Hero, End of Zoe, Shadows of Rose e Separate Ways
+- Walkthroughs: todos os jogos, remakes, spin-offs e DLCs cadastrados
 - Filmes live-action: saga Paul W. S. Anderson e Welcome to Raccoon City
 - CGI/animações: 4D-Executer, Degeneration, Damnation, Vendetta, Death Island
 - Séries: Infinite Darkness e Resident Evil Netflix 2022
@@ -43,6 +48,16 @@ Exemplo editorial: os filmes live-action com Alice sao uma continuidade alternat
 - Wikipédia PT - Resident Evil: https://pt.wikipedia.org/wiki/Resident_Evil
 - Resident Evil Wiki / Fandom: https://residentevil.fandom.com/wiki/Resident_Evil_Wiki
 - Resident Evil Wiki - Timeline by media: https://residentevil.fandom.com/wiki/Timeline_by_media
+- Resident Evil Wiki - Walkthroughs: https://residentevil.fandom.com/wiki/Category:Walkthroughs
+- StrategyWiki - Resident Evil series: https://strategywiki.org/wiki/Category:Resident_Evil
+- GameFAQs - Resident Evil Guides: https://gamefaqs.gamespot.com/search?game=resident%20evil
+- GamePressure - Resident Evil 3 Remake: https://www.gamepressure.com/resident-evil-3-remake/walkthrough/z8d121
+- GamePressure - Resident Evil 7: https://www.gamepressure.com/residentevil7/walkthrough/z69607
+- GameWith - Resident Evil 2 Remake: https://gamewith.net/residentevil2/
+- PC Gamer - Resident Evil 2 Remake guide: https://www.pcgamer.com/resident-evil-2-remake-guide/
+- Game8 - Resident Evil 4 Remake: https://game8.co/games/Resident-Evil-4-Remake/archives/407070
+- GameSpot - Resident Evil Village walkthrough: https://www.gamespot.com/articles/resident-evil-village-walkthrough-spoiler-free/1100-6491078/
+- GamesRadar+ - Resident Evil Requiem guide: https://www.gamesradar.com/resident-evil-9-requiem/
 - REVIL: https://residentevil.com.br/
 - IMDb: https://www.imdb.com/find/?q=Resident%20Evil
 - Rotten Tomatoes: https://www.rottentomatoes.com/search?search=resident%20evil
@@ -76,6 +91,7 @@ src/data/
   glossary.ts
   fullHistories.ts
   narrativeEngine.ts
+  walkthroughs.ts
 
 src/components/
   MediaLibrary.tsx
@@ -91,6 +107,8 @@ src/components/
   TimelineContinuitySelector.tsx
   AuthStatusButton.tsx
   CommunityHub.tsx
+  WalkthroughHub.tsx
+  NarrationControls.tsx
 
 src/lib/
   communityAuth.ts
@@ -103,7 +121,7 @@ src/lib/
   supabaseServer.ts
 ```
 
-`fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
+`fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `walkthroughs.ts` concentra os guias de sobrevivência dos jogos, sem deixar rotas hardcoded nos componentes. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
 
 `brandAssets.ts` lista marcas/logos oficiais apenas como referencias creditadas e slots visuais. O site usa monogramas proprios como fallback e nao redistribui logotipos proprietarios sem permissao/licenca.
 

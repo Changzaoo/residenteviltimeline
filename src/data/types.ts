@@ -178,6 +178,34 @@ export interface GlossaryTerm {
   sourceRefs: string[];
 }
 
+export interface WalkthroughStep {
+  title: string;
+  route: string;
+  objectives: string[];
+  hazards: string[];
+  puzzleNotes?: string[];
+  bossStrategy?: string;
+  completionCheck?: string;
+}
+
+export interface WalkthroughGuide {
+  id: string;
+  mediaId: string;
+  title: string;
+  continuity: ContinuityId;
+  difficulty: "baixo" | "médio" | "alto" | "extremo";
+  estimatedRun: string;
+  spoilerLevel: "baixo" | "médio" | "alto";
+  intro: string;
+  preparation: string[];
+  recommendedRoute: string[];
+  steps: WalkthroughStep[];
+  bossNotes: string[];
+  completionChecklist: string[];
+  postGame?: string[];
+  sourceRefs: string[];
+}
+
 export interface HistoryBlock {
   title: string;
   body: string;

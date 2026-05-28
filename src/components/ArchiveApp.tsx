@@ -28,6 +28,7 @@ import {
   sources,
   spinOffs,
   timelineEvents,
+  walkthroughs,
   type Biohazard,
   type Character,
   type ContinuityId,
@@ -49,11 +50,13 @@ import { RemakeComparison } from "./RemakeComparison";
 import { SourceCard } from "./SourceCard";
 import { TimelineContinuitySelector } from "./TimelineContinuitySelector";
 import { AuthStatusButton } from "./AuthStatusButton";
+import { WalkthroughHub } from "./WalkthroughHub";
 
 type Entity = MediaItem | Character | Organization | Biohazard | Location;
 type TabKey =
   | "timeline"
   | "jogos"
+  | "walkthroughs"
   | "virus"
   | "personagens"
   | "organizacoes"
@@ -75,6 +78,7 @@ type TabKey =
 const tabs: { id: TabKey; label: string }[] = [
   { id: "timeline", label: "Timeline" },
   { id: "jogos", label: "Jogos" },
+  { id: "walkthroughs", label: "Walkthroughs" },
   { id: "virus", label: "Vírus" },
   { id: "personagens", label: "Personagens" },
   { id: "organizacoes", label: "Organizações" },
@@ -486,6 +490,7 @@ export function ArchiveApp() {
   function renderActiveTab() {
     if (tab === "timeline") return <TimelineView query={query} selected={timelineContinuity} onSelected={setTimelineContinuity} onOpen={openDetail} />;
     if (tab === "jogos") return <MediaLibrary title="Jogos principais, remakes, spin-offs e DLCs" kicker="ordem canonica da lore" items={canonOrderedGameMedia} onOpen={openDetail} continuity={continuity} query={query} />;
+    if (tab === "walkthroughs") return <WalkthroughHub query={query} onOpen={openDetail} />;
     if (tab === "virus") return <BiologicalThreatTable items={filteredBiohazards} onOpen={openDetail} />;
     if (tab === "personagens") return <MediaCards title="Personagens" items={filteredCharacters} onOpen={openDetail} />;
     if (tab === "organizacoes") return <MediaCards title="Organizações" items={filteredOrganizations} onOpen={openDetail} />;
@@ -605,7 +610,7 @@ export function ArchiveApp() {
 
       <footer className="footer">
         <span>Projeto de fa nao oficial e nao comercial. Resident Evil, Biohazard, personagens, logos e marcas pertencem a Capcom.</span>
-        <span>{allMedia.length} mídias · {characters.length} personagens · {biohazards.length} ameaças · {sources.length} fontes</span>
+        <span>{allMedia.length} mídias · {walkthroughs.length} guias · {characters.length} personagens · {biohazards.length} ameaças · {sources.length} fontes</span>
       </footer>
 
       <DetailModal item={detail} sources={sources} onClose={() => setDetail(null)} />

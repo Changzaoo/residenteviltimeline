@@ -23,6 +23,7 @@ import { fullHistories, getFullHistory } from "./fullHistories";
 import { getNarrativeForItem, getNarrativeForTimelineEvent } from "./narrativeEngine";
 import { getVisualAsset, visualAssets } from "./visualAssets";
 import { characterOutfits, getCharacterOutfits } from "./characterOutfits";
+import { walkthroughs, walkthroughByMediaId } from "./walkthroughs";
 import type { MediaItem } from "./types";
 
 export * from "./types";
@@ -58,7 +59,9 @@ export {
   visualAssets,
   getVisualAsset,
   characterOutfits,
-  getCharacterOutfits
+  getCharacterOutfits,
+  walkthroughs,
+  walkthroughByMediaId
 };
 
 export const allMedia: MediaItem[] = [
