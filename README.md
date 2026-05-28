@@ -4,6 +4,8 @@ Enciclopedia visual em portugues sobre Resident Evil, estruturada como um dossie
 
 O projeto cobre jogos principais, remakes, spin-offs, DLCs, filmes live-action, filmes CGI, series, novelizacoes, livros, HQs, mangas, personagens, organizacoes, locais, virus, parasitas, fungos, B.O.W.s e comparacoes de continuidade.
 
+Tambem existe uma area de comunidade com Firebase Auth, perfil embutido, entrada anonima, chat geral e forum por assunto criado por usuarios.
+
 ## Separacao de continuidades
 
 O site nao mistura tudo como uma unica linha do tempo. Cada item recebe uma nota de canon:
@@ -87,11 +89,42 @@ src/components/
   RemakeComparison.tsx
   BiologicalThreatTable.tsx
   TimelineContinuitySelector.tsx
+  CommunityHub.tsx
+
+src/lib/
+  firebase.ts
 ```
 
 `fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
 
 `brandAssets.ts` lista marcas/logos oficiais apenas como referencias creditadas e slots visuais. O site usa monogramas proprios como fallback e nao redistribui logotipos proprietarios sem permissao/licenca.
+
+## Comunidade, login e Firebase
+
+A aba `Comunidade` usa Firebase no cliente:
+
+- Firebase Authentication para login por e-mail/senha, criacao de conta e entrada anonima.
+- Cloud Firestore para perfis, chat geral e topicos de forum.
+- `firestore.rules` contem regras sugeridas para leitura publica e escrita apenas por usuarios autenticados.
+
+Ative no Firebase Console:
+
+1. Authentication: provedores `Email/password` e `Anonymous`.
+2. Firestore Database: modo producao.
+3. Rules: publique o conteudo de `firestore.rules`.
+
+As variaveis publicas ficam em `.env.local` ou na Vercel:
+
+```bash
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+```
+
+Nao coloque `sb_secret`, service account private key ou qualquer chave administrativa no frontend. Se uma chave secreta foi exposta, rotacione no painel do provedor.
 
 ## Como rodar
 
@@ -115,6 +148,7 @@ npm run build
 2. Importe o projeto na Vercel.
 3. Use as configuracoes padrao de Next.js.
 4. Build command: `npm run build`.
-5. Output: gerenciado automaticamente pelo Next.js.
+5. Configure as variaveis `NEXT_PUBLIC_FIREBASE_*`.
+6. Output: gerenciado automaticamente pelo Next.js.
 
-Nao ha backend, banco de dados, API externa em runtime ou secrets.
+Nao ha backend proprio no repositorio; a comunidade usa Firebase como servico externo. Nao ha secrets versionados.

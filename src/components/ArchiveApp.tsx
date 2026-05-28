@@ -38,6 +38,7 @@ import {
 import { BiologicalThreatTable } from "./BiologicalThreatTable";
 import { CanonBadge } from "./CanonBadge";
 import { ComparisonTable } from "./ComparisonTable";
+import { CommunityHub } from "./CommunityHub";
 import { ContinuityTabs, type ContinuityFilter } from "./ContinuityTabs";
 import { DetailModal } from "./DetailModal";
 import { EncyclopediaSearch } from "./EncyclopediaSearch";
@@ -67,6 +68,7 @@ type TabKey =
   | "continuidades"
   | "remakes"
   | "enciclopedia"
+  | "comunidade"
   | "fontes";
 
 const tabs: { id: TabKey; label: string }[] = [
@@ -87,6 +89,7 @@ const tabs: { id: TabKey; label: string }[] = [
   { id: "continuidades", label: "Continuidades" },
   { id: "remakes", label: "Remakes vs Originais" },
   { id: "enciclopedia", label: "Enciclopédia" },
+  { id: "comunidade", label: "Comunidade" },
   { id: "fontes", label: "Fontes" }
 ];
 
@@ -497,6 +500,7 @@ export function ArchiveApp() {
     if (tab === "continuidades") return <ContinuitiesView />;
     if (tab === "remakes") return <RemakeComparison items={remakeComparisons} />;
     if (tab === "enciclopedia") return <EncyclopediaSearch items={encyclopediaItems} onOpen={openDetail} />;
+    if (tab === "comunidade") return <CommunityHub />;
     return <SourcesView />;
   }
 
