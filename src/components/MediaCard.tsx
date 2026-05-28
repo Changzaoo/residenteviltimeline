@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { getVisualAsset, type Character, type Location, type MediaItem, type Organization, type Biohazard } from "@/data";
+import { getVisualAsset, type Biohazard, type Character, type Location, type MediaItem, type Organization } from "@/data";
 import { CanonBadge } from "./CanonBadge";
 
 type CardItem = MediaItem | Character | Organization | Biohazard | Location;
@@ -14,6 +14,7 @@ function getTitle(item: CardItem) {
 
 function getSubtitle(item: CardItem) {
   if ("type" in item && "releaseYear" in item) return `${item.type} · ${item.releaseYear}`;
+  if ("goals" in item) return `${item.type} · ${item.firstAppearance}`;
   if ("role" in item) return `${item.role} · ${item.firstAppearance}`;
   if ("category" in item) return `${item.category} · ${item.firstAppearance}`;
   if ("region" in item) return `${item.region} · ${item.firstAppearance}`;
@@ -38,9 +39,9 @@ function getContinuity(item: CardItem) {
 
 function getFileClass(item: CardItem) {
   if ("category" in item) return "amostra";
+  if ("goals" in item) return "organizacao";
   if ("role" in item) return "pessoa";
   if ("region" in item) return "local";
-  if ("goals" in item) return "organizacao";
   if ("type" in item) return item.type;
   return "arquivo";
 }
@@ -65,7 +66,7 @@ export function MediaCard({
       <div className="card-file-layout">
         <span className="card-visual" aria-hidden="true">
           {visual ? (
-            <Image src={visual.src} alt="" fill sizes="(max-width: 560px) 7.4rem, 8rem" unoptimized />
+            <Image src={visual.src} alt="" fill sizes="(max-width: 560px) 8rem, 9rem" unoptimized />
           ) : (
             <span className="visual-fallback-mark">{getTitle(item).slice(0, 2)}</span>
           )}

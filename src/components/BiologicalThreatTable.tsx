@@ -27,7 +27,7 @@ export function BiologicalThreatTable({
         </div>
         <span className="counter">{items.length} amostras</span>
       </div>
-      <div className="table-wrap">
+      <div className="table-wrap threat-table-wrap">
         <table>
           <thead>
             <tr>
@@ -44,7 +44,7 @@ export function BiologicalThreatTable({
               const visual = getVisualAsset(item.id);
               return (
                 <tr key={item.id} onClick={() => onOpen(item)}>
-                  <td>
+                  <td data-label="Ameaça">
                     <div className="threat-cell">
                       <span className="threat-thumb" aria-hidden="true">
                         {visual ? <Image src={visual.src} alt="" fill sizes="96px" unoptimized /> : <span>{item.name.slice(0, 2)}</span>}
@@ -55,11 +55,11 @@ export function BiologicalThreatTable({
                       </span>
                     </div>
                   </td>
-                  <td>{item.category}</td>
-                  <td>{item.origin}</td>
-                  <td>{item.organization ?? "não confirmado"}</td>
-                  <td>{item.firstAppearance}</td>
-                  <td>
+                  <td data-label="Tipo">{item.category}</td>
+                  <td data-label="Origem">{item.origin}</td>
+                  <td data-label="Organização">{item.organization ?? "não confirmado"}</td>
+                  <td data-label="Primeira aparição">{item.firstAppearance}</td>
+                  <td data-label="Nível">
                     <div className="threat-bars">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <span key={index} className={index < score[item.threatLevel] ? "on" : ""} />

@@ -818,6 +818,10 @@ main {
   overflow: hidden;
 }
 
+.archive-card.has-visual {
+  padding-top: clamp(1.7rem, 3vw, 2rem);
+}
+
 .card-file-layout {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -854,13 +858,13 @@ main {
   object-fit: contain;
   object-position: center;
   filter: saturate(0.96) contrast(1.06) brightness(1);
-  transform: scale(0.98);
+  transform: scale(var(--card-image-scale, 0.98));
   transition: transform 0.45s ease, filter 0.45s ease;
 }
 
 .archive-card:hover .card-visual img {
   filter: saturate(1.06) contrast(1.12) brightness(1.08);
-  transform: scale(1.015);
+  transform: scale(var(--card-image-hover-scale, 1.015));
 }
 
 .card-visual::after,
@@ -902,12 +906,63 @@ main {
   text-shadow: 2px 0 rgba(34, 168, 246, 0.36);
 }
 
-.visual-character .card-visual {
-  width: clamp(5.8rem, 19vw, 8rem);
-  height: clamp(5.8rem, 19vw, 8rem);
+.visual-character .card-visual,
+.visual-pessoa .card-visual {
+  --card-image-scale: 0.92;
+  --card-image-hover-scale: 0.98;
+  width: clamp(5.35rem, 14vw, 6.35rem);
+  height: clamp(7.4rem, 22vw, 9.25rem);
+  border-color: rgba(32, 227, 122, 0.2);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(239, 43, 45, 0.24), transparent 36%),
+    linear-gradient(180deg, rgba(34, 168, 246, 0.12), rgba(0, 0, 0, 0.18)),
+    rgba(5, 6, 7, 0.76);
 }
 
-.visual-biohazard .card-visual {
+.visual-character .card-visual img,
+.visual-pessoa .card-visual img {
+  object-position: center bottom;
+  filter: saturate(1.02) contrast(1.08) brightness(1.1);
+}
+
+.visual-character .card-visual::after,
+.visual-pessoa .card-visual::after {
+  background:
+    linear-gradient(180deg, rgba(5, 6, 7, 0), rgba(5, 6, 7, 0.22)),
+    linear-gradient(90deg, rgba(239, 43, 45, 0.08), transparent 30%, transparent 72%, rgba(34, 168, 246, 0.08));
+}
+
+.visual-organization .card-visual,
+.visual-organizacao .card-visual {
+  --card-image-scale: 0.84;
+  --card-image-hover-scale: 0.9;
+  width: clamp(5.4rem, 16vw, 6.9rem);
+  height: clamp(5.4rem, 16vw, 6.9rem);
+  border-color: rgba(34, 168, 246, 0.2);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(34, 168, 246, 0.22), transparent 42%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(244, 185, 66, 0.08)),
+    rgba(7, 10, 12, 0.72);
+}
+
+.visual-organization .card-visual img,
+.visual-organizacao .card-visual img {
+  filter: saturate(1.12) contrast(1.18) brightness(1.18);
+}
+
+.visual-organization .card-visual::after,
+.visual-organizacao .card-visual::after {
+  background:
+    linear-gradient(180deg, rgba(5, 6, 7, 0.02), rgba(5, 6, 7, 0.12)),
+    linear-gradient(90deg, rgba(34, 168, 246, 0.09), transparent 32%, transparent 72%, rgba(244, 185, 66, 0.09));
+}
+
+.visual-biohazard .card-visual,
+.visual-amostra .card-visual {
+  --card-image-scale: 0.9;
+  --card-image-hover-scale: 0.97;
+  width: clamp(5.5rem, 17vw, 7.2rem);
+  height: clamp(5.5rem, 17vw, 7.2rem);
   background:
     radial-gradient(circle at 20% 28%, rgba(32, 227, 122, 0.24), transparent 34%),
     radial-gradient(circle at 80% 24%, rgba(239, 43, 45, 0.14), transparent 38%),
@@ -915,9 +970,36 @@ main {
 }
 
 .visual-location .card-visual,
+.visual-local .card-visual,
 .visual-media .card-visual {
-  width: clamp(5.6rem, 19vw, 8rem);
-  height: clamp(5.6rem, 19vw, 8rem);
+  width: clamp(5.8rem, 18vw, 7.8rem);
+  height: clamp(4.5rem, 14vw, 5.6rem);
+}
+
+.visual-media .card-visual {
+  --card-image-scale: 0.94;
+  --card-image-hover-scale: 0.99;
+  width: clamp(4.85rem, 14vw, 5.85rem);
+  height: clamp(7rem, 20vw, 8.55rem);
+  background:
+    radial-gradient(circle at 35% 20%, rgba(244, 185, 66, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(0, 0, 0, 0.2)),
+    rgba(5, 6, 7, 0.8);
+}
+
+.visual-location .card-visual img,
+.visual-local .card-visual img {
+  --card-image-scale: 1;
+  --card-image-hover-scale: 1.04;
+  object-fit: cover;
+}
+
+.visual-location .card-visual::after,
+.visual-local .card-visual::after,
+.visual-media .card-visual::after {
+  background:
+    linear-gradient(180deg, rgba(5, 6, 7, 0.02), rgba(5, 6, 7, 0.18)),
+    linear-gradient(90deg, rgba(239, 43, 45, 0.06), transparent 35%, transparent 72%, rgba(34, 168, 246, 0.08));
 }
 
 .archive-card::after,
@@ -953,12 +1035,10 @@ main {
 
 .folder-tab {
   position: absolute;
-  top: -1px;
+  top: 0.55rem;
   left: clamp(0.68rem, 1.6vw, 0.88rem);
   z-index: 4;
-  transform: translateY(-58%);
   border: 1px solid rgba(244, 185, 66, 0.32);
-  border-bottom: 0;
   background:
     linear-gradient(180deg, rgba(35, 31, 21, 0.98), rgba(16, 14, 12, 0.96));
   color: #f3cf75;
@@ -1197,11 +1277,73 @@ button.archive-card {
   border: 1px solid var(--line);
 }
 
+.threat-table-wrap {
+  overflow: visible;
+  border: 0;
+}
+
 table {
   width: 100%;
   min-width: 900px;
   border-collapse: collapse;
   background: rgba(7, 9, 11, 0.82);
+}
+
+.threat-table-wrap table {
+  display: block;
+  min-width: 0;
+  background: transparent;
+}
+
+.threat-table-wrap thead {
+  display: none;
+}
+
+.threat-table-wrap tbody {
+  display: grid;
+  gap: 0.72rem;
+}
+
+.threat-table-wrap tr {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(90deg, rgba(32, 227, 122, 0.045), transparent 34%),
+    rgba(7, 9, 11, 0.78);
+  padding: clamp(0.72rem, 1.6vw, 0.9rem);
+}
+
+.threat-table-wrap td {
+  display: grid;
+  grid-template-columns: minmax(7.2rem, 0.35fr) minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: start;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  padding: 0.45rem 0;
+}
+
+.threat-table-wrap td::before {
+  content: attr(data-label);
+  color: var(--muted);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.threat-table-wrap td:first-child {
+  display: block;
+  padding-top: 0;
+}
+
+.threat-table-wrap td:first-child::before {
+  content: none;
+}
+
+.threat-table-wrap td:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
 th,
@@ -1277,7 +1419,7 @@ tbody tr:hover {
 .threat-thumb img {
   object-fit: contain;
   object-position: center;
-  filter: saturate(0.9) contrast(1.18) brightness(0.78);
+  filter: saturate(1.02) contrast(1.12) brightness(1.04);
   padding: 0.18rem;
 }
 
@@ -2448,9 +2590,43 @@ tbody tr:hover {
 
   .folder-tab {
     left: 0.7rem;
+    top: 0.55rem;
     max-width: calc(100% - 1.4rem);
     padding: 0.28rem 0.58rem 0.22rem;
     font-size: 0.48rem;
+  }
+
+  .archive-card.has-visual {
+    padding-top: 1.75rem;
+  }
+
+  .card-file-layout {
+    gap: 0.72rem;
+  }
+
+  .visual-character .card-visual,
+  .visual-pessoa .card-visual {
+    width: 5.05rem;
+    height: 7.15rem;
+  }
+
+  .visual-media .card-visual {
+    width: 4.65rem;
+    height: 6.75rem;
+  }
+
+  .visual-organization .card-visual,
+  .visual-organizacao .card-visual,
+  .visual-biohazard .card-visual,
+  .visual-amostra .card-visual {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .visual-location .card-visual,
+  .visual-local .card-visual {
+    width: 5.35rem;
+    height: 4.1rem;
   }
 
   .archive-card h3,
@@ -2522,8 +2698,30 @@ tbody tr:hover {
     border-inline: 0;
   }
 
+  .threat-table-wrap {
+    margin-inline: 0;
+  }
+
+  .threat-table-wrap td {
+    grid-template-columns: 1fr;
+    gap: 0.18rem;
+  }
+
+  .threat-table-wrap td::before {
+    font-size: 0.5rem;
+  }
+
+  .threat-cell {
+    grid-template-columns: 4.3rem minmax(0, 1fr);
+    min-width: 0;
+  }
+
   table {
     min-width: 760px;
+  }
+
+  .threat-table-wrap table {
+    min-width: 0;
   }
 
   th,
