@@ -4,8 +4,6 @@ Enciclopedia visual em portugues sobre Resident Evil, estruturada como um dossie
 
 O projeto cobre jogos principais, remakes, spin-offs, DLCs, walkthroughs, filmes live-action, filmes CGI, series, novelizacoes, livros, HQs, mangas, personagens, organizacoes, locais, virus, parasitas, fungos, B.O.W.s e comparacoes de continuidade.
 
-Tambem existe uma area de comunidade com Firebase Auth, perfil embutido, entrada anonima, chat geral, forum por assunto criado por usuarios e upload de imagens via Supabase Storage.
-
 A aba `Walkthroughs` traz guias narrativos em portugues para zerar todos os jogos, remakes, spin-offs e DLCs cadastrados. Cada guia tem rota recomendada, preparacao, objetivos, ameacas, notas de puzzle, chefes, checklist de conclusao, pos-jogo e fontes de conferencia. Os textos sao originais do projeto e nao copias de walkthroughs externos.
 
 O site tambem possui um narrador PT-BR baseado na Web Speech API do navegador. Quando uma voz brasileira estiver disponivel no sistema do usuario, os dossies e walkthroughs podem ser narrados com cadencia suave sem expor chaves de IA no client.
@@ -105,86 +103,13 @@ src/components/
   RemakeComparison.tsx
   BiologicalThreatTable.tsx
   TimelineContinuitySelector.tsx
-  AuthStatusButton.tsx
-  CommunityHub.tsx
   WalkthroughHub.tsx
   NarrationControls.tsx
-
-src/lib/
-  communityAuth.ts
-  firebase.ts
-  communityPolicy.ts
-  communityUploadClient.ts
-  firebaseAdmin.ts
-  imageModerationServer.ts
-  mediaSafety.ts
-  supabaseServer.ts
 ```
 
 `fullHistories.ts` concentra narrativas longas curadas por `id` para jogos, acontecimentos da timeline e ameaças biológicas. `walkthroughs.ts` concentra os guias de sobrevivência dos jogos, sem deixar rotas hardcoded nos componentes. `narrativeEngine.ts` transforma qualquer mídia, personagem, organização, local, ameaça ou acontecimento em uma narrativa editorial completa, com tom de dossiê de terror, separação de canon e texto fora dos componentes.
 
 `brandAssets.ts` lista marcas/logos oficiais apenas como referencias creditadas e slots visuais. O site usa monogramas proprios como fallback e nao redistribui logotipos proprietarios sem permissao/licenca.
-
-## Comunidade, login e Firebase
-
-A aba `Comunidade` usa Firebase no cliente:
-
-- Firebase Authentication para login por e-mail/senha, criacao de conta e entrada anonima.
-- Cloud Firestore para perfis, feed comunitario, artigos de forum, comentarios, chat geral e conversas diretas por nickname.
-- `firestore.rules` contem regras sugeridas para leitura publica e escrita apenas por usuarios autenticados.
-- O cabecalho mostra `Login / Registrar-se` no canto direito; depois do login, mostra nome publico e foto de perfil.
-
-A aba `Comunidade` funciona como um feed: cada publicacao pode ser um post curto ou um artigo de forum para discussao. O chat fica na lateral esquerda, com canal `Todos`, seletor de destinatario por nickname e lista de pessoas com quem o usuario ja conversou.
-
-Ative no Firebase Console:
-
-1. Authentication: provedores `Email/password` e `Anonymous`.
-2. Firestore Database: modo producao.
-3. Rules: publique o conteudo de `firestore.rules`.
-
-As variaveis publicas ficam em `.env.local` ou na Vercel:
-
-```bash
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
-```
-
-Nao coloque `sb_secret`, service account private key ou qualquer chave administrativa no frontend. Se uma chave secreta foi exposta, rotacione no painel do provedor.
-
-## Supabase Storage e imagens
-
-O Supabase e usado apenas para arquivos publicos da comunidade, mas o navegador nao escreve no Storage diretamente. O client envia perfil e mensagens de forum para rotas server-side no Render (`/api/community/profile` e `/api/community/forum-message`); essas rotas validam o Firebase ID token com Firebase Admin, aplicam as regras de imagem no servidor e so entao fazem upload para o Supabase.
-
-- Bucket `profile-images`: fotos de perfil.
-- Bucket `forum-post-images`: imagens anexadas a posts dos foruns.
-
-Configure na Vercel ou em `.env.local`:
-
-```bash
-NEXT_PUBLIC_RENDER_API_BASE=
-FIREBASE_SERVICE_ACCOUNT_JSON=
-FIREBASE_PROJECT_ID=
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_PRIVATE_KEY=
-SUPABASE_URL=
-SUPABASE_SERVICE_ROLE_KEY=
-IMAGE_MODERATION_ENDPOINT=
-IMAGE_MODERATION_TOKEN=
-REQUIRE_IMAGE_MODERATION=false
-COMMUNITY_ALLOWED_ORIGIN=
-```
-
-Use `NEXT_PUBLIC_RENDER_API_BASE=https://residenteviltimeline.onrender.com` apenas se o frontend estiver em outro host. Em deploy same-origin no Render, deixe vazio e o app chama as rotas `/api/community/*` localmente.
-
-Nao coloque `sb_secret`, Render API token, service account private key ou qualquer chave administrativa em arquivos do repositorio. Essas chaves devem ficar somente nas variaveis server-side do Render.
-
-Para o upload funcionar, crie os buckets no Supabase Storage e publique politicas de leitura adequadas para o projeto. O arquivo `supabase-storage-policies.sql` traz uma configuracao inicial de leitura publica; a escrita fica concentrada no servidor via `SUPABASE_SERVICE_ROLE_KEY`.
-
-O client mostra apenas o seletor de arquivo, campos de texto e a confirmacao de politica. Toda decisao sensivel ocorre no servidor: identidade, permissao, tipo, tamanho, nome, assinatura real do arquivo, escrita no Firestore e integracao opcional com `IMAGE_MODERATION_ENDPOINT`. Se `REQUIRE_IMAGE_MODERATION=true`, o servidor recusa uploads quando a moderacao remota nao estiver configurada.
 
 ## Como rodar
 
@@ -208,7 +133,4 @@ npm run build
 2. Importe o projeto na Vercel.
 3. Use as configuracoes padrao de Next.js.
 4. Build command: `npm run build`.
-5. Configure as variaveis `NEXT_PUBLIC_FIREBASE_*`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` e, se usar frontend em outro host, `NEXT_PUBLIC_RENDER_API_BASE`.
-6. Output: gerenciado automaticamente pelo Next.js.
-
-Nao ha backend proprio no repositorio; a comunidade usa Firebase e Supabase como servicos externos. Nao ha secrets versionados.
+5. Output: gerenciado automaticamente pelo Next.js.

@@ -39,7 +39,6 @@ import {
 import { BiologicalThreatTable } from "./BiologicalThreatTable";
 import { CanonBadge } from "./CanonBadge";
 import { ComparisonTable } from "./ComparisonTable";
-import { CommunityHub } from "./CommunityHub";
 import { ContinuityTabs, type ContinuityFilter } from "./ContinuityTabs";
 import { DetailModal } from "./DetailModal";
 import { EncyclopediaSearch } from "./EncyclopediaSearch";
@@ -49,7 +48,6 @@ import { OfficialMarksPanel } from "./OfficialMarksPanel";
 import { RemakeComparison } from "./RemakeComparison";
 import { SourceCard } from "./SourceCard";
 import { TimelineContinuitySelector } from "./TimelineContinuitySelector";
-import { AuthStatusButton } from "./AuthStatusButton";
 import { WalkthroughHub } from "./WalkthroughHub";
 
 type Entity = MediaItem | Character | Organization | Biohazard | Location;
@@ -72,7 +70,6 @@ type TabKey =
   | "continuidades"
   | "remakes"
   | "enciclopedia"
-  | "comunidade"
   | "fontes";
 
 const tabs: { id: TabKey; label: string }[] = [
@@ -94,7 +91,6 @@ const tabs: { id: TabKey; label: string }[] = [
   { id: "continuidades", label: "Continuidades" },
   { id: "remakes", label: "Remakes vs Originais" },
   { id: "enciclopedia", label: "Enciclopédia" },
-  { id: "comunidade", label: "Comunidade" },
   { id: "fontes", label: "Fontes" }
 ];
 
@@ -506,7 +502,6 @@ export function ArchiveApp() {
     if (tab === "continuidades") return <ContinuitiesView />;
     if (tab === "remakes") return <RemakeComparison items={remakeComparisons} />;
     if (tab === "enciclopedia") return <EncyclopediaSearch items={encyclopediaItems} onOpen={openDetail} />;
-    if (tab === "comunidade") return <CommunityHub />;
     return <SourcesView />;
   }
 
@@ -538,7 +533,6 @@ export function ArchiveApp() {
               <span>Resident Evil Timeline</span>
             </div>
           </div>
-          <AuthStatusButton onOpenCommunity={() => selectTab("comunidade")} />
           <button
             aria-controls="mobile-archive-menu"
             aria-expanded={mobileMenuOpen}
